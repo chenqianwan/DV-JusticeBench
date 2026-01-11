@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法律AI研究平台</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="{{ url_for('static', filename='dbb44aed2e738bd4b31c42d892db90d6277f9f2f5383.png') }}" alt="Logo" class="logo">
+                <div class="header-text">
+                    <h1>法律AI研究平台</h1>
+                    <p class="subtitle">AI系统在法律实践中的应用研究</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="cases">案例管理</button>
+            <button class="tab-btn" data-tab="analysis">AI分析</button>
+            <button class="tab-btn" data-tab="results">分析结果</button>
+        </nav>
+
+        <!-- 案例管理标签页 -->
+        <div id="cases-tab" class="tab-content active">
+            <div class="section">
+                <h2>添加新案例</h2>
+                <form id="case-form">
+                    <div class="form-group">
+                        <label for="case-title">案例标题 *</label>
+                        <input type="text" id="case-title" required placeholder="请输入案例标题">
+                    </div>
+                    <div class="form-group">
+                        <label for="case-date">案例日期</label>
+                        <input type="date" id="case-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="case-text">案例内容 *</label>
+                        <textarea id="case-text" rows="10" required placeholder="请输入案例内容..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="judge-decision">法官判决</label>
+                        <textarea id="judge-decision" rows="6" placeholder="请输入法官判决（可选）..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">保存案例</button>
+                </form>
+            </div>
+
+            <div class="section">
+                <h2>批量导入案例</h2>
+                <div class="form-group">
+                    <label style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: #1a1a2e;">Excel批量导入</label>
+                    <div class="import-actions">
+                        <button id="download-template" class="btn btn-secondary">下载导入模板</button>
+                        <label for="excel-file-input" class="btn btn-primary">
+                            选择Excel文件
+                            <input type="file" id="excel-file-input" accept=".xlsx,.xls">
+                        </label>
+                        <button id="upload-excel" class="btn btn-success" disabled>上传并导入</button>
+                    </div>
+                    <div id="import-status" class="import-status" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>案例列表</h2>
+                <div class="actions">
+                    <button id="refresh-cases" class="btn btn-secondary">刷新列表</button>
+                    <button id="export-cases" class="btn btn-success">导出案例</button>
+                </div>
+                <div id="cases-list" class="cases-list"></div>
+            </div>
+        </div>
+
+        <!-- AI分析标签页 -->
+        <div id="analysis-tab" class="tab-content">
+            <div class="section">
+                <h2>选择案例</h2>
+                <div class="form-group">
+                    <label for="analysis-case-select">选择要分析的案例（可多选）</label>
+                    <div class="case-selection-controls" style="margin-bottom: 10px;">
+                        <button type="button" id="select-all-cases" class="btn btn-secondary" style="font-size: 13px; padding: 8px 16px;">全选</button>
+                        <button type="button" id="clear-all-cases" class="btn btn-secondary" style="font-size: 13px; padding: 8px 16px;">清空</button>
+                        <span id="selected-count" style="margin-left: 15px; color: #666; font-size: 14px;">已选择: 0 个案例</span>
+                    </div>
+                    <div id="case-checkbox-list" class="case-checkbox-list" style="max-height: 300px; overflow-y: auto; border: 1px solid #e5e5e5; padding: 15px; background: #fafafa;">
+                        <p style="text-align: center; color: #999; padding: 20px;">正在加载案例列表...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>生成测试问题</h2>
+                <div class="form-group">
+                    <label for="num-questions">问题数量</label>
+                    <input type="number" id="num-questions" value="10" min="1" max="50">
+                </div>
+                <button id="generate-questions-btn" class="btn btn-primary">生成问题</button>
+                <div id="questions-container" class="questions-container"></div>
+            </div>
+
+            <!-- 批量分析进度显示区域 -->
+            <div id="batch-progress-container" class="batch-progress-container" style="display: none;">
+                <div class="section">
+                    <h2>批量分析进度</h2>
+                    <div class="progress-info">
+                        <div class="progress-header">
+                            <span id="progress-status-text" class="status-text">正在分析...</span>
+                            <span id="progress-percentage" class="percentage">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-details">
+                            <div class="progress-stat">
+                                <span class="stat-label">已完成:</span>
+                                <span id="progress-completed" class="stat-value">0</span>
+                                <span class="stat-label">/</span>
+                                <span id="progress-total" class="stat-value">0</span>
+                            </div>
+                            <div class="progress-stat">
+                                <span class="stat-label">成功:</span>
+                                <span id="progress-success" class="stat-value success">0</span>
+                            </div>
+                            <div class="progress-stat">
+                                <span class="stat-label">失败:</span>
+                                <span id="progress-failed" class="stat-value failed">0</span>
+                            </div>
+                            <div class="progress-stat" id="progress-eta-container" style="display: none;">
+                                <span class="stat-label">预计剩余时间:</span>
+                                <span id="progress-eta" class="stat-value">--</span>
+                            </div>
+                        </div>
+                        <div id="progress-errors" class="progress-errors" style="display: none;">
+                            <details>
+                                <summary style="cursor: pointer; color: #dc3545; font-weight: 600;">
+                                    查看失败案例详情 (<span id="error-count">0</span>)
+                                </summary>
+                                <ul id="error-list" style="margin-top: 10px; padding-left: 20px;"></ul>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>AI分析</h2>
+                <div class="form-group">
+                    <label for="analysis-question">问题（可选，留空则进行整体分析）</label>
+                    <textarea id="analysis-question" rows="3" placeholder="请输入要分析的问题，或留空进行整体分析..."></textarea>
+                </div>
+                <button id="analyze-btn" class="btn btn-primary">开始分析</button>
+                <div id="analysis-result" class="analysis-result"></div>
+            </div>
+        </div>
+
+        <!-- 分析结果标签页 -->
+        <div id="results-tab" class="tab-content">
+            <div class="section">
+                <h2>分析结果统计</h2>
+                <div id="statistics-container" class="statistics-container"></div>
+            </div>
+            <div class="section">
+                <h2>相似度指标对比</h2>
+                <div id="similarity-chart-container" class="chart-container">
+                    <canvas id="similarity-chart"></canvas>
+                </div>
+            </div>
+            <div class="section">
+                <h2>详细分析结果</h2>
+                <div class="actions">
+                    <button id="refresh-results" class="btn btn-secondary">刷新结果</button>
+                    <button id="export-results" class="btn btn-success">导出Excel</button>
+                </div>
+                <div id="results-list" class="results-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="authors-footer">
+        <div class="authors-container">
+            <h3>作者信息</h3>
+            <div class="authors-list">
+                <div class="author-card">
+                    <img src="{{ url_for('static', filename='20251229-160906.png') }}" alt="作者头像" class="author-avatar">
+                    <div class="author-info">
+                        <p class="author-name">Huang Yidan</p>
+                        <a href="mailto:huangyidan@hkgai.org" class="author-email">huangyidan@hkgai.org</a>
+                    </div>
+                </div>
+                <div class="author-card">
+                    <img src="{{ url_for('static', filename='Weixin Image_2025-12-29_161222_207.jpg') }}" alt="作者头像" class="author-avatar">
+                    <div class="author-info">
+                        <p class="author-name">Chen Long</p>
+                        <a href="mailto:chenlong@hkgai.org" class="author-email">chenlong@hkgai.org</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>处理中...</p>
+    </div>
+
+    <div id="message" class="message hidden"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+

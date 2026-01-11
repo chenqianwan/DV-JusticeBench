@@ -1,0 +1,939 @@
+[统一API] 使用提供商: DeepSeek
+================================================================================
+处理10个缺失的案例（累加到之前的结果）
+================================================================================
+
+将处理以下 10 个案例:
+  1. case_20260103_155150_0: 牟某虐待案
+  2. case_20260103_155150_1: 张某强奸案
+  3. case_20260103_155150_2: 许某某故意杀人案
+  4. case_20260103_155150_3: 任某强奸、猥亵儿童案
+  5. case_20260103_155150_4: 鲁某申请人身安全保护令案
+  6. case_20260103_155150_5: 李某诉庞某抚养纠纷案
+  7. case_20260103_155150_6: 许某诉郑某离婚案
+  8. case_20260103_155150_7: 纪某诉苏某抚养纠纷案
+  9. case_20260103_155150_105: 邓某某郑某某张某某中国某某财产保险股份有限公司某某市中心支公司共有物分割纠纷二审民事判决书
+  10. case_20260103_155150_106: 王某某许某某等保证合同纠纷民事审判监督民事裁定书
+
+找到现有结果文件: data/全部案例_新标准评估_完整版_20260107_142020.xlsx
+现有文件包含 490 条记录，涉及 98 个案例
+使用 50 个并发线程处理 10 个案例
+
+================================================================================
+[1/10] 处理案例: case_20260103_155150_0
+案例标题: 牟某虐待案
+================================================================================
+================================================================================
+[2/10] 处理案例: case_20260103_155150_1
+案例标题: 张某强奸案
+================================================================================
+
+================================================================================
+[6/10] 处理案例: case_20260103_155150_5
+案例标题: 李某诉庞某抚养纠纷案
+================================================================================
+
+
+[1/10] → 步骤1/4: 脱敏处理...
+================================================================================
+[2/10] → 步骤1/4: 脱敏处理...
+================================================================================
+[统一API] 使用提供商: DeepSeek
+[9/10] 处理案例: case_20260103_155150_105
+================================================================================
+[5/10] 处理案例: case_20260103_155150_4
+案例标题: 鲁某申请人身安全保护令案
+================================================================================
+
+[5/10] → 步骤1/4: 脱敏处理...
+================================================================================
+[统一API] 使用提供商: DeepSeek
+[10/10] 处理案例: case_20260103_155150_106
+[统一API] 使用提供商: DeepSeek
+[8/10] 处理案例: case_20260103_155150_7
+案例标题: 纪某诉苏某抚养纠纷案
+================================================================================
+案例标题: 王某某许某某等保证合同纠纷民事审判监督民事裁定书
+[6/10] → 步骤1/4: 脱敏处理...
+================================================================================
+[统一API] 使用提供商: DeepSeek
+
+[8/10] → 步骤1/4: 脱敏处理...
+================================================================================
+[4/10] 处理案例: case_20260103_155150_3
+案例标题: 任某强奸、猥亵儿童案
+================================================================================
+[7/10] 处理案例: case_20260103_155150_6
+案例标题: 许某诉郑某离婚案
+================================================================================
+
+================================================================================
+
+[7/10] → 步骤1/4: 脱敏处理...
+================================================================================
+[统一API] 使用提供商: DeepSeek
+
+[10/10] → 步骤1/4: 脱敏处理...
+案例标题: 邓某某郑某某张某某中国某某财产保险股份有限公司某某市中心支公司共有物分割纠纷二审民事判决书
+[统一API] 使用提供商: DeepSeek
+================================================================================
+
+[统一API] 使用提供商: DeepSeek
+[3/10] 处理案例: case_20260103_155150_2
+[4/10] → 步骤1/4: 脱敏处理...
+案例标题: 许某某故意杀人案
+[统一API] 使用提供商: DeepSeek
+================================================================================
+[9/10] → 步骤1/4: 脱敏处理...
+
+[统一API] 使用提供商: DeepSeek
+[3/10] → 步骤1/4: 脱敏处理...
+[统一API] 使用提供商: DeepSeek
+[Token使用] 输入: 195, 输出: 5, 总计: 200
+[Token使用] 输入: 194, 输出: 4, 总计: 198
+[Token使用] 输入: 197, 输出: 7, 总计: 204
+[Token使用] 输入: 198, 输出: 7, 总计: 205
+[Token使用] 输入: 198, 输出: 8, 总计: 206
+[Token使用] 输入: 198, 输出: 8, 总计: 206
+[Token使用] 输入: 197, 输出: 8, 总计: 205
+[Token使用] 输入: 193, 输出: 4, 总计: 197
+[Token使用] 输入: 204, 输出: 16, 总计: 220
+[Token使用] 输入: 213, 输出: 26, 总计: 239
+[Token使用] 输入: 457, 输出: 143, 总计: 600
+[Token使用] 输入: 462, 输出: 153, 总计: 615
+[Token使用] 输入: 480, 输出: 179, 总计: 659
+[Token使用] 输入: 486, 输出: 190, 总计: 676
+[Token使用] 输入: 519, 输出: 212, 总计: 731
+[Token使用] 输入: 560, 输出: 271, 总计: 831
+[Token使用] 输入: 622, 输出: 333, 总计: 955
+[Token使用] 输入: 675, 输出: 376, 总计: 1051
+[Token使用] 输入: 826, 输出: 529, 总计: 1355
+[7/10] ✓ 脱敏完成
+
+[7/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 848, 输出: 563, 总计: 1411
+[3/10] ✓ 脱敏完成
+
+[3/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 845, 输出: 549, 总计: 1394
+[2/10] ✓ 脱敏完成
+
+[2/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 980, 输出: 672, 总计: 1652
+[5/10] ✓ 脱敏完成
+
+[5/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 771, 输出: 463, 总计: 1234
+[6/10] ✓ 脱敏完成
+
+[6/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 936, 输出: 659, 总计: 1595
+[4/10] ✓ 脱敏完成
+
+[4/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 269, 输出: 155, 总计: 424
+[7/10] ✓ 问题生成完成（共5个）
+
+[7/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 222 字符
+[DeepSeek API] 分析问题: 在离婚诉讼中，如何界定“家庭暴力”的构成要件，特别是针对偶发性肢体冲突与持续性精神压迫的区分标准？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 222 字符
+[DeepSeek API] 分析问题: 如何评估家庭暴力行为的“危险性”与“持续性”，以判断其是否足以作为判决离婚及支持损害赔偿的法定事由？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 222 字符
+[DeepSeek API] 分析问题: 从公序良俗和社会家庭关系视角，如何平衡婚姻关系修复可能性与保护家庭暴力受害者权益之间的价值冲突？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 222 字符
+[DeepSeek API] 分析问题: 伤情诊断）与一方当事人否认并存时，应如何运用证据规则和证明标准进行综合认定？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 222 字符
+[DeepSeek API] 分析问题: 在涉及长期家庭主妇的离婚案件中，如何考量受害方对家庭暴力的容忍或未及时脱离等因素，是否应减轻或免除施...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 306, 输出: 147, 总计: 453
+[2/10] ✓ 问题生成完成（共5个）
+
+[2/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 277 字符
+[DeepSeek API] 分析问题: 在继父曾实施家暴并自述犯罪前科的特定情境下，被害人未明确反抗的性行为是否足以认定为违背其意志？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 277 字符
+[DeepSeek API] 分析问题: 知晓对方暴力前科等背景因素对其在性行为中“自愿”判断的心理影响？...
+[DeepSeek API] 开始分析案例，文本长度: 277 字符
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 分析问题: 在缺乏直接暴力或胁迫证据的情况下，如何运用经验法则与逻辑推理来认定性侵行为中的“胁迫”或“其他手段”...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 277 字符
+[DeepSeek API] 开始分析案例，文本长度: 277 字符
+[DeepSeek API] 分析问题: 被害人未立即逃离或呼救，是否应被视为对性行为的默示同意或需分担部分责任？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 分析问题: 抚养关系的家庭成员之间，且一方曾有家暴行为时，法律是否应施加更严格的同意标准以保护未成年人？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 295, 输出: 175, 总计: 470
+[3/10] ✓ 问题生成完成（共5个）
+
+[3/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 237 字符
+[DeepSeek API] 分析问题: 在家庭暴力认定中，施暴者事后支付医疗费并取得谅解，是否足以否定其行为构成家庭暴力？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 237 字符
+[DeepSeek API] 分析问题: 如何评价“扬言杀人并持刀捅刺致轻伤”这一孤立但严重的行为，在家庭暴力认定中是否必然体现“危险性”或“...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 237 字符
+[DeepSeek API] 分析问题: 在家庭暴力案件中，被害人因感情纠纷与施暴者发生争执，是否应因其“引发冲突”而减轻施暴者的法律责任或影...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 237 字符
+[DeepSeek API] 分析问题: 当家庭暴力行为发生在经营场所且涉及第三方在场时，是否应因其“公开性”而加重对施暴者行为的评价，或认为...
+[DeepSeek API] 开始分析案例，文本长度: 237 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 分析问题: 对于同居关系中的暴力行为，若主要证据为被害人陈述且无其他目击证人，应如何结合事件背景和事后行为进行证...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 973, 输出: 680, 总计: 1653
+[8/10] ✓ 脱敏完成
+
+[8/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 259, 输出: 147, 总计: 406
+[5/10] ✓ 问题生成完成（共5个）
+
+[5/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 211 字符
+[DeepSeek API] 分析问题: 在家庭暴力认定中，以自残相威胁并导致对方在阻止过程中受伤的行为，是否属于《反家庭暴力法》所禁止的“家...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 211 字符
+[DeepSeek API] 分析问题: 如何从法律上评价“以自残相威胁”这一行为在家庭暴力危险性及持续性判断中的性质和权重？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 211 字符
+[DeepSeek API] 分析问题: 在本案情境下，受害者主动上前阻止的行为，是否可能影响或减轻施暴者的法律责任归因？...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 211 字符
+[DeepSeek API] 分析问题: 在人身安全保护令的审查中，对于当事人在阻止过程中受伤这一间接伤害结果，应如何进行证据评价与因果关系认...
+[DeepSeek API] 开始分析案例，文本长度: 211 字符
+[DeepSeek API] 分析问题: 从维护公序良俗和家庭关系特殊性的角度，应如何平衡对家庭成员生命健康权的紧急保护与对家庭关系自治的司法...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 1062, 输出: 773, 总计: 1835
+[1/10] ✓ 脱敏完成
+
+[1/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 328, 输出: 105, 总计: 433
+[4/10] ✓ 问题生成完成（共5个）
+
+[4/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 299 字符
+[DeepSeek API] 分析问题: 在家庭重组背景下，如何界定“家庭成员”范围以适用反家庭暴力法中关于性暴力的规定？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 299 字符
+[DeepSeek API] 分析问题: 如何评价未成年受害者在外部压力下推翻先前陈述的证据效力与证明力？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 299 字符
+[DeepSeek API] 分析问题: 当保护未成年人权益与维护家庭稳定相冲突时，公序良俗原则应如何权衡与适用？...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 299 字符
+[DeepSeek API] 分析问题: 在缺乏直接物证且行为人否认的情况下，如何依据聊天记录等间接证据认定性侵害事实的存在？...
+[DeepSeek API] 开始分析案例，文本长度: 299 字符
+[DeepSeek API] 分析问题: 能否因受害者母亲为维系家庭而施加压力，就减轻或否定行为人的法律责任？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 1386, 输出: 1080, 总计: 2466
+[Token使用] 输入: 492, 输出: 156, 总计: 648
+[6/10] ✓ 问题生成完成（共5个）
+
+[6/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 526 字符
+[DeepSeek API] 分析问题: 某男1以“正常管教”为由对女儿实施体罚，在何种法律标准下可被认定为家庭暴力而非正当教育方式？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 526 字符
+[DeepSeek API] 分析问题: 根据本案中某男1多次体罚行为及其造成的心理创伤后果，如何从法律上论证其行为具有“危险性”或“持续性”...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 526 字符
+[DeepSeek API] 分析问题: 验伤报告、心理咨询诊断等不同证据的证明力？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 526 字符
+[DeepSeek API] 开始分析案例，文本长度: 526 字符
+[DeepSeek API] 分析问题: 从保护未成年人权益及公序良俗角度，应如何权衡父母“管教权”的边界与子女身心健康免受不当伤害的法律价值...
+[DeepSeek API] 分析问题: 在抚养权变更纠纷中，能否因某男1主张“女儿抑郁与己无关”而将心理损害的部分责任归因于受害者自身或其生...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 388, 输出: 151, 总计: 539
+[1/10] ✓ 问题生成完成（共5个）
+
+[1/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 354 字符
+[DeepSeek API] 分析问题: 在恋爱关系中，一方因纠结对方过往性经历而长期高频次辱骂并施压，是否构成法律意义上的家庭暴力或精神暴力...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 354 字符
+[DeepSeek API] 分析问题: 高频次的言语辱骂与施压行为，在何种程度上可被认定为具有“危险性”或符合家庭暴力的“持续性”特征？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 354 字符
+[DeepSeek API] 分析问题: 自杀行为与施暴者辱骂行为之间的因果关系，应如何依据证据规则进行法律评价与认定？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 354 字符
+[DeepSeek API] 开始分析案例，文本长度: 354 字符
+[DeepSeek API] 分析问题: 在亲密关系暴力致人自杀的案件中，能否因受害者未及时脱离关系或存在情感纠葛而减轻施暴者的法律责任？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 分析问题: 当恋爱同居关系中的精神暴力行为最终导致一方自杀，应如何平衡个人情感隐私与公序良俗，界定法律干预的边界...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 449, 输出: 222, 总计: 671
+[8/10] ✓ 问题生成完成（共5个）
+
+[8/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 467 字符
+[DeepSeek API] 分析问题: 在家庭暴力告诫书已出具且相关证据已核实的情况下，如何从法律上评价施暴方在离婚后主张子女抚养权的行为，...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 467 字符
+[DeepSeek API] 分析问题: 在人格权侵害禁令（禁止母亲侵害父亲监护权）已作出的程序背景下，如何依据实体法原则处理母亲基于家暴等事...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 467 字符
+[DeepSeek API] 分析问题: 从保护未成年人最大利益原则出发，在存在既往家暴事实的家庭中，判定抚养权归属时，应如何考量“稳定的生活...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 467 字符
+[DeepSeek API] 分析问题: 法院在审理抚养权纠纷时，应如何权衡与评价受害者（女方）为摆脱暴力环境而暂时同意不利抚养安排，后又基于...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 467 字符
+[DeepSeek API] 分析问题: 且经告诫的偶发性肢体暴力与持续性言语威胁，应如何综合判断其是否构成法律意义上的“家庭暴力”并评估其对...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 912, 输出: 661, 总计: 1573
+[10/10] ✓ 脱敏完成
+
+[10/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 1196, 输出: 203, 总计: 1399
+[10/10] ✓ 问题生成完成（共5个）
+
+[10/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 1844 字符
+[DeepSeek API] 分析问题: 资金流向及背景综合认定款项的法律性质？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 1844 字符
+[DeepSeek API] 分析问题: 离婚诉讼中一方存在转移财产嫌疑时，如何区分其为恶意侵吞隐匿财产还是婚姻危机中合理的财产安排或资金流转...
+[DeepSeek API] 开始分析案例，文本长度: 1844 字符
+[DeepSeek API] 开始分析案例，文本长度: 1844 字符
+[DeepSeek API] 分析问题: 情理及公平角度”等原则性考量，而未严格局限于合同成立要件进行论证，这在涉及家庭内部财产纠纷的案件中是...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 分析问题: 沟通记录）的证明力？...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 1844 字符
+[DeepSeek API] 分析问题: 当一方在婚姻关系存续期间存在家暴行为，该事实是否影响法院在关联财产纠纷案件中对当事人品格及行为动机的...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3265, 输出: 3014, 总计: 6279
+[Token使用] 输入: 246, 输出: 1778, 总计: 2024
+[DeepSeek API] 分析完成，答案长度: 2535 字符
+[DeepSeek API] Thinking内容长度: 661 字符
+[DeepSeek API] 开始分析案例，文本长度: 5960 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 252, 输出: 1778, 总计: 2030
+[DeepSeek API] 分析完成，答案长度: 2537 字符
+[DeepSeek API] Thinking内容长度: 621 字符
+[DeepSeek API] 开始分析案例，文本长度: 5965 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 255, 输出: 1956, 总计: 2211
+[DeepSeek API] 分析完成，答案长度: 1915 字符
+[DeepSeek API] Thinking内容长度: 1321 字符
+[DeepSeek API] 开始分析案例，文本长度: 5345 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 254, 输出: 2006, 总计: 2260
+[DeepSeek API] 分析完成，答案长度: 2821 字符
+[DeepSeek API] Thinking内容长度: 767 字符
+[DeepSeek API] 开始分析案例，文本长度: 6033 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 241, 输出: 1877, 总计: 2118
+[DeepSeek API] 分析完成，答案长度: 2463 字符
+[DeepSeek API] Thinking内容长度: 851 字符
+[DeepSeek API] 开始分析案例，文本长度: 5876 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 378, 输出: 1750, 总计: 2128
+[DeepSeek API] 分析完成，答案长度: 2233 字符
+[DeepSeek API] Thinking内容长度: 865 字符
+[DeepSeek API] 开始分析案例，文本长度: 5989 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 296, 输出: 1924, 总计: 2220
+[DeepSeek API] 分析完成，答案长度: 2820 字符
+[DeepSeek API] Thinking内容长度: 696 字符
+[DeepSeek API] 开始分析案例，文本长度: 6140 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 243, 输出: 1966, 总计: 2209
+[DeepSeek API] 分析完成，答案长度: 2967 字符
+[DeepSeek API] Thinking内容长度: 601 字符
+[DeepSeek API] 开始分析案例，文本长度: 6382 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 310, 输出: 2023, 总计: 2333
+[DeepSeek API] 分析完成，答案长度: 2394 字符
+[DeepSeek API] Thinking内容长度: 1167 字符
+[DeepSeek API] 开始分析案例，文本长度: 5810 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 251, 输出: 2230, 总计: 2481
+[DeepSeek API] 分析完成，答案长度: 2434 字符
+[DeepSeek API] Thinking内容长度: 1378 字符
+[DeepSeek API] 开始分析案例，文本长度: 5636 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 285, 输出: 2124, 总计: 2409
+[DeepSeek API] 分析完成，答案长度: 2945 字符
+[DeepSeek API] Thinking内容长度: 865 字符
+[DeepSeek API] 开始分析案例，文本长度: 6250 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 287, 输出: 2129, 总计: 2416
+[DeepSeek API] 分析完成，答案长度: 2882 字符
+[DeepSeek API] Thinking内容长度: 904 字符
+[DeepSeek API] 开始分析案例，文本长度: 6087 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 295, 输出: 2163, 总计: 2458
+[DeepSeek API] 分析完成，答案长度: 3251 字符
+[DeepSeek API] Thinking内容长度: 591 字符
+[DeepSeek API] 开始分析案例，文本长度: 6462 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 289, 输出: 2253, 总计: 2542
+[DeepSeek API] 分析完成，答案长度: 2557 字符
+[DeepSeek API] Thinking内容长度: 1219 字符
+[DeepSeek API] 开始分析案例，文本长度: 5765 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 377, 输出: 1967, 总计: 2344
+[DeepSeek API] 分析完成，答案长度: 2654 字符
+[DeepSeek API] Thinking内容长度: 834 字符
+[DeepSeek API] 开始分析案例，文本长度: 6407 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 304, 输出: 2122, 总计: 2426
+[DeepSeek API] 分析完成，答案长度: 3062 字符
+[DeepSeek API] Thinking内容长度: 722 字符
+[DeepSeek API] 开始分析案例，文本长度: 6470 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 264, 输出: 2327, 总计: 2591
+[DeepSeek API] 分析完成，答案长度: 3119 字符
+[DeepSeek API] Thinking内容长度: 1026 字符
+[DeepSeek API] 开始分析案例，文本长度: 6343 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 376, 输出: 2017, 总计: 2393
+[DeepSeek API] 分析完成，答案长度: 2895 字符
+[DeepSeek API] Thinking内容长度: 676 字符
+[DeepSeek API] 开始分析案例，文本长度: 6648 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 481, 输出: 2175, 总计: 2656
+[DeepSeek API] 分析完成，答案长度: 3133 字符
+[DeepSeek API] Thinking内容长度: 772 字符
+[DeepSeek API] 开始分析案例，文本长度: 6597 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 484, 输出: 2224, 总计: 2708
+[DeepSeek API] 分析完成，答案长度: 3032 字符
+[DeepSeek API] Thinking内容长度: 875 字符
+[DeepSeek API] 开始分析案例，文本长度: 6498 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 779, 输出: 495, 总计: 1274
+[9/10] ✓ 脱敏完成
+
+[9/10] → 步骤2/4: 生成5个问题（Thinking模式）...
+[Token使用] 输入: 280, 输出: 2349, 总计: 2629
+[DeepSeek API] 分析完成，答案长度: 2713 字符
+[DeepSeek API] Thinking内容长度: 1330 字符
+[DeepSeek API] 开始分析案例，文本长度: 5903 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 310, 输出: 2364, 总计: 2674
+[DeepSeek API] 分析完成，答案长度: 2741 字符
+[DeepSeek API] Thinking内容长度: 1334 字符
+[DeepSeek API] 开始分析案例，文本长度: 6153 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 257, 输出: 2518, 总计: 2775
+[DeepSeek API] 分析完成，答案长度: 5326 字符
+[DeepSeek API] Thinking内容长度: 897 字符
+[DeepSeek API] 开始分析案例，文本长度: 8539 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 481, 输出: 2451, 总计: 2932
+[DeepSeek API] 分析完成，答案长度: 3405 字符
+[DeepSeek API] Thinking内容长度: 995 字符
+[DeepSeek API] 开始分析案例，文本长度: 6864 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 290, 输出: 2572, 总计: 2862
+[DeepSeek API] 分析完成，答案长度: 3009 字符
+[DeepSeek API] Thinking内容长度: 1384 字符
+[DeepSeek API] 开始分析案例，文本长度: 6328 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 291, 输出: 2507, 总计: 2798
+[DeepSeek API] 分析完成，答案长度: 3417 字符
+[DeepSeek API] Thinking内容长度: 1075 字符
+[DeepSeek API] 开始分析案例，文本长度: 6621 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3130, 输出: 202, 总计: 3332
+[9/10] ✓ 问题生成完成（共5个）
+
+[9/10] → 步骤3/4: 生成AI回答并评估（Thinking模式）...
+[DeepSeek API] 开始分析案例，文本长度: 4541 字符
+[DeepSeek API] 分析问题: 未尽主要抚养义务的母亲，其“生活困难”和“弱势群体”身份对分配份额的影响？...
+[DeepSeek API] 开始分析案例，文本长度: 4541 字符
+[DeepSeek API] 分析问题: 当一方继承人主张其未能履行抚养义务系因对方“家庭暴力”所致时，法院在分割死亡赔偿金时应如何审查和权衡...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 4541 字符
+[DeepSeek API] 分析问题: 对于未实际参与丧葬事宜且在一审中作出特定意思表示的继承人，其在二审中反悔并主张分割丧葬费，应如何从禁...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 开始分析案例，文本长度: 4541 字符
+[DeepSeek API] 分析问题: 刑事案件中肇事方向部分近亲属支付的“谅解金”，其性质是否属于全体第一顺位继承人的“共有物”？分割时是...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 开始分析案例，文本长度: 4541 字符
+[DeepSeek API] 分析问题: 在分割非遗产性质的死亡赔偿金时，“共同生活的紧密程度”与“经济依赖程度”这两个裁量因素，何者应被赋予...
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 296, 输出: 2705, 总计: 3001
+[DeepSeek API] 分析完成，答案长度: 2720 字符
+[DeepSeek API] Thinking内容长度: 1994 字符
+[DeepSeek API] 开始分析案例，文本长度: 6044 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 370, 输出: 2342, 总计: 2712
+[DeepSeek API] 分析完成，答案长度: 3123 字符
+[DeepSeek API] Thinking内容长度: 1029 字符
+[DeepSeek API] 开始分析案例，文本长度: 6867 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 288, 输出: 2664, 总计: 2952
+[DeepSeek API] 分析完成，答案长度: 3262 字符
+[DeepSeek API] Thinking内容长度: 1364 字符
+[DeepSeek API] 开始分析案例，文本长度: 6571 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 306, 输出: 2673, 总计: 2979
+[DeepSeek API] 分析完成，答案长度: 2714 字符
+[DeepSeek API] Thinking内容长度: 1835 字符
+[DeepSeek API] 开始分析案例，文本长度: 6124 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 310, 输出: 2549, 总计: 2859
+[DeepSeek API] 分析完成，答案长度: 3740 字符
+[DeepSeek API] Thinking内容长度: 832 字符
+[DeepSeek API] 开始分析案例，文本长度: 7158 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 256, 输出: 2823, 总计: 3079
+[DeepSeek API] 分析完成，答案长度: 2671 字符
+[DeepSeek API] Thinking内容长度: 2194 字符
+[DeepSeek API] 开始分析案例，文本长度: 5885 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 443, 输出: 2444, 总计: 2887
+[DeepSeek API] 分析完成，答案长度: 3371 字符
+[DeepSeek API] Thinking内容长度: 925 字符
+[DeepSeek API] 开始分析案例，文本长度: 7123 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 378, 输出: 2580, 总计: 2958
+[DeepSeek API] 分析完成，答案长度: 2871 字符
+[DeepSeek API] Thinking内容长度: 1584 字符
+[DeepSeek API] 开始分析案例，文本长度: 6627 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 453, 输出: 2617, 总计: 3070
+[DeepSeek API] 分析完成，答案长度: 2534 字符
+[DeepSeek API] Thinking内容长度: 1865 字符
+[DeepSeek API] 开始分析案例，文本长度: 6298 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 464, 输出: 2860, 总计: 3324
+[DeepSeek API] 分析完成，答案长度: 4118 字符
+[DeepSeek API] Thinking内容长度: 1044 字符
+[DeepSeek API] 开始分析案例，文本长度: 7552 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 453, 输出: 2657, 总计: 3110
+[DeepSeek API] 分析完成，答案长度: 2689 字符
+[DeepSeek API] Thinking内容长度: 1863 字符
+[DeepSeek API] 开始分析案例，文本长度: 6456 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[自动补救] 响应被截断，增加max_tokens到6000并重新生成...
+[Token使用] 输入: 453, 输出: 2704, 总计: 3157
+[DeepSeek API] 分析完成，答案长度: 3705 字符
+[DeepSeek API] Thinking内容长度: 1053 字符
+[DeepSeek API] 开始分析案例，文本长度: 7471 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[自动补救] 响应被截断，增加max_tokens到6000并重新生成...
+[Token使用] 输入: 1162, 输出: 2501, 总计: 3663
+[DeepSeek API] 分析完成，答案长度: 3532 字符
+[DeepSeek API] Thinking内容长度: 930 字符
+[DeepSeek API] 开始分析案例，文本长度: 8448 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3607, 输出: 1549, 总计: 5156
+[DeepSeek API] 分析完成，答案长度: 1624 字符
+[DeepSeek API] Thinking内容长度: 995 字符
+[Token使用] 输入: 1196, 输出: 2600, 总计: 3796
+[DeepSeek API] 分析完成，答案长度: 2687 字符
+[DeepSeek API] Thinking内容长度: 1971 字符
+[DeepSeek API] 开始分析案例，文本长度: 7666 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3620, 输出: 1556, 总计: 5176
+[DeepSeek API] 分析完成，答案长度: 1355 字符
+[DeepSeek API] Thinking内容长度: 1276 字符
+[Token使用] 输入: 1188, 输出: 2619, 总计: 3807
+[DeepSeek API] 分析完成，答案长度: 3998 字符
+[DeepSeek API] Thinking内容长度: 767 字符
+[DeepSeek API] 开始分析案例，文本长度: 8964 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3653, 输出: 1713, 总计: 5366
+[DeepSeek API] 分析完成，答案长度: 1576 字符
+[DeepSeek API] Thinking内容长度: 1400 字符
+[Token使用] 输入: 1165, 输出: 2755, 总计: 3920
+[DeepSeek API] 分析完成，答案长度: 3553 字符
+[DeepSeek API] Thinking内容长度: 1253 字符
+[DeepSeek API] 开始分析案例，文本长度: 8478 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3625, 输出: 1987, 总计: 5612
+[DeepSeek API] 分析完成，答案长度: 0 字符
+[DeepSeek API] Thinking内容长度: 3337 字符
+[Token使用] 输入: 3819, 输出: 1835, 总计: 5654
+[DeepSeek API] 分析完成，答案长度: 1932 字符
+[DeepSeek API] Thinking内容长度: 1147 字符
+[Token使用] 输入: 3593, 输出: 1913, 总计: 5506
+[DeepSeek API] 分析完成，答案长度: 2255 字符
+[DeepSeek API] Thinking内容长度: 1025 字符
+[Token使用] 输入: 3613, 输出: 1847, 总计: 5460
+[DeepSeek API] 分析完成，答案长度: 1678 字符
+[DeepSeek API] Thinking内容长度: 1418 字符
+[自动补救] 响应被截断，增加max_tokens到6000并重新生成...
+[Token使用] 输入: 3338, 输出: 1939, 总计: 5277
+[DeepSeek API] 分析完成，答案长度: 1770 字符
+[DeepSeek API] Thinking内容长度: 1495 字符
+[5/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 1/10 个案例已完成 (10.0%)
+[总体进度] 已用时间: 178.5秒，预计剩余: 1606.1秒
+
+[Token使用] 输入: 4070, 输出: 1677, 总计: 5747
+[DeepSeek API] 分析完成，答案长度: 1548 字符
+[DeepSeek API] Thinking内容长度: 1238 字符
+[Token使用] 输入: 3952, 输出: 1677, 总计: 5629
+[DeepSeek API] 分析完成，答案长度: 1788 字符
+[DeepSeek API] Thinking内容长度: 1066 字符
+[Token使用] 输入: 3965, 输出: 1729, 总计: 5694
+[DeepSeek API] 分析完成，答案长度: 1767 字符
+[DeepSeek API] Thinking内容长度: 1134 字符
+[Token使用] 输入: 3488, 输出: 1944, 总计: 5432
+[DeepSeek API] 分析完成，答案长度: 1727 字符
+[DeepSeek API] Thinking内容长度: 1486 字符
+[Token使用] 输入: 3957, 输出: 1839, 总计: 5796
+[DeepSeek API] 分析完成，答案长度: 1996 字符
+[DeepSeek API] Thinking内容长度: 1024 字符
+[Token使用] 输入: 3751, 输出: 1931, 总计: 5682
+[DeepSeek API] 分析完成，答案长度: 1832 字符
+[DeepSeek API] Thinking内容长度: 1431 字符
+[Token使用] 输入: 3952, 输出: 1895, 总计: 5847
+[DeepSeek API] 分析完成，答案长度: 2033 字符
+[DeepSeek API] Thinking内容长度: 1166 字符
+[Token使用] 输入: 3819, 输出: 1716, 总计: 5535
+[DeepSeek API] 分析完成，答案长度: 1684 字符
+[DeepSeek API] Thinking内容长度: 1230 字符
+[Token使用] 输入: 3822, 输出: 2011, 总计: 5833
+[DeepSeek API] 分析完成，答案长度: 1867 字符
+[DeepSeek API] Thinking内容长度: 1482 字符
+[Token使用] 输入: 3676, 输出: 1954, 总计: 5630
+[DeepSeek API] 分析完成，答案长度: 1829 字符
+[DeepSeek API] Thinking内容长度: 1472 字符
+[Token使用] 输入: 3670, 输出: 2372, 总计: 6042
+[DeepSeek API] 分析完成，答案长度: 1871 字符
+[DeepSeek API] Thinking内容长度: 2162 字符
+[Token使用] 输入: 3727, 输出: 2108, 总计: 5835
+[DeepSeek API] 分析完成，答案长度: 2203 字符
+[DeepSeek API] Thinking内容长度: 1350 字符
+[Token使用] 输入: 4085, 输出: 1959, 总计: 6044
+[DeepSeek API] 分析完成，答案长度: 1826 字符
+[DeepSeek API] Thinking内容长度: 1421 字符
+[Token使用] 输入: 3971, 输出: 1788, 总计: 5759
+[DeepSeek API] 分析完成，答案长度: 1844 字符
+[DeepSeek API] Thinking内容长度: 1222 字符
+[Token使用] 输入: 3886, 输出: 1977, 总计: 5863
+[DeepSeek API] 分析完成，答案长度: 2099 字符
+[DeepSeek API] Thinking内容长度: 1236 字符
+[Token使用] 输入: 3588, 输出: 1805, 总计: 5393
+[DeepSeek API] 分析完成，答案长度: 1685 字符
+[DeepSeek API] Thinking内容长度: 1367 字符
+[7/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 2/10 个案例已完成 (20.0%)
+[总体进度] 已用时间: 198.6秒，预计剩余: 794.2秒
+
+[Token使用] 输入: 3638, 输出: 2261, 总计: 5899
+[DeepSeek API] 分析完成，答案长度: 2184 字符
+[DeepSeek API] Thinking内容长度: 1576 字符
+[Token使用] 输入: 4073, 输出: 1803, 总计: 5876
+[DeepSeek API] 分析完成，答案长度: 1995 字符
+[DeepSeek API] Thinking内容长度: 1055 字符
+[Token使用] 输入: 3805, 输出: 1937, 总计: 5742
+[DeepSeek API] 分析完成，答案长度: 2103 字符
+[DeepSeek API] Thinking内容长度: 1186 字符
+[Token使用] 输入: 4110, 输出: 2183, 总计: 6293
+[DeepSeek API] 分析完成，答案长度: 1972 字符
+[DeepSeek API] Thinking内容长度: 1696 字符
+[Token使用] 输入: 3932, 输出: 2420, 总计: 6352
+[DeepSeek API] 分析完成，答案长度: 1757 字符
+[DeepSeek API] Thinking内容长度: 2313 字符
+[Token使用] 输入: 4333, 输出: 2019, 总计: 6352
+[DeepSeek API] 分析完成，答案长度: 1986 字符
+[DeepSeek API] Thinking内容长度: 1435 字符
+[4/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 3/10 个案例已完成 (30.0%)
+[总体进度] 已用时间: 206.3秒，预计剩余: 481.3秒
+
+[Token使用] 输入: 3681, 输出: 2148, 总计: 5829
+[DeepSeek API] 分析完成，答案长度: 2147 字符
+[DeepSeek API] Thinking内容长度: 1502 字符
+[2/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 4/10 个案例已完成 (40.0%)
+[总体进度] 已用时间: 208.9秒，预计剩余: 313.4秒
+
+[Token使用] 输入: 4004, 输出: 2245, 总计: 6249
+[DeepSeek API] 分析完成，答案长度: 2213 字符
+[DeepSeek API] Thinking内容长度: 1536 字符
+[3/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 5/10 个案例已完成 (50.0%)
+[总体进度] 已用时间: 210.4秒，预计剩余: 210.4秒
+
+[Token使用] 输入: 3964, 输出: 1905, 总计: 5869
+[DeepSeek API] 分析完成，答案长度: 1897 字符
+[DeepSeek API] Thinking内容长度: 1355 字符
+[Token使用] 输入: 3133, 输出: 2296, 总计: 5429
+[DeepSeek API] 分析完成，答案长度: 3057 字符
+[DeepSeek API] Thinking内容长度: 795 字符
+[DeepSeek API] 开始分析案例，文本长度: 7966 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 4206, 输出: 2242, 总计: 6448
+[DeepSeek API] 分析完成，答案长度: 2663 字符
+[DeepSeek API] Thinking内容长度: 1049 字符
+[1/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 6/10 个案例已完成 (60.0%)
+[总体进度] 已用时间: 213.0秒，预计剩余: 142.0秒
+
+[Token使用] 输入: 4507, 输出: 1987, 总计: 6494
+[DeepSeek API] 分析完成，答案长度: 1847 字符
+[DeepSeek API] Thinking内容长度: 1492 字符
+[Token使用] 输入: 3908, 输出: 2072, 总计: 5980
+[DeepSeek API] 分析完成，答案长度: 1991 字符
+[DeepSeek API] Thinking内容长度: 1497 字符
+[Token使用] 输入: 4328, 输出: 2169, 总计: 6497
+[DeepSeek API] 分析完成，答案长度: 2540 字符
+[DeepSeek API] Thinking内容长度: 1110 字符
+[Token使用] 输入: 4503, 输出: 2138, 总计: 6641
+[DeepSeek API] 分析完成，答案长度: 1988 字符
+[DeepSeek API] Thinking内容长度: 1609 字符
+[Token使用] 输入: 3111, 输出: 2788, 总计: 5899
+[DeepSeek API] 分析完成，答案长度: 2588 字符
+[DeepSeek API] Thinking内容长度: 2121 字符
+[DeepSeek API] 开始分析案例，文本长度: 7465 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 3127, 输出: 2803, 总计: 5930
+[DeepSeek API] 分析完成，答案长度: 3691 字符
+[DeepSeek API] Thinking内容长度: 1204 字符
+[DeepSeek API] 开始分析案例，文本长度: 8596 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 4650, 输出: 1935, 总计: 6585
+[DeepSeek API] 分析完成，答案长度: 2013 字符
+[DeepSeek API] Thinking内容长度: 1287 字符
+[Token使用] 输入: 5130, 输出: 1711, 总计: 6841
+[DeepSeek API] 分析完成，答案长度: 1744 字符
+[DeepSeek API] Thinking内容长度: 1176 字符
+[Token使用] 输入: 3129, 输出: 2911, 总计: 6040
+[DeepSeek API] 分析完成，答案长度: 3815 字符
+[DeepSeek API] Thinking内容长度: 1314 字符
+[DeepSeek API] 开始分析案例，文本长度: 8720 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 5094, 输出: 2063, 总计: 7157
+[DeepSeek API] 分析完成，答案长度: 1872 字符
+[DeepSeek API] Thinking内容长度: 1563 字符
+[Token使用] 输入: 3129, 输出: 2960, 总计: 6089
+[DeepSeek API] 分析完成，答案长度: 3726 字符
+[DeepSeek API] Thinking内容长度: 1396 字符
+[DeepSeek API] 开始分析案例，文本长度: 8638 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 5312, 输出: 1996, 总计: 7308
+[DeepSeek API] 分析完成，答案长度: 1912 字符
+[DeepSeek API] Thinking内容长度: 1475 字符
+[Token使用] 输入: 485, 输出: 2861, 总计: 3346
+[DeepSeek API] 分析完成，答案长度: 2927 字符
+[DeepSeek API] Thinking内容长度: 2057 字符
+[DeepSeek API] 开始分析案例，文本长度: 6394 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 451, 输出: 2684, 总计: 3135
+[DeepSeek API] 分析完成，答案长度: 4091 字符
+[DeepSeek API] Thinking内容长度: 849 字符
+[DeepSeek API] 开始分析案例，文本长度: 7857 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 5033, 输出: 2144, 总计: 7177
+[DeepSeek API] 分析完成，答案长度: 2557 字符
+[DeepSeek API] Thinking内容长度: 1055 字符
+[Token使用] 输入: 5353, 输出: 1799, 总计: 7152
+[DeepSeek API] 分析完成，答案长度: 1768 字符
+[DeepSeek API] Thinking内容长度: 1208 字符
+[Token使用] 输入: 3915, 输出: 1731, 总计: 5646
+[DeepSeek API] 分析完成，答案长度: 1666 字符
+[DeepSeek API] Thinking内容长度: 1286 字符
+[6/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 7/10 个案例已完成 (70.0%)
+[总体进度] 已用时间: 307.1秒，预计剩余: 131.6秒
+
+[Token使用] 输入: 1190, 输出: 3585, 总计: 4775
+[DeepSeek API] 分析完成，答案长度: 4230 字符
+[DeepSeek API] Thinking内容长度: 2121 字符
+[DeepSeek API] 开始分析案例，文本长度: 9196 字符
+[DeepSeek API] 使用Thinking模式（deepseek-reasoner）
+[DeepSeek API] 正在调用API，请稍候...
+[Token使用] 输入: 5331, 输出: 2256, 总计: 7587
+[DeepSeek API] 分析完成，答案长度: 1712 字符
+[DeepSeek API] Thinking内容长度: 2047 字符
+[Token使用] 输入: 4728, 输出: 2595, 总计: 7323
+[DeepSeek API] 分析完成，答案长度: 2742 字符
+[DeepSeek API] Thinking内容长度: 1570 字符
+[Token使用] 输入: 5387, 输出: 2340, 总计: 7727
+[DeepSeek API] 分析完成，答案长度: 2010 字符
+[DeepSeek API] Thinking内容长度: 1939 字符
+[9/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 8/10 个案例已完成 (80.0%)
+[总体进度] 已用时间: 321.8秒，预计剩余: 80.4秒
+
+[Token使用] 输入: 4606, 输出: 1840, 总计: 6446
+[DeepSeek API] 分析完成，答案长度: 1763 字符
+[DeepSeek API] Thinking内容长度: 1346 字符
+[8/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 9/10 个案例已完成 (90.0%)
+[总体进度] 已用时间: 324.3秒，预计剩余: 36.0秒
+
+[Token使用] 输入: 5473, 输出: 2718, 总计: 8191
+[DeepSeek API] 分析完成，答案长度: 2254 字符
+[DeepSeek API] Thinking内容长度: 2337 字符
+[10/10] ✓ 所有问题处理完成（共5个）
+
+[总体进度] 10/10 个案例已完成 (100.0%)
+[总体进度] 已用时间: 408.9秒，预计剩余: 0.0秒
+
+
+================================================================================
+保存结果...
+================================================================================
+累加新结果到现有文件...
+累加后总记录数: 540 (原有: 490, 新增: 50)
+✓ 保存完成！
+
+================================================================================
+处理统计:
+================================================================================
+总案例数: 108
+总问题数: 540
+
+本次新增统计:
+  新增案例数: 10
+  新增问题数: 50
+  新增平均总分: 17.14/20
+  新增平均百分制: 85.69
+  新增最高分: 20.00/20 (100.00分)
+  新增最低分: 0.00/20 (0.00分)
+
+累计统计（所有案例）:
+  累计平均总分: 16.18/20
+  累计平均百分制: 80.92
+  累计最高分: 20.00/20 (100.00分)
+  累计最低分: 0.00/20 (0.00分)
+
+本次新增案例详情:
+  牟某虐待案...: 5个问题, 平均分: 17.21/20
+  张某强奸案...: 5个问题, 平均分: 17.44/20
+  许某某故意杀人案...: 5个问题, 平均分: 13.13/20
+  任某强奸、猥亵儿童案...: 5个问题, 平均分: 19.16/20
+  鲁某申请人身安全保护令案...: 5个问题, 平均分: 14.47/20
+  李某诉庞某抚养纠纷案...: 5个问题, 平均分: 18.80/20
+  许某诉郑某离婚案...: 5个问题, 平均分: 18.54/20
+  纪某诉苏某抚养纠纷案...: 5个问题, 平均分: 18.68/20
+  邓某某郑某某张某某中国某某财产保险股份有限公司某某市中心支公司共有物分割纠纷二审...: 5个问题, 平均分: 19.40/20
+  王某某许某某等保证合同纠纷民事审判监督民事裁定书...: 5个问题, 平均分: 14.55/20
+
+⚠️ 本次新增检测到错误的问题数: 44/50
+
+================================================================================
+✓ 处理完成！
+================================================================================
