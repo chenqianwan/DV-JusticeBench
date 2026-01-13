@@ -304,11 +304,24 @@ MIT License
 
 <div align="center">
 
-**Huang Yidan**  
-📧 [huangyidan@hkgai.org](mailto:huangyidan@hkgai.org)
-
-**Chen Long**  
-📧 [chenlong@hkgai.org](mailto:chenlong@hkgai.org)
+<table>
+<tr>
+<td align="center" width="50%">
+  <img src="static/20251229-160906.png" alt="Huang Yidan" width="120" style="border-radius: 50%;">
+  <br>
+  <strong>Huang Yidan</strong>
+  <br>
+  📧 <a href="mailto:huangyidan@hkgai.org">huangyidan@hkgai.org</a>
+</td>
+<td align="center" width="50%">
+  <img src="static/Weixin Image_2025-12-29_161222_207.jpg" alt="Chen Long" width="120" style="border-radius: 50%;">
+  <br>
+  <strong>Chen Long</strong>
+  <br>
+  📧 <a href="mailto:chenlong@hkgai.org">chenlong@hkgai.org</a>
+</td>
+</tr>
+</table>
 
 ---
 
