@@ -98,7 +98,7 @@ python process_cases.py --model deepseek --case_ids case_001 case_002
 
 ```bash
 # 处理单个案例（所有模型）
-./test_single_case_all_models.sh case_20251230_134952_90
+./scripts/test_single_case_all_models.sh case_20251230_134952_90
 
 # 处理多个案例（指定模型）
 python process_cases.py \
@@ -108,7 +108,7 @@ python process_cases.py \
   --standalone
 
 # 生成报告和图表
-python generate_results_for_current_folder.py
+python scripts/generate_results_for_current_folder.py
 ```
 
 ---
@@ -206,6 +206,18 @@ huangyidan/
 ├── process_cases.py                # 案例处理主脚本
 ├── config.py                       # 配置文件
 ├── requirements.txt                # Python依赖
+├── README.md                       # 项目说明文档
+│
+├── docs/                           # 文档目录
+│   ├── workflow_description.md     # 工作流程描述
+│   ├── API切换说明.md              # API使用说明
+│   └── ...                        # 其他文档
+│
+├── scripts/                        # 辅助脚本目录
+│   ├── generate_*.py              # 图表生成脚本
+│   ├── test_*.py                  # 测试脚本
+│   ├── *.sh                       # Shell脚本
+│   └── ...                        # 其他辅助脚本
 │
 ├── utils/                          # 工具模块
 │   ├── ai_api.py                  # 统一AI API接口
@@ -288,7 +300,17 @@ MIT License
 
 ---
 
+## 👥 作者
+
 <div align="center">
+
+**Huang Yidan**  
+📧 [huangyidan@hkgai.org](mailto:huangyidan@hkgai.org)
+
+**Chen Long**  
+📧 [chenlong@hkgai.org](mailto:chenlong@hkgai.org)
+
+---
 
 **⭐ 如果这个项目对您有帮助，请给个Star！**
 
