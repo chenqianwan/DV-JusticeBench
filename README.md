@@ -311,14 +311,14 @@ MIT License
   <br>
   <strong>Huang Yidan</strong>
   <br>
-  📧 <a href="mailto:huangyidan@hkgai.org">huangyidan@hkgai.org</a>
+  <a href="mailto:huangyidan@hkgai.org">huangyidan@hkgai.org</a>
 </td>
 <td align="center" width="50%">
   <img src="static/Weixin Image_2025-12-29_161222_207.jpg" alt="Chen Long" width="120" style="border-radius: 50%;">
   <br>
   <strong>Chen Long</strong>
   <br>
-  📧 <a href="mailto:chenlong@hkgai.org">chenlong@hkgai.org</a>
+  <a href="mailto:chenlong@hkgai.org">chenlong@hkgai.org</a>
 </td>
 </tr>
 </table>
