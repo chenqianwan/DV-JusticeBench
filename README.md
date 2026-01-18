@@ -1,332 +1,512 @@
-# 法律AI评估研究平台
+# DVJUSTICE: A Benchmark for Value-Laden Legal Reasoning in Domestic Violence Cases
 
 <div align="center">
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.11+-green.svg)
-![Flask](https://img.shields.io/badge/flask-3.0-blue.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/)
+[![Paper](https://img.shields.io/badge/paper-ICAIL%202026-red.svg)](#citation)
+[![Benchmark](https://img.shields.io/badge/benchmark-DVJUSTICE-orange.svg)](#benchmark-overview)
 
-**一个专业的法律AI模型评估平台，支持多模型对比、自动化评估和结果可视化**
+**A systematic benchmark for evaluating Large Language Models on value-laden legal reasoning in Chinese domestic violence adjudication**
 
-[功能特性](#功能特性) • [快速开始](#快速开始) • [评估框架](#评估框架) • [实验结果](#实验结果)
+[Paper](#citation) • [Benchmark](#benchmark-overview) • [Quick Start](#quick-start) • [Results](#experimental-results) • [Leaderboard](#leaderboard)
 
 </div>
 
 ---
 
-## 📖 项目简介
+## 📖 Overview
 
-本项目是一个**法律AI模型评估研究平台**，旨在系统性地评估和对比多个大语言模型在法律案例分析任务中的表现。平台采用标准化的四阶段工作流程，通过五维评估标准对AI生成的法律分析进行量化评估。
+**DVJUSTICE** is a novel benchmark designed to measure how well Large Language Models (LLMs) handle **value-laden adjudication** in complex domestic violence cases within the Chinese legal system. Unlike prior legal AI benchmarks that focus on multiple-choice questions or bar exam tasks, DVJUSTICE targets the discretionary layer of judging—where doctrine meets relational context and moral stakes.
 
-### 核心特点
+### Why DVJUSTICE?
 
-- 🔬 **科学评估**：基于《大陆法系演绎推理与价值衡量评分量表（Rubric v1.0）》的五维评估体系
-- 🤖 **多模型支持**：支持GPT-4o、Claude Opus 4、Gemini 2.5 Flash、Qwen-Max、DeepSeek等多种模型
-- 📊 **自动化流程**：从数据脱敏到结果评估的全自动化处理
-- 📈 **可视化分析**：自动生成详细的对比图表和统计报告
-- 🔒 **隐私保护**：自动脱敏处理，保护案例中的敏感信息
+- **🎯 Domain-Specific**: Focuses on domestic violence cases where value judgments are central, not peripheral
+- **📏 Structured Evaluation**: Five-dimension rubric grounded in civil-law deductive reasoning and value balancing
+- **🔍 Reliability Signals**: Tracks concrete failure modes (e.g., abandoned-law citations, empty outputs) beyond average scores
+- **🌍 Real-World Grounding**: Built from 108 actual Chinese court decisions, including Supreme People's Court typical cases
+- **🤖 Multi-Model Coverage**: Evaluates 7 state-of-the-art LLMs (GPT-4o, GPT-5, Claude Opus 4, Gemini 2.5 Flash, Qwen-Max, DeepSeek-V3, DeepSeek-R1)
 
----
+### Key Contributions
 
-## ✨ 功能特性
-
-### 1. 四阶段评估工作流程
-
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│  数据脱敏   │ -> │  问题生成   │ -> │  AI回答生成 │ -> │  答案评估   │
-│  (DeepSeek) │    │  (DeepSeek) │    │ (多模型)    │    │  (DeepSeek) │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-```
-
-1. **数据脱敏**：使用DeepSeek API自动脱敏，保护隐私同时保留法律语义
-2. **问题生成**：为每个案例自动生成5个法律争议问题
-3. **AI回答生成**：支持多个模型并行处理，生成法律分析
-4. **答案评估**：使用五维标准对AI回答进行量化评估
-
-### 2. 五维评估标准
-
-基于《大陆法系演绎推理与价值衡量评分量表（Rubric v1.0）》，每个维度0-4分，总分20分：
-
-| 维度 | 说明 | 权重 |
-|------|------|------|
-| **规范依据相关性** | 法律条文、司法解释的引用是否与争议相关 | 4分 |
-| **涵摄链条对齐度** | 是否形成完整的"争议→规范→要素→事实→结论"链条 | 4分 |
-| **价值衡量与同理心对齐度** | 价值判断是否合理，是否避免偏见 | 4分 |
-| **关键事实与争点覆盖度** | 是否准确捕捉关键事实，无虚构或误读 | 4分 |
-| **裁判结论与救济配置一致性** | 结论和救济措施是否与法官判决一致 | 4分 |
-
-### 3. 支持的模型
-
-- **GPT-4o** (OpenAI)
-- **Claude Opus 4** (Anthropic)
-- **Gemini 2.5 Flash** (Google)
-- **Qwen-Max** (阿里云)
-- **DeepSeek** (Thinking模式)
-- **DeepSeek-NoThinking** (标准模式)
+1. **Novel Benchmark**: 108 cases → 540 structured questions targeting normative reasoning, subsumption chains, evidence appraisal, and empathy alignment
+2. **Operationalized Rubric**: Six quantifiable dimensions adapted to Chinese civil-law adjudication, with inter-annotator agreement ≥75%
+3. **Meta-Evaluation Layer**: Tests whether LLMs can grade legal reasoning with stability (LLM-as-a-judge reliability)
+4. **Comprehensive Analysis**: Multi-dimensional evaluation including quality-reliability-cost trade-offs, tail risk, and abandoned-law citations
 
 ---
 
-## 🚀 快速开始
+## 📊 Benchmark Overview
 
-### 环境要求
+### Dataset Statistics
+
+| Metric | Value |
+|--------|-------|
+| **Total Cases** | 108 |
+| **Questions per Case** | 5 |
+| **Total Questions** | 540 |
+| **Case Source** | China Judgments Online + Supreme People's Court Typical Cases (2025) |
+| **Domain** | Domestic Violence Adjudication |
+| **Language** | Chinese |
+| **Evaluation Dimensions** | 5 core dimensions + impactful error flags |
+| **Score Range** | 0–20 points (0–4 per dimension) |
+| **Cross-Model Slice** | 20 cases (100 questions) for multi-model comparison |
+
+### Five-Dimension Rubric
+
+DVJUSTICE evaluates LLM outputs on a 0–4 scale per dimension, totaling 20 points:
+
+| Dimension | Description | Weight |
+|-----------|-------------|--------|
+| **Normative Basis Relevance** | Accuracy and operational relevance of cited statutes, interpretations, and legal authority | 4 pts |
+| **Subsumption Chain Alignment** | Completeness of the deductive chain: issue → norm → elements/factors → facts → sub-conclusions → final conclusion | 4 pts |
+| **Value Balancing & Empathy Alignment** | Reasonableness of value judgments, avoidance of victim-blaming or stigmatizing inferences | 4 pts |
+| **Key Facts & Issue Coverage** | Accuracy in capturing decisive facts and disputes, with proper evidence mapping and no fabrication | 4 pts |
+| **Outcome & Remedy Alignment** | Consistency of proposed disposition and relief with the reference court decision | 4 pts |
+
+**Impactful Error Flags**: Fabricated norms, core fact inversion, abandoned-law citations, procedural confusion → trigger score caps and deductions.
+
+Full rubric: [`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/Scoring_Rubric_v1.0_English.md)
+
+### Four-Stage Evaluation Pipeline
+
+```
+┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│  De-Identification│ -> │ Question Generation│ -> │  LLM Response   │ -> │   Evaluation    │
+│  & Paraphrasing  │    │  (5 per case)      │    │  Generation     │    │  (Human + Meta) │
+│  (LLM-assisted)  │    │  (LLM-assisted)    │    │  (Multi-model)  │    │  (Rubric-based) │
+└──────────────────┘    └──────────────────┘    └──────────────────┘    └──────────────────┘
+```
+
+1. **De-Identification**: Automated de-identification and paraphrasing to prevent memorization and protect privacy
+2. **Question Generation**: Five structured dispute questions per case, focusing on normative reasoning and value judgment
+3. **Response Generation**: Multi-model parallel processing with standardized prompts (temperature=0.3, timeout=180s, max_tokens up to 16k)
+4. **Evaluation**: Expert legal annotators score outputs using the five-dimension rubric, with optional meta-evaluation (LLM-as-a-judge)
+
+### Evaluated Models
+
+| Model | Provider | Version | Mode |
+|-------|----------|---------|------|
+| **DeepSeek-Thinking** | DeepSeek | R1 | Reasoning (CoT) |
+| **DeepSeek** | DeepSeek | V3 | Chat (Standard) |
+| **Gemini** | Google | 2.5 Flash | Standard |
+| **Claude** | Anthropic | Opus 4 | Standard |
+| **Qwen-Max** | Alibaba Cloud | Max | Standard |
+| **GPT-4o** | OpenAI | 4o | Standard |
+| **GPT-5** | OpenAI | 5 (Preview) | Standard (excluded from main ranking due to 65% empty-answer rate) |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
 
 - Python 3.11+
-- 依赖包见 `requirements.txt`
+- API keys for evaluated models (OpenAI, Anthropic, Google, Alibaba Cloud, DeepSeek)
 
-### 安装步骤
+### Installation
 
 ```bash
-# 1. 克隆仓库
+# 1. Clone the repository
 git clone https://github.com/chenqianwan/huangyidan1.git
 cd huangyidan
 
-# 2. 安装依赖
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. 配置环境变量
-# 创建 .env 文件，添加API密钥
+# 3. Configure environment variables
+# Create a .env file with your API keys
 DEEPSEEK_API_KEY=your_deepseek_api_key
 OPENAI_API_KEY=your_openai_api_key
-# ... 其他API密钥
-
-# 4. 运行评估
-python process_cases.py --model deepseek --case_ids case_001 case_002
+ANTHROPIC_API_KEY=your_anthropic_api_key
+GOOGLE_API_KEY=your_google_api_key
+ALIBABA_API_KEY=your_alibaba_api_key
 ```
 
-### 使用示例
+### Run Evaluation
 
 ```bash
-# 处理单个案例（所有模型）
-./scripts/test_single_case_all_models.sh case_20251230_134952_90
+# Evaluate a single case with all models
+./test_single_case_all_models.sh case_20251230_134952_90
 
-# 处理多个案例（指定模型）
+# Evaluate multiple cases with a specific model
 python process_cases.py \
-  --model gpt4o \
+  --model deepseek \
   --use_ds_questions data/108个案例_新标准评估_完整版_最终版.xlsx \
   --case_ids case_001 case_002 case_003 \
   --standalone
 
-# 生成报告和图表
-python scripts/generate_results_for_current_folder.py
+# Generate reports and charts for existing results
+python scripts/generate_advanced_conference_charts.py
+```
+
+### Evaluate Your Own Cases
+
+```python
+from utils.ai_api import query_ai_api
+from utils.evaluator import evaluate_response
+
+# 1. Prepare your case (de-identified)
+case_text = "..."
+questions = ["Question 1?", "Question 2?", ...]
+
+# 2. Get LLM responses
+responses = []
+for q in questions:
+    resp = query_ai_api(model="deepseek", prompt=q, context=case_text)
+    responses.append(resp)
+
+# 3. Evaluate (requires expert annotation or meta-evaluation)
+scores = [evaluate_response(r, rubric) for r in responses]
 ```
 
 ---
 
-## 📊 实验结果
+## 🏆 Leaderboard
 
-### 20个案例评估结果
+Results on the 20-case evaluation slice (100 questions). Full benchmark (108 cases, 540 questions) results available upon request.
 
-我们使用20个真实法律案例对7个模型进行了全面评估，每个案例包含5个问题，共100个评估样本。
+| Rank | Model | Avg Score (/20) | Percentage | Max | Min | 10th %ile | Abandoned Laws | Avg Tokens |
+|------|-------|----------------|------------|-----|-----|-----------|----------------|------------|
+| 🥇 1 | **DeepSeek-Thinking** | 16.45 | 82.3% | 20.00 | 2.60 | 14.00 | 7/100 (7.0%) | 5,038 |
+| 🥈 2 | **DeepSeek** | 16.42 | 82.1% | 20.00 | 5.12 | 13.00 | 1/100 (1.0%) | 4,247 |
+| 🥉 3 | **Gemini** | 15.63 | 78.1% | 20.00 | 7.00 | 12.00 | 0/100 (0.0%) | 3,126 |
+| 4 | Claude | 13.11 | 65.5% | 19.40 | 3.20 | 9.00 | 10/100 (10.0%) | 7,684 |
+| 5 | Qwen-Max | 10.36 | 51.8% | 19.40 | 0.00 | 6.00 | 7/100 (7.0%) | 5,663 |
+| 6 | GPT-4o | 9.39 | 46.9% | 17.60 | 0.00 | 4.00 | 16/100 (16.0%) | 4,878 |
+| — | GPT-5* | (16.60) | (83.0%) | 20.00 | 6.80 | — | 0/35 (0.0%) | — |
 
-#### 模型性能对比
+*\*GPT-5 excluded from main ranking due to 65% empty-answer rate (65/100 failures). Score shown is average of 35 successful responses.*
 
-![平均分对比](data/results_20260112_unified_e8fd22b9/chart_avg_score_20260112_173258.png)
-
-![百分制对比](data/results_20260112_unified_e8fd22b9/chart_percentage_20260112_173258.png)
-
-#### 详细统计
-
-| 模型 | 平均分 | 百分制 | 最高分 | 最低分 | 引用废弃法案 |
-|------|--------|--------|--------|--------|--------------|
-| DeepSeek-Thinking | 16.45/20 | 82.3% | 20.00 | 2.60 | 7 |
-| DeepSeek | 16.42/20 | 82.1% | 20.00 | 5.12 | 1 |
-| Gemini 2.5 Flash | 15.63/20 | 78.1% | 20.00 | 7.00 | 0 |
-| Claude Opus 4 | 13.11/20 | 65.5% | 19.40 | 3.20 | 10 |
-| Qwen-Max | 10.36/20 | 51.8% | 19.40 | 0.00 | 7 |
-
-#### 维度热力图
-
-![维度热力图](data/results_20260112_unified_e8fd22b9/chart_heatmap_dimensions_20260112_173259.png)
-
-#### 错误统计
-
-![错误统计](data/results_20260112_unified_e8fd22b9/chart_errors_20260112_173259.png)
-
-#### 引用废弃法案分析
-
-![废弃法案对比](data/results_20260112_unified_e8fd22b9/chart_abandoned_laws_20260112_173258.png)
-
-#### 分数分布
-
-![分数分布](data/results_20260112_unified_e8fd22b9/chart_distribution_20260112_173259.png)
-
-#### 排名对比
-
-![排名对比](data/results_20260112_unified_e8fd22b9/chart_ranking_20260112_173259.png)
-
-#### Token使用统计
-
-![Token使用](data/results_20260112_unified_e8fd22b9/chart_token_usage_20260112_173258.png)
-
-### 主要发现
-
-1. **DeepSeek系列表现最佳**：DeepSeek-Thinking和DeepSeek在平均分上领先，分别达到82.3%和82.1%
-2. **Gemini零引用废弃法案**：在避免引用废弃法案方面表现完美
-3. **推理型模型优势明显**：DeepSeek-Thinking在复杂法律分析任务中表现更优
-4. **模型间差异显著**：最高分和最低分相差约30个百分点
+**Key Findings**:
+- **Top Tier**: DeepSeek variants lead with >82% accuracy, statistically tied (CI overlap)
+- **Reliability Gap**: Abandoned-law citations range from 0% (Gemini) to 16% (GPT-4o)
+- **Cost-Quality Trade-off**: Claude uses 80% more tokens than DeepSeek but scores 3.3 points lower
+- **Tail Risk**: DeepSeek-Thinking's 10th percentile (14.00) exceeds most models' averages
 
 ---
 
-## 🔬 评估框架
+## 📊 Experimental Results
 
-### 评估标准
+### Multi-Dimensional Performance Analysis
 
-详细的评估标准请参考：[`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/Scoring_Rubric_v1.0_English.md)
+#### 1. Average Score Comparison
 
-### 评估流程
+![Average Score](data/results_20260112_unified_e8fd22b9/chart_avg_score_20260117_235927.png)
 
-1. **数据准备**
-   - 案例文本和法官判决
-   - 自动脱敏处理
+The top two models (DeepSeek-Thinking: 16.45, DeepSeek: 16.42) are statistically indistinguishable. The gap between tiers is substantial: top tier outperforms GPT-4o by >7 points (35%).
 
-2. **问题生成**
-   - 每个案例生成5个法律争议问题
-   - 聚焦法律分析和价值判断
+#### 2. Quality-Reliability-Cost Trade-off (Pareto Frontier)
 
-3. **模型回答**
-   - 多模型并行处理
-   - 任务自适应温度设置（0.3 for analysis）
+![Pareto Trade-off](data/results_20260112_unified_e8fd22b9/chart_pareto_tradeoff_20260117_235926.png)
 
-4. **评估打分**
-   - 五维标准量化评估
-   - 自动错误检测和分类
+DeepSeek variants occupy the efficiency frontier: highest scores with moderate token usage and superior reliability. No model dominates all three dimensions simultaneously.
 
-5. **结果分析**
-   - 自动生成对比图表
-   - 详细统计报告
+#### 3. Abandoned-Law Citations (Reliability Signal)
+
+![Abandoned Laws](data/results_20260112_unified_e8fd22b9/chart_abandoned_laws_20260117_235927.png)
+
+Concrete failure mode: citing repealed or inapplicable authority. Gemini (0%) and DeepSeek (1%) excel; GPT-4o fails most often (16%).
+
+#### 4. Five-Dimension Breakdown (Heatmap)
+
+![Dimension Heatmap](data/results_20260112_unified_e8fd22b9/chart_heatmap_dimensions_20260117_235927.png)
+
+Top-tier models excel in **Subsumption Chain Alignment** (3.39–3.42/4) and **Key Facts Coverage** (3.25–3.30/4). Lower-ranked models show steepest drops in these dimensions. **Value Balancing** remains challenging across all models (range: 2.29–3.28/4).
+
+#### 5. Tail Risk Analysis (10th Percentile & CVaR@10%)
+
+![Tail Risk](data/results_20260112_unified_e8fd22b9/chart_tail_risk_20260117_235927.png)
+
+For legal applications, worst-case performance matters. DeepSeek-Thinking's 10th percentile (14.00/20) exceeds most models' averages. GPT-4o exhibits severe tail risk (10th: 4.00, CVaR: 5.70).
+
+#### 6. Efficiency: Quality vs. Compute Cost
+
+![Quality vs Tokens](data/results_20260112_unified_e8fd22b9/chart_quality_vs_tokens_20260117_235927.png)
+
+DeepSeek variants achieve top scores with moderate token budgets (4,247–5,038). Claude uses 7,684 tokens (50–80% more) but scores lower. Token cost and quality are weakly correlated (r ≈ -0.10).
+
+#### 7. Bootstrap Confidence Intervals (Statistical Robustness)
+
+![Bootstrap CI](data/results_20260112_unified_e8fd22b9/chart_score_bootstrap_ci_20260117_235927.png)
+
+95% confidence intervals (10,000 resamples) confirm ranking robustness despite moderate sample size. Top-tier CIs overlap; lower tiers fully separated.
+
+#### 8. Additional Charts
+
+<details>
+<summary>Click to expand: Error Statistics, Token Usage, Score Distribution, Reliability Gating</summary>
+
+**Impactful Error Breakdown**
+
+![Errors](data/results_20260112_unified_e8fd22b9/chart_errors_20260117_235928.png)
+
+GPT-4o: 156 total errors (2 major, 86 obvious, 68 minor). DeepSeek: 30 total (0 major, 4 obvious, 26 minor).
+
+**Token Usage Comparison**
+
+![Token Usage](data/results_20260112_unified_e8fd22b9/chart_token_usage_20260117_235928.png)
+
+**Score Distribution (Violin Plot)**
+
+![Distribution](data/results_20260112_unified_e8fd22b9/chart_distribution_20260117_235928.png)
+
+**Reliability-Gated Ranking (Abandoned-Law Rate < 1%)**
+
+![Reliability Gating](data/results_20260112_unified_e8fd22b9/chart_reliability_gating_20260117_235927.png)
+
+Only DeepSeek (1.0%) and Gemini (0.0%) pass the 1% threshold.
+
+**Success/Partial/Fail Percentage**
+
+![Percentage](data/results_20260112_unified_e8fd22b9/chart_percentage_20260117_235928.png)
+
+**Overall Ranking Visualization**
+
+![Ranking](data/results_20260112_unified_e8fd22b9/chart_ranking_20260117_235928.png)
+
+**Metrics Heatmap (Min/Max/Range per Dimension)**
+
+![Metrics Heatmap](data/results_20260112_unified_e8fd22b9/chart_heatmap_metrics_20260117_235928.png)
+
+</details>
 
 ---
 
-## 📁 项目结构
+## 📖 Citation
+
+If you use DVJUSTICE in your research, please cite our paper:
+
+```bibtex
+@inproceedings{huang2026dvjustice,
+  title={DVJUSTICE: A Benchmark for Value-Laden Legal Reasoning in Domestic Violence Cases},
+  author={Huang, Yidan and Chen, Long and [Co-authors]},
+  booktitle={Proceedings of the 21st International Conference on Artificial Intelligence and Law (ICAIL)},
+  year={2026},
+  note={Submitted for review}
+}
+```
+
+**Paper**: [ICAIL_v2.docx](ICAIL_v2.docx) (Draft, subject to revision)
+
+---
+
+## 📂 Data Access
+
+### Benchmark Data
+
+- **Full Benchmark** (108 cases, 540 questions): Available upon request for academic research
+- **20-Case Evaluation Slice**: Included in `data/results_20260112_unified_e8fd22b9/20个案例_统一评估结果_108cases.xlsx`
+- **Detailed Reports**: `data/results_20260112_unified_e8fd22b9/results_详细报告_20260112_172609.txt`
+- **Chart Usage Guide**: `data/results_20260112_unified_e8fd22b9/图表使用指南_Chart_Guide.txt`
+
+### Data Format
+
+Each case entry includes:
+- **Case ID**: Unique identifier
+- **Background Facts**: De-identified narrative
+- **Judicial Keywords**: Court-assigned tags
+- **Judicial Reasoning**: Judge's analysis (reference)
+- **Disposition**: Final ruling
+- **Questions** (5 per case): Structured dispute questions
+- **LLM Responses**: Outputs from each evaluated model
+- **Scores**: Five-dimension scores + impactful error flags
+
+### Data Request
+
+For access to the full benchmark dataset, please contact:
+- **Huang Yidan**: huangyidan@hkgai.org
+- **Chen Long**: chenlong@hkgai.org
+
+We require a brief description of your intended research use and agreement to the data use terms (non-commercial, research-only).
+
+---
+
+## 🔬 Methodology
+
+### Rubric Design
+
+DVJUSTICE's rubric mirrors how Chinese courts justify outcomes in domestic violence cases:
+
+1. **Deductive Structure**: Judge states governing norm (major premise) → maps disputed facts (minor premise) → reaches reasoned conclusion
+2. **Value-Laden Discretion**: Standards like "reasonableness," "fault," "danger," and "protectability" require culturally situated judgment
+3. **Empathy Alignment**: Outputs must avoid victim-blaming, stigmatizing inferences, or secondary harm
+
+Full rubric: [`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/Scoring_Rubric_v1.0_English.md)
+
+### Inter-Annotator Agreement
+
+Meta-evaluation (LLM-as-a-judge) shows ≥75% agreement with expert human annotations across five task settings, validating rubric operationalizability.
+
+### Experimental Controls
+
+- **Fixed Evaluation Subset**: 20-case slice (100 questions) for cross-model comparison
+- **Standardized Prompts**: Identical system prompts and question formats across models
+- **Temperature Setting**: 0.3 (optimized for legal analysis consistency)
+- **Timeout & Retry**: 180s timeout, 2-round retry for truncation/rate-limit/empty outputs
+- **Max Tokens**: Progressive doubling (initial → 8k → 16k) to accommodate long-form legal reasoning
+- **Fresh Sessions**: No conversational carryover between questions
+
+---
+
+## 📁 Repository Structure
 
 ```
-huangyidan/
-├── app.py                          # Flask Web应用主文件
-├── process_cases.py                # 案例处理主脚本
-├── config.py                       # 配置文件
-├── requirements.txt                # Python依赖
-├── README.md                       # 项目说明文档
+dvjustice/
+├── README.md                       # This file
+├── ICAIL_v2.docx                   # Paper draft (ICAIL 2026 submission)
+├── requirements.txt                # Python dependencies
+├── config.py                       # Configuration (API endpoints, model settings)
+├── process_cases.py                # Main evaluation pipeline
 │
-├── docs/                           # 文档目录
-│   ├── workflow_description.md     # 工作流程描述
-│   ├── API切换说明.md              # API使用说明
-│   └── ...                        # 其他文档
-│
-├── scripts/                        # 辅助脚本目录
-│   ├── generate_*.py              # 图表生成脚本
-│   ├── test_*.py                  # 测试脚本
-│   ├── *.sh                       # Shell脚本
-│   └── ...                        # 其他辅助脚本
-│
-├── utils/                          # 工具模块
-│   ├── ai_api.py                  # 统一AI API接口
-│   ├── deepseek_api.py            # DeepSeek API封装
-│   ├── evaluator.py               # 评估器
-│   ├── data_masking.py            # 数据脱敏
+├── utils/                          # Core modules
+│   ├── ai_api.py                   # Unified LLM API interface
+│   ├── deepseek_api.py             # DeepSeek-specific wrapper
+│   ├── evaluator.py                # Rubric-based evaluation engine
+│   ├── data_masking.py             # De-identification & paraphrasing
+│   ├── question_generator.py       # Structured question generation
 │   └── ...
 │
-├── static/                         # 静态资源
-│   ├── evaluate/                  # 评估标准文档
-│   │   └── Scoring_Rubric_v1.0_English.md
-│   ├── css/                       # 样式文件
-│   └── js/                        # JavaScript文件
+├── scripts/                        # Analysis & visualization
+│   ├── generate_advanced_conference_charts.py  # Generate all charts (Pareto, CI, etc.)
+│   ├── generate_results_report.py              # Generate detailed text reports
+│   ├── test_single_case_all_models.sh          # Batch evaluation script
+│   └── ...
 │
-├── templates/                      # HTML模板
-│   └── index.html
+├── static/evaluate/                # Rubric documentation
+│   └── Scoring_Rubric_v1.0_English.md
 │
-├── data/                          # 数据目录
-│   ├── cases/                     # 案例数据
-│   └── results_20260112_unified_e8fd22b9/  # 评估结果
-│       ├── 20个案例_统一评估结果_108cases.xlsx
-│       ├── chart_*.png            # 图表文件
-│       └── results_详细报告_*.txt # 详细报告
+├── data/                           # Benchmark data & results
+│   ├── 108个案例_新标准评估_完整版_最终版.xlsx  # Full benchmark (on request)
+│   └── results_20260112_unified_e8fd22b9/      # 20-case evaluation results
+│       ├── 20个案例_统一评估结果_108cases.xlsx  # Multi-model scores & responses
+│       ├── results_详细报告_20260112_172609.txt # Detailed report
+│       ├── 图表使用指南_Chart_Guide.txt          # Chart usage guide
+│       └── chart_*.png                          # 14 visualization charts
 │
-└── logs/                          # 日志目录
+└── app.py                          # Optional web interface (Flask)
 ```
 
 ---
 
-## 📈 使用场景
+## 🎯 Use Cases
 
-### 研究用途
+### Academic Research
 
-- **模型对比研究**：系统性对比不同模型在法律任务中的表现
-- **评估标准验证**：验证五维评估标准的有效性和可靠性
-- **模型能力分析**：深入分析各模型在不同维度上的优劣势
+- **Benchmark New Models**: Evaluate emerging LLMs on value-laden legal reasoning
+- **Validate Legal AI Methods**: Test prompt engineering, retrieval augmentation, or fine-tuning strategies
+- **Study Failure Modes**: Analyze abandoned-law citations, fact hallucinations, value misalignment
+- **Cross-Domain Transfer**: Adapt DVJUSTICE's rubric to other high-stakes adjudication domains
 
-### 实践应用
+### Industry Applications
 
-- **法律AI选型**：为实际应用选择合适的AI模型
-- **质量评估**：评估AI生成法律分析的质量
-- **持续改进**：基于评估结果优化模型使用策略
-
----
-
-## 🔧 技术栈
-
-- **后端框架**：Flask 3.0
-- **数据处理**：pandas, openpyxl
-- **API集成**：OpenAI, Anthropic, Google, 阿里云, DeepSeek
-- **可视化**：matplotlib, seaborn
-- **并发处理**：concurrent.futures
-- **前端**：HTML/CSS/JavaScript
+- **Model Selection**: Compare commercial LLMs for legal advisory products
+- **Quality Assurance**: Monitor AI-generated legal outputs for reliability signals
+- **Risk Assessment**: Measure tail risk and worst-case performance before deployment
 
 ---
 
-## 📝 评估报告
+## 🛠️ Technical Stack
 
-详细的评估报告请查看：
-- **最新报告**：`data/results_20260112_unified_e8fd22b9/results_详细报告_20260112_172609.txt`
-- **完整数据**：`data/results_20260112_unified_e8fd22b9/20个案例_统一评估结果_108cases.xlsx`
-
----
-
-## 🤝 贡献
-
-欢迎提交Issue和Pull Request！
+- **Python**: 3.11+
+- **Data Processing**: pandas, openpyxl, numpy
+- **Visualization**: matplotlib, seaborn (advanced charts: Pareto, Bootstrap CI, CVaR)
+- **API Integration**: OpenAI, Anthropic, Google Gemini, Alibaba Qwen, DeepSeek
+- **Concurrency**: concurrent.futures for parallel model evaluation
+- **Optional Web UI**: Flask 3.0
 
 ---
 
-## 📄 许可证
+## 🤝 Contributing
 
-MIT License
-
----
-
-## 📧 联系方式
-
-如有问题或建议，请通过GitHub Issues联系。
+We welcome contributions! Please:
+1. **Report Issues**: Use [GitHub Issues](https://github.com/chenqianwan/huangyidan1/issues) for bugs or questions
+2. **Submit Pull Requests**: For code improvements, additional models, or rubric extensions
+3. **Share Results**: If you evaluate new models, consider contributing leaderboard entries
 
 ---
 
-## 👥 作者
+## 📄 License
 
-<div align="center">
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+**Data Use Terms**:
+- The benchmark dataset (108 cases) is derived from publicly available Chinese court decisions
+- De-identified and paraphrased to protect privacy and prevent memorization
+- Non-commercial, research-only use; redistribution requires permission
+
+---
+
+## 👥 Authors
 
 <table>
 <tr>
 <td align="center" width="50%">
-  <img src="static/20251229-160906.png" alt="Huang Yidan" width="120" style="border-radius: 50%;">
+  <img src="static/20251229-160906.png" alt="Huang Yidan" width="100">
   <br>
   <strong>Huang Yidan</strong>
   <br>
-  <a href="mailto:huangyidan@hkgai.org">huangyidan@hkgai.org</a>
+  Law School Researcher
+  <br>
+  📧 <a href="mailto:huangyidan@hkgai.org">huangyidan@hkgai.org</a>
 </td>
 <td align="center" width="50%">
-  <img src="static/Weixin Image_2025-12-29_161222_207.jpg" alt="Chen Long" width="120" style="border-radius: 50%;">
+  <img src="static/Weixin Image_2025-12-29_161222_207.jpg" alt="Chen Long" width="100">
   <br>
   <strong>Chen Long</strong>
   <br>
-  <a href="mailto:chenlong@hkgai.org">chenlong@hkgai.org</a>
+  Computer Science Researcher
+  <br>
+  📧 <a href="mailto:chenlong@hkgai.org">chenlong@hkgai.org</a>
 </td>
 </tr>
 </table>
 
 ---
 
-**⭐ 如果这个项目对您有帮助，请给个Star！**
+## 📬 Contact
 
-Made with ❤️ for Legal AI Research
+- **General Inquiries**: [GitHub Issues](https://github.com/chenqianwan/huangyidan1/issues)
+- **Data Access Requests**: huangyidan@hkgai.org, chenlong@hkgai.org
+- **Collaboration Opportunities**: We welcome partnerships with legal AI researchers and practitioners
+
+---
+
+## 🌟 Acknowledgments
+
+This benchmark is built upon real-world judicial decisions from:
+- **China Judgments Online** (https://wenshu.court.gov.cn/)
+- **Supreme People's Court 2025 Typical Anti-Domestic Violence Cases** (https://www.court.gov.cn/)
+
+We thank the Chinese judiciary for making these decisions publicly available for research and education.
+
+---
+
+## 📚 Related Resources
+
+### Benchmark Papers
+- **LegalBench**: [Guha et al., 2023] – Multi-task legal reasoning benchmark
+- **LAiW**: [Dai et al., 2023] – Legal AI in the wild
+- **LawBench**: [Fei et al., 2023] – Chinese legal understanding benchmark
+
+### Legal AI Ethics
+- **Legitimacy Frames**: How users assess automated legal authority (social science perspective)
+- **Normative Uncertainty**: [Lacroix, 2024] – Fluency masking thin justification
+- **AI Empathy**: [Haugeland] – "Computers don't give a damn" (structural worry in care-adjacent tasks)
+
+### Value Alignment
+- **Legal Value Alignment**: [Sun et al., 2025] – Jury-like tasks with bias detection
+- **Self-Dialog Training**: [Pang et al., 2024] – Norm learning improvements
+- **Case-Based Reasoning**: [Feng et al., 2024] – Precedent-anchored outputs
+
+---
+
+<div align="center">
+
+### ⭐ If DVJUSTICE helps your research, please star this repository!
+
+**Made for Legal AI Research | ICAIL 2026 Submission**
+
+[![Star on GitHub](https://img.shields.io/github/stars/chenqianwan/huangyidan1?style=social)](https://github.com/chenqianwan/huangyidan1)
 
 </div>
