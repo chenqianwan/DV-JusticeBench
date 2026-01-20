@@ -236,8 +236,9 @@ def parse_token_telemetry_from_report(report_txt_path: str) -> Dict[str, TokenTe
 
 def merge_token_fallback(token_map: Dict[str, TokenTelemetry], results_dir: str) -> Dict[str, TokenTelemetry]:
     """
-    If some models (notably GPT-4o) are missing token telemetry in the unified report,
-    fall back to the most recent available detailed report in data/ that contains those rows.
+    (Deprecated) Previously used to backfill missing token telemetry (e.g., GPT-4o) from
+    other result folders. This can silently mix runs and produce incorrect charts.
+    Kept for backward compatibility but should be opt-in only.
     """
     if token_map.get("GPT-4o") and token_map["GPT-4o"].avg_total is not None:
         return token_map
@@ -935,6 +936,11 @@ def main():
         default=None,
         help="Results directory containing 20个案例_统一评估结果_108cases.xlsx (default: latest data/results_*_unified_*)",
     )
+    parser.add_argument(
+        "--allow_token_fallback",
+        action="store_true",
+        help="Allow backfilling missing token telemetry from other result folders (NOT recommended; may mix runs).",
+    )
     args = parser.parse_args()
 
     if args.results_dir:
@@ -958,7 +964,8 @@ def main():
             report_txt = os.path.join(results_dir, fn)
             break
     token_map = parse_token_telemetry_from_report(report_txt) if report_txt else {}
-    token_map = merge_token_fallback(token_map, results_dir)
+    if args.allow_token_fallback:
+        token_map = merge_token_fallback(token_map, results_dir)
 
     model_dfs = load_unified_excel(excel_path)
 

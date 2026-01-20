@@ -1,0 +1,1 @@
+Found 0 near-duplicate paragraph pairs (ratio>=0.78). Showing top 0.
