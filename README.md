@@ -420,7 +420,7 @@ dvjustice/
 ## 🤝 Contributing
 
 We welcome contributions! Please:
-1. **Report Issues**: Use [GitHub Issues](https://github.com/chenqianwan/huangyidan1/issues) for bugs or questions
+1. **Report Issues**: Use [GitHub Issues](https://github.com/chenqianwan/DV-JusticeBench/issues) for bugs or questions
 2. **Submit Pull Requests**: For code improvements, additional models, or rubric extensions
 3. **Share Results**: If you evaluate new models, consider contributing leaderboard entries
 
@@ -466,19 +466,40 @@ This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for d
 
 ## 📬 Contact
 
-- **General Inquiries**: [GitHub Issues](https://github.com/chenqianwan/huangyidan1/issues)
+- **General Inquiries**: [GitHub Issues](https://github.com/chenqianwan/DV-JusticeBench/issues)
 - **Data Access Requests**: huangyidan@hkgai.org, chenlong@hkgai.org
 - **Collaboration Opportunities**: We welcome partnerships with legal AI researchers and practitioners
+- **GitHub Repository**: [https://github.com/chenqianwan/DV-JusticeBench](https://github.com/chenqianwan/DV-JusticeBench)
 
 ---
 
 ## 🌟 Acknowledgments
+
+### Data Sources
 
 This benchmark is built upon real-world judicial decisions from:
 - **China Judgments Online** (https://wenshu.court.gov.cn/)
 - **Supreme People's Court 2025 Typical Anti-Domestic Violence Cases** (https://www.court.gov.cn/)
 
 We thank the Chinese judiciary for making these decisions publicly available for research and education.
+
+### Funding
+
+This work is funded in part by:
+- **HKUST Start-up Fund** (R9911)
+- **Theme-based Research Scheme Grant** (T45-205/21-N)
+- **InnoHK Initiative** of the Innovation and Technology Commission of the Hong Kong Special Administrative Region Government
+- **Research Funding under HKUST-DXM AI for Finance Joint Laboratory** (DXM25EG01)
+
+### Open Source
+
+**🎉 This project is fully open source!**
+
+- **Code**: All evaluation scripts, APIs, and web interface are available at [https://github.com/chenqianwan/DV-JusticeBench](https://github.com/chenqianwan/DV-JusticeBench)
+- **Data**: The benchmark dataset (108 cases, 540 questions) and detailed results are available for academic research
+- **License**: MIT License - free for non-commercial research use
+
+We encourage the research community to use, extend, and build upon DVJUSTICE. Contributions are welcome!
 
 ---
 
@@ -507,6 +528,6 @@ We thank the Chinese judiciary for making these decisions publicly available for
 
 **Made for Legal AI Research | ICAIL 2026 Submission**
 
-[![Star on GitHub](https://img.shields.io/github/stars/chenqianwan/huangyidan1?style=social)](https://github.com/chenqianwan/huangyidan1)
+[![Star on GitHub](https://img.shields.io/github/stars/chenqianwan/DV-JusticeBench?style=social)](https://github.com/chenqianwan/DV-JusticeBench)
 
 </div>

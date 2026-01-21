@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal AI Research Platform - DV-JusticeBench</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_v2.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1>DV-JusticeBench Legal AI Research Platform</h1>
+                <p class="subtitle">Five-Dimension Rubric-Based Legal AI Evaluation System</p>
+            </div>
+        </header>
+
+        <!-- Step Indicator -->
+        <div class="container">
+            <div class="stepper">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        Upload & Mask
+                        <span class="tooltip-icon" data-tooltip="Upload a .docx case file and apply privacy masking to protect sensitive information">ⓘ</span>
+                    </div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        Generate Questions
+                        <span class="tooltip-icon" data-tooltip="AI generates legal dispute questions based on the case (max 10 questions)">ⓘ</span>
+                    </div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        AI Analysis
+                        <span class="tooltip-icon" data-tooltip="Select an AI model to generate answers for all questions in parallel">ⓘ</span>
+                    </div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        Evaluation Results
+                        <span class="tooltip-icon" data-tooltip="View comprehensive evaluation scores across five dimensions with detailed analysis">ⓘ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step Containers -->
+        <div class="container">
+            <!-- Step 1: File Upload + Masking -->
+            <div id="step1" class="step-container visible">
+                <div class="card">
+                    <h2>Step 1: Upload Case and Apply Privacy Masking</h2>
+                    
+                    <!-- Step Introduction -->
+                    <div class="step-intro">
+                        <div class="intro-content">
+                            <p class="intro-text">
+                                Upload a legal case document (.docx format) and apply privacy masking to protect sensitive information such as names, addresses, and ID numbers. You can choose between:
+                            </p>
+                            <div class="intro-options">
+                                <div class="intro-option">
+                                    <span class="intro-icon">⚡</span>
+                                    <div>
+                                        <strong>Fast Mode:</strong> Automatic regex-based masking (instant)
+                                        <div class="time-estimate">⏱️ ~2-5 seconds</div>
+                                    </div>
+                                </div>
+                                <div class="intro-option">
+                                    <span class="intro-icon">🔍</span>
+                                    <div>
+                                        <strong>Review Mode:</strong> AI-powered masking with manual review (more accurate)
+                                        <div class="time-estimate">⏱️ ~30-60 seconds</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="intro-example">
+                                <strong>Example:</strong> "Zhang San" → "[NAME_1]", "Beijing City" → "[LOCATION_1]"
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- File Upload Area -->
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📄</div>
+                        <p>Drag and drop .docx file here, or click to select file</p>
+                        <input type="file" id="fileInput" accept=".docx" hidden>
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">Select File</button>
+                    </div>
+                    
+                    <!-- Uploaded File Info -->
+                    <div id="uploadedFileInfo" class="uploaded-file-info hidden">
+                        <div class="file-info-icon">✅</div>
+                        <div class="file-info-details">
+                            <strong>Uploaded:</strong> <span id="uploadedFileName">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Masking Mode Selection -->
+                    <div id="maskModeSection" class="hidden">
+                        <h3>Masking Mode</h3>
+                        <div class="mode-selector">
+                            <label class="mode-option">
+                                <input type="radio" name="maskMode" value="fast" checked>
+                                <div class="mode-card">
+                                    <div class="mode-title">⚡ Fast Mode</div>
+                                    <div class="mode-desc">Automatic masking using regex (instant)</div>
+                                </div>
+                            </label>
+                            <label class="mode-option">
+                                <input type="radio" name="maskMode" value="review">
+                                <div class="mode-card">
+                                    <div class="mode-title">🔍 Review Mode</div>
+                                    <div class="mode-desc">AI-powered masking with manual review (more accurate)</div>
+                                </div>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" id="startMaskBtn">Start Masking</button>
+                        <p class="button-hint">⏱️ Estimated time: Fast Mode ~2-5 sec | Review Mode ~30-60 sec</p>
+                    </div>
+
+                    <!-- Comparison View -->
+                    <div id="compareSection" class="hidden">
+                        <h3>Masking Results Comparison</h3>
+                        <div class="compare-view">
+                            <div class="text-panel">
+                                <h4>Original Text</h4>
+                                <div class="text-content" id="originalText"></div>
+                            </div>
+                            <div class="text-panel">
+                                <h4>Masked Text</h4>
+                                <div class="text-content editable" id="maskedText" contenteditable="false"></div>
+                                <button class="btn btn-secondary btn-sm" id="editMaskedBtn">Edit</button>
+                            </div>
+                        </div>
+                        <div class="step-actions">
+                            <button class="btn btn-primary" id="nextToQuestions">Next: Generate Questions</button>
+                        </div>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div id="loadingMask" class="loading hidden">
+                        <div class="spinner"></div>
+                        <p>Processing...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Question Generation -->
+            <div id="step2" class="step-container hidden">
+                <div class="card">
+                    <h2>Step 2: Generate Legal Dispute Questions</h2>
+                    
+                    <!-- Step Introduction -->
+                    <div class="step-intro">
+                        <div class="intro-content">
+                            <p class="intro-text">
+                                AI automatically generates legal dispute questions based on the masked case content. Questions focus on key legal issues, fact identification, and judicial reasoning. Maximum 10 questions per case.
+                            </p>
+                            <div class="intro-example">
+                                <strong>Example Question:</strong> "In this divorce dispute, how should the court determine and evaluate the validity of 'coercion' claims when one party cannot provide evidence, and what are the legal requirements and proof standards?"
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="questionsList" class="questions-list">
+                        <!-- Questions list will be dynamically generated here -->
+                    </div>
+
+                    <div class="question-actions">
+                        <button class="btn btn-secondary" id="addQuestionBtn">➕ Add Question</button>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary" id="backToMask">Previous</button>
+                        <button class="btn btn-primary" id="nextToAnalysis">Next: AI Analysis</button>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div id="loadingQuestions" class="loading hidden">
+                        <div class="spinner"></div>
+                        <p>Generating questions...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: AI Answer Generation -->
+            <div id="step3" class="step-container hidden">
+                <div class="card">
+                    <h2>Step 3: AI Model Analysis</h2>
+                    
+                    <!-- Step Introduction -->
+                    <div class="step-intro">
+                        <div class="intro-content">
+                            <p class="intro-text">
+                                Select an AI model to generate legal analysis answers for all questions simultaneously. All answers are generated in parallel for maximum efficiency. The AI will analyze case facts, apply legal reasoning, and provide comprehensive responses.
+                            </p>
+                            <div class="intro-example">
+                                <strong>Available Models:</strong> DeepSeek, DeepSeek-Thinking, GPT-4o, Claude, Gemini, Qwen-Max
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Model Selection -->
+                    <div class="model-selector">
+                        <label for="modelSelect">Select AI Model:</label>
+                        <select id="modelSelect" class="select-input">
+                            <option value="deepseek">DeepSeek</option>
+                            <option value="deepseek-thinking">DeepSeek-Thinking</option>
+                            <option value="gpt">GPT-4o</option>
+                            <option value="claude">Claude</option>
+                            <option value="gemini">Gemini</option>
+                            <option value="qwen">Qwen-Max</option>
+                        </select>
+                        <button class="btn btn-primary" id="generateAllAnswers">Generate All Answers</button>
+                    </div>
+                    <p class="button-hint">⏱️ Estimated time: ~30 seconds per question (parallel processing)</p>
+
+                    <!-- Answer Generation Progress -->
+                    <div id="answersProgress" class="answers-progress">
+                        <!-- Progress cards will be dynamically generated -->
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary" id="backToQuestions">Previous</button>
+                        <button class="btn btn-primary" id="nextToResults" disabled>Next: View Results</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Evaluation Results -->
+            <div id="step4" class="step-container hidden">
+                <div class="card">
+                    <h2>Step 4: Evaluation Results</h2>
+                    
+                    <!-- Step Introduction -->
+                    <div class="step-intro">
+                        <div class="intro-content">
+                            <p class="intro-text">
+                                Comprehensive evaluation results using our 5-dimension rubric system. Each answer is scored across Legal Fact Coverage, Subsumption Chain Alignment, Value & Empathy, Key Facts Coverage, and Outcome Consistency. Error signals (major, obvious, minor) and reliability indicators (abandoned law citations) are also tracked.
+                            </p>
+                            <div class="intro-example">
+                                <strong>Scoring Range:</strong> 0-4 points per dimension (20 points total). Download the full Excel report for detailed analysis.
+                            </div>
+                            <div class="time-warning">
+                                <span class="warning-icon">⏰</span>
+                                <strong>Evaluation Time:</strong> This step may take 1-3 minutes depending on the number of questions (evaluating with AI takes time). Please be patient and do not refresh the page.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Total Score and Grade -->
+                    <div class="score-summary">
+                        <div class="total-score">
+                            <div class="score-label">Total Score</div>
+                            <div class="score-value" id="totalScore">-- / 20</div>
+                            <div class="score-grade" id="scoreGrade">--</div>
+                        </div>
+                    </div>
+
+                    <!-- Radar Chart -->
+                    <div class="radar-container">
+                        <h3>Five-Dimension Scoring Radar Chart</h3>
+                        <canvas id="radarChart"></canvas>
+                    </div>
+
+                    <!-- Dimension Score Cards -->
+                    <div class="dimensions-grid">
+                        <div class="dimension-card">
+                            <div class="dimension-name">Normative Basis Relevance</div>
+                            <div class="dimension-score" id="dim1Score">-- / 4</div>
+                        </div>
+                        <div class="dimension-card">
+                            <div class="dimension-name">Subsumption Chain Alignment</div>
+                            <div class="dimension-score" id="dim2Score">-- / 4</div>
+                        </div>
+                        <div class="dimension-card">
+                            <div class="dimension-name">Value & Empathy Alignment</div>
+                            <div class="dimension-score" id="dim3Score">-- / 4</div>
+                        </div>
+                        <div class="dimension-card">
+                            <div class="dimension-name">Key Facts Coverage</div>
+                            <div class="dimension-score" id="dim4Score">-- / 4</div>
+                        </div>
+                        <div class="dimension-card">
+                            <div class="dimension-name">Outcome Consistency</div>
+                            <div class="dimension-score" id="dim5Score">-- / 4</div>
+                        </div>
+                    </div>
+
+                    <!-- Error Statistics -->
+                    <div class="error-stats">
+                        <h3>Error Statistics</h3>
+                        <div class="error-grid">
+                            <div class="error-item">
+                                <span class="error-label error-major">Major Errors</span>
+                                <span class="error-count" id="majorErrors">0</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-label error-obvious">Obvious Errors</span>
+                                <span class="error-count" id="obviousErrors">0</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-label error-minor">Minor Errors</span>
+                                <span class="error-count" id="minorErrors">0</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-label error-abandoned">Abandoned Law Citations</span>
+                                <span class="error-count" id="abandonedLaws">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Results (Collapsible) -->
+                    <div class="detailed-results">
+                        <h3>Detailed Evaluation Results</h3>
+                        <div id="detailedResultsList">
+                            <!-- Detailed results for each question will be dynamically generated -->
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary" id="backToAnalysis">Previous</button>
+                        <button class="btn btn-success" id="downloadExcelBtn">📥 Download Excel Report</button>
+                        <button class="btn btn-primary" id="restartBtn">Restart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div style="margin-bottom: 20px;">
+                    <p style="margin-bottom: 10px; font-weight: 500;">
+                        <a href="https://github.com/chenqianwan/DV-JusticeBench" target="_blank" style="color: #2196F3; text-decoration: none;">
+                            ⭐ Open Source on GitHub
+                        </a> | 
+                        <a href="https://github.com/chenqianwan/DV-JusticeBench" target="_blank" style="color: #2196F3; text-decoration: none;">
+                            Code & Dataset Available
+                        </a>
+                    </p>
+                </div>
+                
+                <div style="margin-bottom: 15px; font-size: 0.9em; line-height: 1.6; color: #888;">
+                    <p style="margin: 5px 0;">
+                        <strong>Funding:</strong> This work is funded in part by the HKUST Start-up Fund (R9911), 
+                        Theme-based Research Scheme grant (T45-205/21-N), the InnoHK initiative of the Innovation 
+                        and Technology Commission of the Hong Kong Special Administrative Region Government, and 
+                        the research funding under HKUST-DXM AI for Finance Joint Laboratory (DXM25EG01).
+                    </p>
+                </div>
+                
+                <p style="font-size: 0.9em; color: #999;">&copy; 2026 DV-JusticeBench Legal AI Research Platform</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main_v2.js') }}"></script>
+</body>
+</html>

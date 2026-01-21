@@ -74,14 +74,14 @@ header {
 }
 
 .logo {
-    height: 90px;
+    height: 140px;
     width: auto;
     max-width: 200px;
     object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     background: rgba(255, 255, 255, 0.05);
-    padding: 8px;
+    /* padding: 8px; */
     animation: logoFadeIn 1.1s ease-out;
     transition: transform 0.3s ease;
 }
