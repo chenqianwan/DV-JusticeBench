@@ -33,7 +33,8 @@ class UnifiedAIAPI:
             else:
                 print(f"[统一API] 使用提供商: {self.api_name}")
         elif self.provider == 'qwen':
-            self.api = QwenAPI(model=model)
+            # Qwen使用统一模型API（通过xhub.chat endpoint）
+            self.api = UnifiedModelAPI(model=model or 'qwen-max')
             self.api_name = 'Qwen'
             if model:
                 print(f"[统一API] 使用提供商: {self.api_name}, 模型: {model}")

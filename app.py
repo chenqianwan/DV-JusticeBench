@@ -902,8 +902,20 @@ def generate_answer_v2():
             
             question = questions[question_index]
         
+        # 映射前端模型名称到实际provider和model
+        provider_map = {
+            'deepseek': ('deepseek', None),
+            'deepseek-thinking': ('deepseek', None),
+            'gpt': ('chatgpt', 'gpt-4o'),
+            'claude': ('claude', 'claude-opus-4-20250514'),
+            'gemini': ('chatgpt', 'gemini-1.5-pro-002'),
+            'qwen': ('qwen', 'qwen-max')
+        }
+        
+        provider, model_name = provider_map.get(model, ('deepseek', None))
+        
         # 生成答案
-        api = UnifiedAIAPI(provider=model)
+        api = UnifiedAIAPI(provider=provider, model=model_name)
         result = api.analyze_case(masked_text, question, use_thinking=use_thinking)
         
         answer = result.get('answer', '')

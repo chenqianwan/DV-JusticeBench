@@ -199,10 +199,8 @@ async function startMasking() {
             document.getElementById('maskedText').textContent = state.maskedText;
             document.getElementById('compareSection').classList.remove('hidden');
             
-            // If review mode, allow editing
-            if (mode === 'review') {
-                document.getElementById('editMaskedBtn').classList.remove('hidden');
-            }
+            // Always allow editing (both Fast and Review modes)
+            document.getElementById('editMaskedBtn').classList.remove('hidden');
             
             showSuccess('✅ Step 1 Complete: Privacy masking finished! Ready to generate questions.');
             
