@@ -16,12 +16,15 @@
 
 ## 🎥 Demo Video
 
-<video width="100%" controls>
-  <source src="DV-JusticeBench.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+**Demo Video**: `DV-JusticeBench.mp4` (~100MB)
 
-**Watch the demo video to see DV-JusticeBench in action!**
+The demo video demonstrates the complete DV-JusticeBench evaluation pipeline, including:
+- Case upload and de-identification
+- Question generation (5 questions per case)
+- Multi-model parallel evaluation
+- Result visualization and analysis
+
+**Note**: Due to file size limitations, the video file is not included in this repository. Please contact the maintainers or check the project release page for access to the demo video.
 
 ---
 
