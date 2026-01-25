@@ -329,6 +329,8 @@ The reproduction guide includes:
 
 ---
 
+## 🔬 Methodology
+
 ### Rubric Design
 
 DVJUSTICE's rubric mirrors how Chinese courts justify outcomes in domestic violence cases:
