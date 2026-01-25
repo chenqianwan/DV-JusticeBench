@@ -4,12 +4,11 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/)
-[![Paper](https://img.shields.io/badge/paper-ICAIL%202026-red.svg)](#citation)
 [![Benchmark](https://img.shields.io/badge/benchmark-DVJUSTICE-orange.svg)](#benchmark-overview)
 
 **A systematic benchmark for evaluating Large Language Models on value-laden legal reasoning in Chinese domestic violence adjudication**
 
-[Paper](#citation) • [Benchmark](#benchmark-overview) • [Quick Start](#quick-start) • [Results](#experimental-results) • [Leaderboard](#leaderboard)
+[Benchmark](#benchmark-overview) • [Quick Start](#quick-start) • [Results](#experimental-results) • [Leaderboard](#leaderboard)
 
 </div>
 
@@ -273,24 +272,6 @@ Only DeepSeek (1.0%) and Gemini (0.0%) pass the 1% threshold.
 
 ---
 
-## 📖 Citation
-
-If you use DVJUSTICE in your research, please cite our paper:
-
-```bibtex
-@inproceedings{huang2026dvjustice,
-  title={DVJUSTICE: A Benchmark for Value-Laden Legal Reasoning in Domestic Violence Cases},
-  author={Huang, Yidan and Chen, Long and [Co-authors]},
-  booktitle={Proceedings of the 21st International Conference on Artificial Intelligence and Law (ICAIL)},
-  year={2026},
-  note={Submitted for review}
-}
-```
-
-**Paper**: [ICAIL_v2.docx](ICAIL_v2.docx) (Draft, subject to revision)
-
----
-
 ## 📂 Data Access
 
 ### Benchmark Data
@@ -354,7 +335,6 @@ Meta-evaluation (LLM-as-a-judge) shows ≥75% agreement with expert human annota
 ```
 dvjustice/
 ├── README.md                       # This file
-├── ICAIL_v2.docx                   # Paper draft (ICAIL 2026 submission)
 ├── requirements.txt                # Python dependencies
 ├── config.py                       # Configuration (API endpoints, model settings)
 ├── process_cases.py                # Main evaluation pipeline
@@ -526,7 +506,7 @@ We encourage the research community to use, extend, and build upon DVJUSTICE. Co
 
 ### ⭐ If DVJUSTICE helps your research, please star this repository!
 
-**Made for Legal AI Research | ICAIL 2026 Submission**
+**Made for Legal AI Research**
 
 [![Star on GitHub](https://img.shields.io/github/stars/chenqianwan/DV-JusticeBench?style=social)](https://github.com/chenqianwan/DV-JusticeBench)
 

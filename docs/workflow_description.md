@@ -1,4 +1,4 @@
-# 工作流程描述（论文用）
+# 工作流程描述
 
 ## 英文版本
 
@@ -8,7 +8,7 @@ We apply this evaluation framework to outputs from multiple model families, incl
 
 我们将该评估框架应用于多个模型系列的输出，包括基于GPT的模型（通过OpenAI API）、DeepSeek（包括deepseek-chat和具有thinking模式的deepseek-reasoner）、Qwen（通义千问），以及我们的统一法律案例评估工作流程。该工作流程包含四个顺序阶段：（1）**数据脱敏**：使用基于API的脱敏方法对案例文本和司法判决中的敏感信息进行匿名化处理，在保护隐私的同时保留法律语义；（2）**问题生成**：从每个脱敏案例中自动生成五个法律争议问题，侧重于法律分析和价值判断而非事实查询；（3）**AI回答**：目标模型使用任务自适应温度设置（案例分析0.3、问题生成0.7、文本提取0.1）回答每个问题，以平衡准确性和多样性；（4）**答案评估**：使用五维评估标准对AI生成的答案进行评估，涵盖规范依据相关性、涵摄链条对齐度、价值衡量与同理心对齐度、关键事实与争点覆盖度，以及裁判结论与救济配置一致性。整个流程通过可配置并发度的线程池执行器（默认：50个工作线程）并行执行，以高效处理大规模案例数据集。
 
-## 精简版本（适合论文摘要或方法部分）
+## 精简版本
 
 **英文：**
 We evaluate outputs from multiple model families (GPT-based, DeepSeek, Qwen) through a four-stage workflow: data masking, question generation, AI answering with task-adaptive temperature settings, and multi-dimensional evaluation against judicial decisions.
