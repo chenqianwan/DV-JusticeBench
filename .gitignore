@@ -52,5 +52,28 @@ dist/
 .DS_Store
 Thumbs.db
 
-
+# Temporary files
 .~*
+
+# Word documents and backups
+*.docx
+*.doc
+*.bak
+*.bak_*
+*.bak2
+*.bak2_*
+*_bak*
+*_aligned*.docx
+*_fixed.docx
+
+# Extracted text files (temporary conversions)
+*_extracted.txt
+*_latest.txt
+*_conversion*.txt
+
+# Temporary notes and checklists
+对照清单_*.txt
+*需要修改点*.txt
+
+# LaTeX conversion summaries (temporary)
+LATEX_CONVERSION_SUMMARY.md
