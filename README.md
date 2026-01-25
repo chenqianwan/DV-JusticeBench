@@ -16,14 +16,13 @@
 
 ## 🎥 Demo Video
 
-<video width="100%" controls>
-  <source src="DV-JusticeBench.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Demo Video](https://img.shields.io/badge/📹-Watch%20Demo%20Video-red)](https://github.com/chenqianwan/DV-JusticeBench/raw/cleanup/DV-JusticeBench.mp4)
 
 **Watch the demo video to see DV-JusticeBench in action!**
 
 The demo video demonstrates the complete evaluation pipeline, including case upload, question generation, multi-model evaluation, and result visualization.
+
+**Direct download**: [DV-JusticeBench.mp4](https://github.com/chenqianwan/DV-JusticeBench/raw/cleanup/DV-JusticeBench.mp4) (100MB, managed via Git LFS)
 
 ---
 
