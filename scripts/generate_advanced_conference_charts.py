@@ -754,28 +754,40 @@ def plot_baseline_heatmap_metrics(model_dfs: Dict[str, pd.DataFrame], stats: Lis
     return out
 
 
-def plot_baseline_token_usage(token_map: Dict[str, TokenTelemetry], output_dir: str) -> Optional[str]:
+def plot_baseline_token_usage(
+    token_map: Dict[str, TokenTelemetry],
+    output_dir: str,
+    models_to_show: Optional[List[str]] = None,
+) -> Optional[str]:
     """
     Rebuild token usage chart with GPT on the right.
-    Uses token telemetry parsed from report(s). Only models with data are plotted.
+    Uses token telemetry parsed from report(s). Includes models with data;
+    if models_to_show is given, also includes missing models as "N/A" so e.g. GPT-4o is not omitted.
     """
     ts = _timestamp()
     out = os.path.join(output_dir, f"chart_token_usage_{ts}.png")
 
-    order = _order_with_gpt_last(["DeepSeek", "Gemini", "Claude", "Qwen-Max", "GPT-4o"])
+    order = _order_with_gpt_last(models_to_show or ["DeepSeek", "Gemini", "Claude", "Qwen-Max", "GPT-4o"])
     models = []
     avg_in = []
     avg_out = []
     avg_total = []
+    na_mask = []  # True if row is N/A placeholder
 
     for m in order:
         t = token_map.get(m)
-        if t is None or t.avg_total is None:
-            continue
-        models.append(m)
-        avg_in.append(t.avg_input)
-        avg_out.append(t.avg_output)
-        avg_total.append(t.avg_total)
+        if t is not None and t.avg_total is not None:
+            models.append(m)
+            avg_in.append(t.avg_input)
+            avg_out.append(t.avg_output)
+            avg_total.append(t.avg_total)
+            na_mask.append(False)
+        elif models_to_show and m in models_to_show:
+            models.append(m)
+            avg_in.append(0.0)
+            avg_out.append(0.0)
+            avg_total.append(0.0)
+            na_mask.append(True)
 
     if not models:
         return None
@@ -783,27 +795,38 @@ def plot_baseline_token_usage(token_map: Dict[str, TokenTelemetry], output_dir: 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
     x = np.arange(len(models))
     width = 0.36
-    b1 = ax1.bar(x - width/2, avg_in, width, label="Input Tokens", color="#2E86AB", alpha=0.85)
-    b2 = ax1.bar(x + width/2, avg_out, width, label="Output Tokens", color="#F18F01", alpha=0.85)
+    base_in = [0 if na else v for v, na in zip(avg_in, na_mask)]
+    base_out = [0 if na else v for v, na in zip(avg_out, na_mask)]
+    b1 = ax1.bar(x - width/2, base_in, width, label="Input Tokens", color="#2E86AB", alpha=0.85)
+    b2 = ax1.bar(x + width/2, base_out, width, label="Output Tokens", color="#F18F01", alpha=0.85)
     ax1.set_title("Average Token Usage per API Call", fontsize=13, fontweight="bold")
     ax1.set_ylabel("Average Tokens", fontsize=12, fontweight="bold")
     ax1.set_xticks(x)
-    ax1.set_xticklabels(models, rotation=15, ha="right")
+    labels = [f"{m} (N/A)" if na else m for m, na in zip(models, na_mask)]
+    ax1.set_xticklabels(labels, rotation=15, ha="right")
     ax1.legend(fontsize=10)
     ax1.grid(axis="y", alpha=0.25)
-
-    for bars in (b1, b2):
-        for bar in bars:
+    ymax = max(avg_in + avg_out) if any(not na for na in na_mask) else 1
+    for bar_grp_idx, bars in enumerate((b1, b2)):
+        for i, bar in enumerate(bars):
             h = bar.get_height()
-            ax1.text(bar.get_x() + bar.get_width()/2, h + max(avg_in + avg_out) * 0.01, f"{int(round(h))}", ha="center", va="bottom", fontsize=9, fontweight="bold")
+            if h > 0:
+                ax1.text(bar.get_x() + bar.get_width()/2, h + ymax * 0.01, f"{int(round(h))}", ha="center", va="bottom", fontsize=9, fontweight="bold")
+            elif na_mask[i] and bar_grp_idx == 0:
+                ax1.text(bar.get_x() + bar.get_width()/2, ymax * 0.02, "N/A", ha="center", va="bottom", fontsize=8)
 
-    b = ax2.bar(models, avg_total, color=[MODEL_COLORS.get(m, "#808080") for m in models], alpha=0.85, edgecolor="black", linewidth=1.0)
+    colors = ["#B0B0B0" if na else MODEL_COLORS.get(m, "#808080") for m, na in zip(models, na_mask)]
+    b = ax2.bar(models, avg_total, color=colors, alpha=0.85, edgecolor="black", linewidth=1.0)
+    ax2.set_xticklabels(labels, rotation=15, ha="right")
     ax2.set_title("Average Total Token Usage per API Call", fontsize=13, fontweight="bold")
     ax2.set_ylabel("Average Total Tokens", fontsize=12, fontweight="bold")
     ax2.grid(axis="y", alpha=0.25)
-    plt.setp(ax2.xaxis.get_majorticklabels(), rotation=15, ha="right")
-    for bar, tot in zip(b, avg_total):
-        ax2.text(bar.get_x() + bar.get_width()/2, tot + max(avg_total) * 0.02, f"{int(round(tot))}", ha="center", va="bottom", fontsize=10, fontweight="bold")
+    tmax = max(avg_total) if any(not na for na in na_mask) else 1
+    for bar, tot, na in zip(b, avg_total, na_mask):
+        if na:
+            ax2.text(bar.get_x() + bar.get_width()/2, tmax * 0.02, "N/A", ha="center", va="bottom", fontsize=9, fontweight="bold")
+        else:
+            ax2.text(bar.get_x() + bar.get_width()/2, tot + tmax * 0.02, f"{int(round(tot))}", ha="center", va="bottom", fontsize=10, fontweight="bold")
 
     _save(fig, out)
     return out

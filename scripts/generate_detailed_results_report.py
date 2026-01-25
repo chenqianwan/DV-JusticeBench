@@ -146,6 +146,13 @@ def generate_report():
         if file.endswith('.xlsx'):
             if 'GPT4O_20个案例评估_20260111_144037' in file:
                 model_files['GPT-4o'] = os.path.join(results_path, file)
+            elif (
+                'GPT4O_20个案例评估' in file
+                and model_files['GPT-4o'] is None
+                and '20260111_144315' not in file
+                and '20260111_153605' not in file
+            ):
+                model_files['GPT-4o'] = os.path.join(results_path, file)
             elif 'GPT-o3_20个案例评估_20260111_144315' in file or 'GPT4O_20个案例评估_20260111_144315' in file:
                 model_files['GPT-o3'] = os.path.join(results_path, file)
             elif 'GPT5_20个案例评估_20260111_153605' in file or 'GPT4O_20个案例评估_20260111_153605' in file:
