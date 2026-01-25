@@ -47,6 +47,7 @@ build/
 dist/
 *.pkg
 *.dmg
+*.spec
 
 # OS
 .DS_Store

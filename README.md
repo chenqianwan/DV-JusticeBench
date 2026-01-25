@@ -312,7 +312,7 @@ Each case entry includes:
 ### Data Request
 
 For access to the full benchmark dataset, please contact:
-- **Huang Yidan**: huangyidan@hkgai.org
+- **Huang Yidan**: yhuangjr@connect.ust.hk
 - **Chen Long**: chenlong@hkgai.org
 
 ---
@@ -460,7 +460,7 @@ This project is licensed under the **MIT License**. See the [LICENSE file](https
   <br>
   Law School Researcher
   <br>
-  📧 <a href="mailto:huangyidan@hkgai.org">huangyidan@hkgai.org</a>
+  📧 <a href="mailto:yhuangjr@connect.ust.hk">yhuangjr@connect.ust.hk</a>
 </td>
 <td align="center" width="50%">
   <img src="static/Weixin Image_2025-12-29_161222_207.jpg" alt="Chen Long" width="100">
@@ -479,7 +479,7 @@ This project is licensed under the **MIT License**. See the [LICENSE file](https
 ## 📬 Contact
 
 - **General Inquiries**: [GitHub Issues](https://github.com/chenqianwan/DV-JusticeBench/issues)
-- **Data Access Requests**: huangyidan@hkgai.org, chenlong@hkgai.org
+- **Data Access Requests**: yhuangjr@connect.ust.hk, chenlong@hkgai.org
 - **Collaboration Opportunities**: We welcome partnerships with legal AI researchers and practitioners
 - **GitHub Repository**: [https://github.com/chenqianwan/DV-JusticeBench](https://github.com/chenqianwan/DV-JusticeBench)
 
