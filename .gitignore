@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Flask
+instance/
+.webassets-cache
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data files
+data/cases/*
+data/results/*
+!data/cases/.gitkeep
+!data/results/.gitkeep
+# Keep only the latest results folder
+!data/results_20260112_unified_e8fd22b9/**
+
+# Log files
+logs/
+*.log
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Build and distribution files
+build/
+dist/
+*.pkg
+*.dmg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+.~*
+
+# Word documents and backups
+*.docx
+*.doc
+*.bak
+*.bak_*
+*.bak2
+*.bak2_*
+*_bak*
+*_aligned*.docx
+*_fixed.docx
+
+# Extracted text files (temporary conversions)
+*_extracted.txt
+*_latest.txt
+*_conversion*.txt
+
+# Temporary notes and checklists
+对照清单_*.txt
+*需要修改点*.txt
+
+# LaTeX conversion summaries (temporary)
+LATEX_CONVERSION_SUMMARY.md
+
+# Paper/LaTeX files (excluded from engineering repository)
+latex/
