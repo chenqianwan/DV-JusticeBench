@@ -1,0 +1,263 @@
+%%
+%% DV-JusticeBench Paper for ACM SIGCONF (Updated Version)
+%%
+\documentclass[sigconf]{acmart}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information
+\setcopyright{acmlicensed}
+\copyrightyear{2026}
+\acmYear{2026}
+\acmDOI{XXXXXXX.XXXXXXX}
+
+%% Conference information - UPDATE WITH ACTUAL CONFERENCE DETAILS
+\acmConference[ICAIL '26]{International Conference on Artificial Intelligence and Law}{June 2026}{Cambridge, MA, USA}
+\acmISBN{978-1-4503-XXXX-X/26/06}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command - UPDATED TO NEW VERSION
+\title{Benchmarking Value-Laden Judicial Reasoning in Chinese Domestic Violence: DV-JusticeBench and a Reproducible Pipeline}
+
+%%
+%% Authors - UPDATE WITH ACTUAL AUTHOR INFORMATION
+\author{Anonymous Authors}
+\affiliation{%
+  \institution{Affiliation}
+  \city{City}
+  \country{Country}
+}
+\email{anonymous@example.com}
+
+%% Short authors for page headers
+\renewcommand{\shortauthors}{Anonymous et al.}
+
+%%
+%% Abstract
+\begin{abstract}
+LLMs are shifting from legal assistance to near adjudicative roles that shape whether vulnerable parties are heard and believed. We still lack rigorous evidence that they align with the value-laden reasoning Chinese judges use in domestic violence disputes, where outcomes depend on contested narratives, relational norms, and open-textured standards such as reasonableness, fault, and protectability. We present DV-JusticeBench, an expert-annotated benchmark of 108 cases from 2023 to 2025 and 540 structured questions across five dimensions: normative basis relevance, subsumption chain alignment, value balancing and empathy alignment, key fact and issue coverage with evidence mapping, and outcome and remedy alignment. Across multiple LLMs, outputs use caring rhetoric but lack legally disciplined warrants, mishandle disputed facts, and overweight surface forensic cues, amplifying credibility asymmetries. We argue LLMs should be procedurally bounded assistants in human-in-the-loop workflows, not autonomous adjudicators. Benchmark and code are available at BenchForm.
+\end{abstract}
+
+%%
+%% Keywords
+\keywords{large language models, domestic violence, judicial reasoning, value judgment, benchmark}
+
+%%
+%% Build the formatted document
+\maketitle
+
+\section{Introduction}
+
+Domestic violence disputes are a stress test for legal AI because outcomes turn on value judgments, not just rule matching~\cite{flanagan2025rule}. Judges must translate vulnerability, credibility, relational power, and social meaning into legal categories under open-textured standards, so small shifts in justification can change who is protected and who is doubted~\cite{wef2024ai}. In China, anti-domestic violence governance has advanced through statute, judicial interpretation, and interagency instruments, yet proof friction and coordination failures remain common in practice~\cite{antidv2016}. These gaps invite LLMs to act as quasi-adjudicative assistants that do more than summarize; they generate evaluative narratives about fault, risk, protectability, and remedies~\cite{sun2025llm}. The promise is scale and consistency, but the danger is normative drift that looks like neutral help, even when the cited law is facially correct~\cite{huang2025democratising}.
+
+Drift enters through what a model highlights, downplays, or treats as decisive, and fluent language can mask thin warrants~\cite{lacroix2024linguistic}. Legitimacy therefore depends on value congruence as much as technical accuracy~\cite{grosfeld2022value}. This is acute in domestic violence cases: a calm, well-structured answer can still cause secondary harm if it normalizes coercion or reallocates blame under reasonableness. We still lack evidence about how LLM reasoning behaves when judges must integrate doctrine with culturally situated relational concepts~\cite{nay2023legal,josifovic2024legal}. 
+
+Law is a text-based social technology stabilized by institutional practice, and LLMs are also text technologies, which both expands capacity and raises governance stakes as they approach functional parity with lawyers~\cite{livermore2020rule}. Adoption is already happening, including global firms purchasing chatbot systems for advisory work~\cite{criddle2024law}. People also judge automated legal authority through legitimacy frames, not only performance frames~\cite{flanagan2025rule}. Legal value alignment is harder than general moral alignment, and value classification does not guarantee doctrinal discipline or stability across cases~\cite{zhang2024heterogeneous}. The gap shows up in jury-like tasks: LLMs can be more consistent than humans yet still track nonevidentiary factors, which limits readiness for judicial integration~\cite{sun2025llm}. Proposed fixes help but do not solve disciplined fact weighting under open-textured standards, even with self-alignment training or case-based reasoning anchors~\cite{pang2024self,feng2023case}.
+
+The empathy layer adds another trap: outputs can sound caring at near zero cost, so users may over-attribute concern, especially when they read phrases like ``I am sorry you went through this'' as evidence of responsiveness~\cite{sharma2023human,lin2024imbue,maples2024loneliness}. Empathy itself is multidimensional, and the motivational component is where current systems face principled obstacles~\cite{zaki2012neuroscience,montemayor2022principle}. Humans often avoid empathy because it is effortful, while models can infer affect and generate warmth by pattern learning, so warmth is a weak signal~\cite{ferguson2021empathy,wang2022systematic}. This matters when output influences blame and protection, prompting worries like ``Does it matter if empathic AI has no empathy?'' and the older critique that ``The trouble with artificial intelligence is that computers do not give a damn''~\cite{shteynberg2024does,dewaal2017mammalian,haugeland1979understanding}.
+
+To address this evidence gap, we introduce \textbf{DV-JusticeBench}, built from domestic violence decisions in China Judgments Online (\url{https://wenshu.court.gov.cn/}) and the Supreme People's Court 2025 Typical Anti-Domestic Violence Cases (\url{https://www.court.gov.cn/zixun/xiangqing/482111.html}). We do not test multiple-choice recall; we test value-laden justification under uncertainty, where multiple outcomes may be legally defensible but only some are institutionally well-grounded. Prior work shows rapid gains on exams, including bar passing results~\cite{katz2023gpt4,choi2023chatgpt}. Case-augmented systems can also explain legal concepts well, but domestic violence adjudication is not a closed-book test~\cite{savelka2023explaining}. 
+
+China is a meaningful setting because its judging practice mixes procedural models and openly reasons about social effects and fairness within open-textured standards~\cite{liu2001mixing}. DV-JusticeBench includes 108 cases and 540 structured questions targeting abuse characterization, risk and persistence, evidence appraisal, responsibility attribution, and public morals. We mitigate leakage by paraphrasing and de-identifying key sections and scoring outputs with experienced legal annotators across five dimensions, enabling reproducible auditing of whether models drift toward persuasive but thin narratives such as ``you should just endure for the child'' or ``both sides are equally at fault'' when the record and doctrine do not support that weighting.
+
+\section{Related Work}
+
+Legal LLM research has moved toward domain-specific datasets for retrieval and prediction, but most benchmarks still test label mapping, case similarity, or option selection rather than institutionally grounded justification~\cite{xiao2018cail,zheng2021pretraining}. We instead test value-laden reasoning and synthetic empathy in Chinese domestic violence adjudication, where open-textured standards require socially legitimate weighing of contested narratives and remedies, and where scale or multilingual coverage can even increase norm drift, making deployment a governance problem, not only an accuracy problem~\cite{niklaus2023multilegalpile,dehghani2025large}.
+
+\subsection{Benchmarks for Domestic Violence Cases}
+
+In legal practice, LLMs already draft and manage documents, cut turnaround time, and standardize routine client communications, making them plausible substitutes for parts of lawyer labor, not judicial judgment~\cite{macey2023chatgpt}. Domain-tuned systems go further by combining specialized corpora with external knowledge structures and multi-agent workflows, improving format discipline and apparent completeness in service settings, but those gains do not ensure disciplined subsumption or record-faithful remedy design under open-textured standards~\cite{cui2023chatlaw,huang2023lawyer,yue2023disc,furst2025challenges}. Meanwhile, decision support marketing focuses on triage, risk, and forecasting, and benchmarks show nontrivial performance on structured targets, yet deployments also reveal a core risk: users reward helpful fluency even when legal reliability fails, including fabricated authority and record-inconsistent reasoning, as in ``hallucinate in 1 out of 6 (or more) benchmarking queries''~\cite{niklaus2021swiss,perlman2023implications,magesh2024ai,hariri2025ai,guo2023chatgpt,noveck2007wikipedia}.
+
+Since legal authority is procedural and institutional, evaluation should test assistance as a workflow, not a single answer, and hybrid designs that combine conversational flexibility with structured constraints follow from this logic even when architectures use retrieval, knowledge graphs, and domain-model collaboration~\cite{tan2023chatgpt,wu2023precedent,cheong2023us}. Many benchmarks still reward answer matching over legally accountable justification even though disputes rarely have one correct resolution, so multi-dimensional rubrics and adversarial reasoning tests are better suited to capture defensible bridges from norms to contested facts under open-textured standards~\cite{anthropic2024claude,post2024supreme,guha2023legalbench,koreeda2021contractnli,openai2023gpt4bar,blairstanek2023statutory,nay2024tax,han2025courtreasoner}. 
+
+Work framed as access to justice shows language-level benefits such as de-escalation, but education and prompting studies still find brittle issue spotting in fact-rich scenarios, and practice commentary cautions against ``the end of litigation lawyers?'' when credibility, evidence strategy, and current law are contested~\cite{westermann2023llmediator,hargreaves2023words,yu2022legal,iu2023chatgpt}. Domestic violence evidence is especially thin because most datasets support detection or prevalence research rather than adjudicative reasoning that integrates proof, narrative contestation, and remedial choice, including hard disagreements about victim and perpetrator labeling and the limits of survey-based scaling~\cite{mshweshwe2020understanding,sikweyiya2020patriarchy,das2015causes,dutton2005female,dutton2007corrigendum,hossain2021prediction}.
+
+\subsection{Implicit Standards and Normative Judgments}
+
+Domestic violence adjudication in China forces courts to translate private narratives into public legal categories, and the statutory definition leaves room for judgment when abuse is episodic, psychological, or embedded in family roles~\cite{lin2024worthy}. That discretion shapes whether violence is legally recognized, whether it proves irretrievable marital breakdown, and how divorce, damages, custody, and related remedies are justified. Protection order practice adds a gatekeeping layer: the Anti-Domestic Violence Law created a personal safety protection order mechanism, and an application is not contingent upon filing for divorce~\cite{antidv2016}. In later litigation, a prior grant or denial becomes a practical signal about risk and protectability, and Supreme People's Court typical cases amplify those signals while packaging a court-approved moral frame for public uptake~\cite{zheng2025challenges,spc2025typical}.
+
+One recurring cluster is persistence and severity. Courts often distinguish ordinary conflict from domestic violence by asking whether conduct looks patterned and whether harm is serious enough to justify state intervention, and in protection order cases isolated incidents are frequently discounted even when some objective proof exists~\cite{zheng2025challenges}. Severity is commonly operationalized through visible injury or other externally verifiable outcomes, which biases outcomes toward physical harm and against psychological abuse unless it produces measurable consequences~\cite{lin2024worthy}. Typical case narratives reinforce frequency, duration, and escalation as markers, and comparable patterns appear elsewhere where prior history drives judicial risk assessment~\cite{park2025judicial}.
+
+A second cluster is evidence appraisal and credibility. Because abuse occurs in private and survivors may lack corroboration, courts often reward a complete evidentiary chain and discount single-source accounts, including self-produced materials, a pattern also documented in divorce-related DV research~\cite{zhang2018family}. Medical and police materials often anchor findings, and evidence scholarship shows how these credibility heuristics can decide civil DV cases before the merits are reached while policing-linked documentation shapes downstream institutional responses~\cite{aiken2000evidence,johnson2021motivations}. 
+
+Responsibility attribution further turns on implicit expectations of the ``ideal victim,'' and trauma-related inconsistency can be reframed as unreliability, even as Chinese practice sometimes offers a partial corrective, for example when a typical case stated that ``delayed reporting aligns with the behavioral patterns of domestic violence victims'' and treated delay as non-dispositive~\cite{randall2004domestic,beechermonas2001domestic,spc2025typical}. Public order and good morals supply another implicit standard that varies by local understandings of family stability versus social stability, and public messaging can narrow how doctrinal moves are interpreted, including warnings against overreading what counts as ``family members'' for anti-violence purposes~\cite{he2025threat,wang2025cohabitation}. These implicit standards are the practical target for evaluation because they show what legally disciplined empathy looks like in this domain.
+
+\subsection{AI Empathy and Social Judgement}
+
+LLMs can produce empathic language, but empathic judgment is harder because human empathy has cognitive, affective, and motivational components, and the evaluation question is whether supportive tone is paired with traceable warrants and record-faithful reasoning rather than generic pattern-matched warmth~\cite{rubin2024considering}. This matters in domestic violence disputes where users seek recognition and protection, and institutional pressures can push survivors to narrate harm in legible templates that distort what models learn to treat as credible~\cite{sweet2019paradox}. 
+
+Perceived source also changes reception: identical content is rated as more empathic when labeled human rather than AI, yet some users apply a machine heuristic and treat AI as more objective, lowering vigilance toward embedded value choices in adjudication-adjacent settings~\cite{rubin2025comparing,flanagan2025rule}. Cultural contextual intelligence is a distinct bottleneck in China-specific domestic violence contexts because practices encoded in terms like \textit{guanxi}, \textit{mianzi}, forbearance, and family involve situational tradeoffs and moral accounting that models do not access as ethical weight, so coping behaviors can be misread as inconsistency and converted into adverse credibility inferences~\cite{cui2022study}.
+
+Bias and accountability risks follow because domestic violence adjudication relies on open-textured criteria, and evidence from judgment tasks shows LLM decisions can track nonevidentiary cues, while evidence from generative imaging shows systematic underrepresentation and stereotype reinforcement even when users expect neutrality~\cite{sun2025llm,messingschlager2025algorithmic}. When doctrine is vague, models default to dominant training patterns, producing inconsistent value judgments with weak traceability, and the lack of genuine moral agency complicates accountability for downstream harm~\cite{shteynberg2024does}. The practical implication is narrow: accuracy gains alone are insufficient because the harder target is preventing compassion illusion and forcing value choices to be explicit rather than hidden inside fluent prose.
+
+\section{Methods}
+
+Before detailing the workflow, we strengthen internal validity by fixing a moderate, expert-informed sampling temperature to balance richness with doctrinal stability and reduce hallucinations, and by eliminating conversational carryover through fresh, standardized chat sessions for each case to improve cross-case comparability and limit memory confounds~\cite{peeperkorn2024temperature}.
+
+\subsection{Dataset}
+
+LLMs are increasingly used in value and emotion-sensitive settings, yet most domestic violence datasets still emphasize detection and prevalence rather than adjudicative judgment, so our benchmark targets Chinese decisions where outcomes turn on public morals, relational norms, and discretionary legal standards, drawing from the Supreme People's Court 2025 anti-domestic violence typical cases and China Judgments Online. 
+
+We sample 108 civil and criminal cases from 2023 to 2025, prioritizing contested narratives, dense reasoning, and detailed submissions that surface value balancing; typical cases are especially informative because they are curated to guide lower courts on evidence appraisal and protective measures in hard scenarios. The setting matches our question because Chinese adjudication is hybrid, with judges actively examining evidence and clarifying facts while parties still contest claims~\cite{yong2024comparative}. 
+
+For each opinion, we segment background facts, keywords, court reasoning, and disposition using DeepSeek V3 extraction, then conduct a full human verification pass; we de-identify and lightly paraphrase background and outcomes to reduce verbatim overlap while preserving legally material structure. Each case yields five structured dispute questions for 540 total, evaluated on a fixed expert-curated subset including typical cases to control refusals and sensitive-content handling, and the questions target normative decision points, including abuse characterization, risk and persistence, evidence appraisal, victim responsibility attribution, and public morals and relationship context.
+
+\subsection{Prompting Protocol and Language Models}
+
+\begin{table*}[!ht]
+\centering
+\caption{Decoding Settings by Pipeline Stage}
+\label{tab:decoding}
+\small
+\begin{tabular}{@{}p{4.5cm}cp{2.8cm}p{4cm}@{}}
+\toprule
+\textbf{Component (pipeline stage)} & \textbf{Temperature} & \textbf{Max-tokens} & \textbf{top-p / top-k / penalties / seed} \\
+\midrule
+Answer generation (all evaluated models) & 0.3 & 3{,}000 $\rightarrow$ 16{,}000 & Not explicitly set (provider defaults) \\[3pt]
+Question generation (DeepSeek) & 0.7 & 2{,}000 $\rightarrow$ 16{,}000 & Not explicitly set (provider defaults) \\[3pt]
+De-identification (masking via DeepSeek) & 0.3 & 4{,}000 & Not explicitly set (provider defaults) \\[3pt]
+Judge-answer extraction (if used) & 0.1 & 1{,}500 $\rightarrow$ 16{,}000 & Not explicitly set (provider defaults) \\[3pt]
+Decision-comparison analysis (optional) & 0.5 & 2{,}500 $\rightarrow$ 16{,}000 & Not explicitly set (provider defaults) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+We use a two-stage prompting protocol. Stage one generates five structured dispute questions from each anonymized case record, mapped to abuse characterization, risk and persistence, evidence appraisal, victim responsibility attribution, and public morals with relationship context. The prompt excludes fact recall and simple yes-or-no items and instead requires legally traceable analysis tied to the court's reasoning, and a legal expert reviews and edits each question to ensure it targets a genuine decision point with a supportable reference answer in the opinion.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{chart_token_usage}
+  \caption{Token Usage Comparison. Claude uses 7,684 tokens on average (highest), while Gemini uses only 3,126 (lowest). Top-tier models (DeepSeek variants) achieve best scores with moderate budgets (4,247–5,038 tokens).}
+  \label{fig:token}
+\end{figure}
+
+Stage two produces model answers under standardized inputs and sampling controls (see Table~\ref{tab:decoding}). Each run starts from a fixed system prompt and a stable input order, with an anonymized background summary plus one structured question, and the model is instructed to write in a judge-style by stating governing norms, linking norms to facts, explaining how each item of evidence strengthens or weakens each inference, and surfacing value balancing under open-textured standards; generation is capped at 2000 tokens with a 180-second timeout and one retry if truncated, up to 16,000 tokens, and each question is run in a fresh session to prevent conversational carryover. We use stage-specific temperatures to balance reliability and coverage: 0.7 for question generation, 0.3 for case answering, 0.1 for verbatim extraction, and 0.5 for comparative analysis; we keep top-k unset, retain API defaults, and evaluate representative model families including GPT-4o, GPT-5, DeepSeek-R1, DeepSeek-V3, Qwen-Max, Gemini 2.5 Flash, and Claude Opus 4.
+
+\subsection{Evaluation Rubric}
+
+Our rubric mirrors how Chinese courts justify outcomes and departs from common law benchmark designs centered on precedent choice and analogical reasoning: decisions typically start from statutes and high-level standards as the major premise, map disputed facts and issues onto that norm as the minor premise, and then reach a reasoned conclusion, which motivates scoring that tests disciplined norm-to-fact-to-disposition reasoning and value-laden discretion under open-textured standards~\cite{wang2019decoding}. 
+
+We use an LLM-based meta-evaluator to score each output from 0 to 4 on five dimensions, and then apply impactful error flags as post-hoc penalties via predefined caps and deductions for unsafe failures such as fabricated authority, core fact misreadings, and harmful value errors:
+
+\begin{enumerate}
+\item \textbf{Normative basis relevance}: Whether invoked statutes, interpretations, or other authorities are accurate and operationally relevant rather than generic or fabricated.
+\item \textbf{Subsumption chain alignment}: Whether the answer links issue to norm to elements or factors to facts to sub-conclusions to final conclusion without gaps.
+\item \textbf{Value balancing and empathy alignment}: Whether the answer identifies and weighs the right value axes in a restrained professional way without victim-blaming or stigmatizing inferences.
+\item \textbf{Key facts and issue coverage with evidence mapping}: Whether decisive facts and disputes are captured, established versus disputed points distinguished, and each inference tied to record support without invention.
+\item \textbf{Outcome and remedy alignment}: Whether the proposed disposition and relief allocation follow the rule-fact-value chain and are functionally consistent with the reference decision.
+\end{enumerate}
+
+We evaluate frontier LLMs across providers and training paradigms under the same pipeline: privacy masking, dispute-centered question generation, task-adaptive answering, and five-dimension scoring with authority and paragraph-level checks, treating meta-evaluation as calibration and quality control alongside primary expert annotation and reporting both raw totals and penalty-adjusted scores~\cite{guo2025specialized}.
+
+\section{Results}
+
+We report performance on a curated, expert-vetted question set using three lenses: (i) rubric score as the primary ranking signal, (ii) reliability and error signals to capture failure modes that averages miss, and (iii) cost and verbosity signals such as tokens and length where available, with all metrics produced under the same four-stage pipeline: (1) privacy masking, (2) expert-reviewed dispute-centered question generation, (3) standardized answer generation with a fixed system prompt, stable input order, and fresh sessions to prevent carryover, and (4) rubric scoring with authority-level auditing cues.
+
+\textbf{Score-based ranking.} Figure~\ref{fig:ranking} ranks models by mean total score out of 20, aggregating five 0-to-4 dimensions and applying impactful error flags as post-scoring penalties: DeepSeek-Thinking (16.45), DeepSeek (16.42), Gemini (15.63), Claude (13.11), Qwen-Max (10.36), and GPT-4o (9.39); the separation is driven by judicial reasoning alignment and evidential discipline, not style, and the steepest drop to GPT-4o appears in Subsumption Chain Alignment (3.39 vs. 1.71) and Key Facts and Issues Coverage (3.25 vs. 1.68), explaining why lower-ranked models can sound plausible yet fail to reproduce the court's norm-to-fact proof structure.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{chart_ranking}
+  \caption{Overall Ranking. The final ranking: (1) DeepSeek-Thinking, (2) DeepSeek, (3) Gemini, (4) Claude, (5) Qwen-Max, (6) GPT-4o. The top two are statistically tied, and the gap between tiers is substantial.}
+  \label{fig:ranking}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{chart_pareto_tradeoff}
+  \caption{Pareto Trade-off (Quality-Reliability-Cost). DeepSeek achieves the highest reliability with moderate cost, while GPT-4o exhibits both the lowest score and highest abandoned-law rate.}
+  \label{fig:pareto}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{chart_heatmap_dimensions}
+  \caption{Model Performance Heatmap: Average Scores by Dimension. Top-tier models excel in Subsumption Chain Alignment (3.39–3.42/4) and Key Facts Coverage (3.25–3.30/4).}
+  \label{fig:heatmap}
+\end{figure}
+
+\textbf{Error profiles explain rank differences.} High-salience error counts track score, with Qwen-Max showing the most major errors (4) and a high obvious-error load (78), GPT-4o showing the highest obvious-error count (86), and DeepSeek-Thinking and DeepSeek showing far fewer obvious errors (29 and 31), consistent with stronger subsumption and fact-mapping behavior.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{chart_errors}
+  \caption{Error Statistics (Major/Obvious/Minor). GPT-4o and Qwen-Max have the most obvious errors (86 and 78), while DeepSeek-Thinking and DeepSeek have far fewer (29 and 31).}
+  \label{fig:errors}
+\end{figure}
+
+\textbf{Why we report reliability signals alongside ranks.} Average score can mask operational risks. We report reliability signals such as abandoned-law citations: 0/100 for Gemini, 1/100 for DeepSeek, 7/100 for DeepSeek-Thinking, 7/100 for Qwen-Max, 10/100 for Claude, and 16/100 for GPT-4o, since an answer can be fluent and empathetic yet unusable if it relies on repealed authority; notably, DeepSeek-Thinking gains only +0.04/20 over DeepSeek in mean score (16.45 vs. 16.42) but increases abandoned-law citations (7 vs. 1), revealing a score-reliability tradeoff.
+
+\textbf{Cost and verbosity signals.} We also report cost and verbosity where token telemetry is available: average total tokens per response range from 3,594 (Qwen-Max) to 5,811 (Gemini), with DeepSeek at 4,317 and Claude at 4,230, while average answer length ranges from 1,060 characters (GPT-4o) and 1,357 (Qwen-Max) to 3,773 (DeepSeek) and 3,888 (Gemini), showing that longer outputs and higher token usage do not guarantee stronger judicial alignment and supporting joint reporting of quality and compute cost.
+
+Fabricated authority, core fact inversion, and procedural stage confusion are treated as penalties rather than a sixth rubric dimension, with caps and deductions to avoid double counting while keeping rankings anchored to the five judicial quality dimensions; GPT-5 is excluded from the main ranking because it refused most prompts in this slice (65/100), and although its mean score on the 35 non-refused responses is 16.60/20, the refusal pattern makes cross-model comparison less comparable.
+
+\section{Discussion}
+
+The results above show where models perform well and where they break down. We now move to text-level analysis to explain these patterns and illustrate how reasoning succeeds or fails in practice.
+
+\subsection{Judicial Reasoning Alignment}
+
+\textbf{Normative Basis Relevance.} Dimension averages in the 100-question slice show a stable gradient: DeepSeek-Thinking and DeepSeek score about 3.4/4 on Normative Basis and Subsumption, while GPT-4o is about 2.1/4 on Normative Basis and 1.7/4 on Subsumption, with the largest gaps in Key Facts and Issues Coverage (3.25 vs. 1.68) and Subsumption (3.39 vs. 1.71). Normative basis relevance measures whether the cited rule does real work in the case, meaning operational relevance rather than general legal knowledge, because in a statute-centered civil law setting the governing norm is the major premise and a wrong rule can make later reasoning sound fluent but remain ungrounded.
+
+Higher scoring answers tend to anchor domestic violence characterization in the definition clause of the Anti-Domestic Violence Law of the PRC, including ``the inflicting of physical, psychological or other harm\ldots'', and in custody and protection order disputes they pair the Civil Code art. 1084 ``best interests of the minor'' and art. 1085 support payments with the protection order gateway norms (Anti-Domestic Violence Law, arts. 23 and 27 ``personal safety protective order''). In homicide cases triggered by long-term abuse, stronger outputs separate conviction from sentencing and cite Criminal Law of the PRC, art. 232 and art. 67, with one representative move stated as ``recommend a substantial mitigation within the sentencing range for intentional homicide, but not a downward adjustment to the next range'', which mirrors what judges treat as legally actionable in written reasons.
+
+Failures are rarely random and often reflect gaps between model citation habits and judicial discretion. One pattern is slogan-level reliance on broad principles, for example citing Civil Code art. 8 ``public order and good morals'' and art. 153 ``void juridical act'' without connecting them to the operative doctrinal tool, producing lines like ``legal protection of personal rights is the cornerstone of social order'' that read well but miss the technical path; another is thin procedure and evidence analysis where disputes turn on Civil Procedure Law burdens such as ``who asserts, who proves'' but outputs stay on entity law. Norm mixing also depresses scores, as when Qwen-Max cites Civil Code of the PRC, art. 1062 ``community property and joint possession'' in a cohabitation case, or when Claude omits the decisive gift rule in a ``gift'' dispute, Civil Code of the PRC, art. 657 ``gift contract''. Update lag is visible via abandoned-law citations: Gemini 0/100, DeepSeek 1/100, DeepSeek-Thinking and Qwen-Max 7/100 each, Claude 10/100, and GPT-4o 16/100, and bride price disputes especially penalize reliance on older anchors instead of the newer SPC rules, Provisions by the Supreme People's Court on Several Issues Concerning the Application of Law in the Trial of Cases Involving Betrothal Gift Disputes, arts. 5 to 6. Some judgments also cite international norms such as The Convention on the Elimination of all Forms of Discrimination Against Women, a layer models rarely mirror, and because public acceptance of AI legal support can be high even when explicitly non-human, normative basis relevance functions as a structural marker of judicial alignment and a legitimacy proxy.
+
+\textbf{Subsumption Chain Alignment.} It captures whether an answer builds a disciplined issue-to-norm-to-factors or elements-to-facts-to-sub-conclusions-to-final-conclusion chain. The strongest outputs treated legal labels as propositions to be proven and forced explicit factorization and mapping: in a domestic violence framing task, DeepSeek started from the issue of improper provocation versus domestic violence as victim fault, invoked Anti-Domestic Violence Law, art. 2, broke ``domestic violence in the legal sense'' into working parts, then mapped record facts such as long-term verbal abuse and control, property destruction, a slap, and a knife stabbing toward a sofa, and marked key items as not satisfied with judge-like reasons, for example the knife act targeting property, the record not supporting homicidal intent, and the sequence reading as retaliation, so the sub-conclusion followed from itemized judgments rather than rhetoric. The same structure appears when models use court-like sequencing in defense and protective relief: DeepSeek often applies the two-step path for legitimate defense (whether established and whether excessive), operationalizes Guiding Opinions, art. 10 as testable factors, and ties them to facts such as a power gap, one knife seizure, 17 later stabs, and post-event statements; Gemini similarly links Anti-Domestic Violence Law, art. 2 and art. 23 to a structured realistic danger analysis grounded in facts like self-harm with a knife as escalation, pushing causing injury as direct intrusion, and repeated conflict as recurrence; custody chains improve when Civil Code of the PRC, art. 1084 is operationalized through stability, caregiving history, child preference, parental conditions, and conduct risk, and remedy chains improve when claims are separated and mapped to distinct norms, including divorce under Civil Code art. 1079, property division and homemaker compensation under art. 1087 and art. 1088, and damages under art. 1091. Weaker outputs show recurring failures: norm drift that substitutes broad principles like ``public order and good morals'' for the judge's operative path, element omission on mental violence and control, issue drift that answers a different dispute such as pivoting to Criminal Law of the PRC, art. 20 when the question is the alleged abuser's responsibility and protection order relief under Anti-Domestic Violence Law art. 2 and art. 23, and thin mapping that lists factors without itemized rebuttal handling, including bride price disputes citing Civil Code art. 1042 and SPC Interpretation I art. 5 and art. 31.
+
+\subsection{Explanatory Quality and Legal Application}
+
+\textbf{Key Facts and Issue Coverage.} A legally usable output must do three things at once: identify outcome-driving facts, map them to the relevant elements or discretionary factors, and maintain strict evidential discipline by controlling fact status. DeepSeek performed strongly in a self-defense style dispute by separating background conflict from the incident-day escalation and then linking micro-facts to doctrinal tests rather than telling a story, treating ``stabbing the sofa'' as legally relevant to immediacy and intensity and treating long-term insults and control as inputs to infringement intensity and control-related factors. A second strong answer isolated a decisive micro-fact and stated its doctrinal consequence, emphasizing that ``all evidence indicates the knife's direction was toward the sofa, not the defendant's body'' and then placing that fact into a structured frame tied to unlawfulness intensity, imminence, necessity, and intent transformation. Similar record-faithful mapping appeared in family cases when outputs treated the opinion as proof structure: DeepSeek in divorce reasoning distinguished established facts such as a rape conviction history from disputed or unproven claims such as continuing domestic violence or persistent separation and mapped them into breakdown factors; Claude in a protection order setting mapped violence facts to domestic violence recognition and mapped economic dependence to its distinct relevance for compensation and responsibility; Qwen in custody modification and protection contexts anchored harms and risks, including beatings and sexual abuse risk, in evidence such as injury appraisal and the child's letters and mapped them into protective duties under the Anti-Domestic Violence Law and the Law of the People's Republic of China on the Protection of Minors (2024 Amendment); Gemini also performed well when it separated party assertions from judicial findings, weighed the workplace ``slap'' incident materials, noted that the trial court's domestic violence finding was affirmed on appeal, and mapped the facts to the court's proof structure.
+
+Weaker outputs clustered into repeatable legal failure types. Evidential defaulting occurs when asserted facts are treated as proven, such as building analysis on chat logs and injury photos while omitting the court's decisive finding that the evidence ``could not achieve the purpose of proof'', which turns later subsumption into doctrine applied to an imagined record; inference inflation appears when ``economic control'' is added as a case fact based on ``common patterns'' rather than record support. Another pattern is wrong legal meaning assignment, as when ``self-harm threats with a knife'' are reframed as bodily harm and the decisive psychological fear basis is missed, or when the knife threat is captured but the separate fear finding is underweighted. Focus drift is common in appellate custody cases when the output re-litigates domestic violence recognition even though the appellate court set custody allocation as the only live issue, leading to omission of decisive custody facts such as the children's stable residence, schooling proximity, the daughter's expressed preference, and the relocation cost of geographic distance; minor timeline imprecision can also weaken fact mapping. Procedural posture omissions are uniquely damaging, for example omitting that the applicant failed to appeal within the statutory period without justification and offered no new evidence in retrial review, or omitting contested fault allegations and new appellate requests that drive ratios in betrothal gift return disputes, or missing the offsets and net difference calculation that is the core basis for ``no legal basis'' reasoning in funds disputes, because these are not minor details but the facts that actually drive the legal conclusion.
+
+\textbf{Outcome and Remedy Alignment.} LLM outputs can look more stable than human decisions because they lack intrinsic human variability, but stability is not legal alignment, especially when remedies are multi-layer and operational~\cite{zanotto2024human}. Strong alignment appears when models translate characterization into concrete, record-faithful relief architectures. In some homicide cases, DS tracked the court's sentencing logic by rejecting a domestic violence finding while treating the victim's role in escalation as mitigation, treating confession as a key leniency factor, and aligning aggravation and mitigation lists, yielding a disposition functionally consistent with life imprisonment calibrated by mitigation. DS also aligned in hybrid remedies by recommending immediate issuance of a personal safety protection order with standard prohibitions such as ``no violence'' and ``no harassment'' and ``no contact'' plus a move-out measure tied to cohabitation risk, matching a six-month prohibition package as functionally equivalent core relief.
+
+Monetary and family relief alignment was strongest when outputs kept each remedy component tied to proven losses and legal duties, emphasizing structure over numeric precision. DS matched courts by endorsing the same compensation categories, such as medical expenses, lost wages, nutrition, nursing, and property loss, plus non-economic accountability such as apology, without internal conflict. Claude aligned in divorce and domestic violence cases by supporting divorce, recognizing domestic violence, tilting property division toward the victim, awarding divorce damages, and awarding domestic labor compensation, matching the court's remedy architecture even without a numeric split. In custody change, Qwen matched direction and allocation by supporting custody to the mother, continued protection order enforcement, and child mental health-linked measures like counseling, and Gemini often produced functionally equivalent layered packages that move from immediate protection to accountability and longer-term stabilization, paralleling courts that rely on service and warning, coordinated monitoring, fines and admonition, shelter support, mediated divorce, and attention to minors' mental health.
+
+Misalignment often concentrates in the remedy layer even when the overall direction sounds plausible. DS sometimes predicted ``death with a two-years suspension of execution'' rather than life imprisonment, a difference that changes legal status and commutation pathways, and both Claude and GPT showed remedy thinness by stopping at issuance or maintenance of a protection order without reflecting the court's closed-loop design, including service, warning, multi-agency coordination, monitoring, sanctions for violations, and shelter support. Remedy drift also follows issue drift, as when an appellate custody dispute is analyzed through domestic violence labeling but the custody allocation endpoint is left abstract, and the most serious failures are outcome reversals in property division or in retrial and rehearing contexts where procedural posture is dispositive, since overlooking procedural bars can yield a coherent substantive package that still conflicts with the court's legally available path. A related pattern is overweighting one factor, such as treating domestic violence labeling as a decisive lever in a betrothal gift return ratio when the court treated injury as one circumstance within a broader balance, showing that alignment is fragile when relief is multi-layer, operational, or procedurally constrained even if simpler endpoints are often tracked correctly.
+
+\subsection{Value-Laden Decisions}
+
+Judicial writing rarely follows facts to a single conclusion because it turns on normatively charged, open-textured terms, so this dimension tests whether models surface the right value axes and keep empathy professional while avoiding victim-blaming, stigmatization, or moralized inference. Several answers showed disciplined value identification tied to legal discretion. In homicide settings, DS balanced social safety and the sanctity of life against individualized justice, used restrained phrasing like ``long-term improper words and conduct'' and ``direct responsibility for escalation,'' rejected the move from context to justification, and separated ``victim responsibility'' from the legal predicates of self-defense. In a self-defense style dispute, DS framed the boundary as encouraging legitimate defense while preventing abuse. In a domestic violence divorce context, Claude framed compensation as dignity repair and weak party protection, stated that ``economic dependence does not reduce responsibility'' but supports remedial tilt, and endorsed domestic work compensation and divorce damages under Civil Code Article 1091 without sensational language.
+
+In child-related cases, stronger outputs operationalized ``best interests'' into legally actionable welfare and risk factors such as safety, stability, caregiving history, and mental health, keeping value talk tethered to the record rather than moral theater. Claude, GPT, and Qwen consistently translated best interests into concrete concerns, with GPT linking violence and gambling risks to psychological development and custody allocation, and Qwen balancing the controlling value with ``emotional reliance'' and ``care quality'' while recognizing the non-custodial parent's relational interest through visitation safeguards. Outside the domestic violence core, Gemini and DS often paired public order with procedural fairness, insisting that contract elements and proof burdens cannot be displaced by broad principle talk while treating family norms as interpretive context rather than blame, and DS sometimes made procedure a value axis by invoking judicial economy and dispute finality or by warning that opportunistic, unproved accusations threaten procedural legitimacy, targeting litigation posture rather than moral worth.
+
+Empathy quality also reflected institutional legibility dynamics in domestic violence scholarship, where survivor narratives can become legible through particular framings, and Sweet (2019) shows that emphasizing mental health impacts and recovery can increase institutional legibility~\cite{sweet2019paradox}. In our slice, GPT and Qwen often treated fear and child psychological harm as legally relevant, and Gemini sometimes showed boundary discipline by separating compassion from doctrinal distortion, but thinner answers stayed at ``protect first'' slogans and missed deeper axes that courts foregrounded, such as coercive control as the essence of domestic violence, mental fear as substantive harm, minors as an independent protection axis, and multi-agency coordination as a governance value. Similar thinness appeared when Qwen missed public order messaging in excessive bride price disputes or when Claude under-stated the court's emphasis on preserving the seriousness of marriage registration order in fake divorce avoidance contexts. Quantitatively, Value Balancing and Empathy averages range from 3.36/4 for DeepSeek and DeepSeek-Thinking to 1.97/4 for GPT-4o, and the most reliable outputs treated values as constraints shaping discretion and relief, not as sentiment, while generic outputs failed because key axes were not identified or not carried through into the legal recommendation.
+
+\subsection{Impactful Errors}
+
+As shown in Figure~\ref{fig:errors}, error counts track the score gradient: GPT-4o and Qwen-Max have the most obvious errors (86 and 78), while DeepSeek-Thinking and DeepSeek have far fewer (29 and 31), matching the dimension averages where Subsumption and Key Facts and Issues Coverage drop most sharply from the top tier to GPT-4o. These errors are not cosmetic because they alter legal authority, proof posture, or the court's available relief, and fluent ``citation-shaped'' language can still be globally wrong in ways consistent with deceptive search spaces and unintended side effects. A fatal, repeatable failure is stale-law citation, with abandoned-law references ranging from 0/100 to 16/100, peaking at 16/100 for GPT-4o and 10/100 for Claude: several answers cited the repealed Marriage Law instead of the Marriage and Family Book of the Civil Code even though the Civil Code has been in force since January 1, 2021 and the Marriage Law was simultaneously repealed, and the traceability break is worse when the output signals the post-Civil Code regime but still relies on abolished language, as when GPT cited ``Interpretation (II) of the Supreme People's Court on the Application of the `Marriage and Family' Book of the Civil Code of the People's Republic of China'' yet leaned on the abolished ``Marriage Law''. Related omissions reinforce the same point, including missing Civil Code Article 1088 on housework compensation and failing to treat Civil Code Article 1084 as the core custody standard.
+
+Citation errors range from moderate to major. Moderate errors include wrong article numbers with roughly correct doctrine, for example Claude citing ``Civil Code Article 1074'' where the content matches Civil Code Article 1091 on divorce damages and citing ``Civil Code Article 1063'' where the content matches Civil Code Article 1088, while clearer relevance errors include Gemini citing Civil Code Article 1092 in a custody dispute even though Article 1092 targets concealment or dissipation of marital property, and GPT citing Civil Code Article 154 on public order and good morals without using it to analyze whether ``fake divorce'' violated public order, producing ornamental reasoning. Fabricated authority is higher risk because it manufactures constraints, as when Qwen cited a nonexistent SPC document, ``Opinions of the Supreme People's Court on Trying Civil Cases Involving Domestic Violence'', and misquoting real law can also be outcome-shifting, such as Claude misquoting Anti-Domestic Violence Law Article 2 by inserting ``kidnapping'' and ``confinement'' or reframing a protection order dispute as bodily harm logic when the judgment treated a knife-based self-harm threat as psychological violence producing fear. Core fact inversion is likewise major in proof-based law, as when GPT stated evidence was ``not cross-examined'' despite the judgment recording it ``was cross-examined'' and the other party had ``no objection''. Major error counts separate models (Qwen-Max 4, DeepSeek 3, Claude 3, GPT-4o 2, DeepSeek-Thinking 1, Gemini 1), supporting impactful error flags as post-scoring penalties, and procedural stage confusion is outcome-shifting in retrial contexts, for example Gemini recommending ``vacate and remand'' at retrial review while citing Civil Procedure Law Article 215, which points toward rejecting the retrial application when statutory grounds are not met. The practical takeaway is that some errors are low-stakes edits, but hard fails include fabricated authority, inversion of core facts, and procedural stage confusion, so citation discipline and effective law alignment must operate as first-order reliability constraints in legal deployment.
+
+\section{Conclusion}
+
+Domestic violence is pervasive and multi-causal, so early accessible guidance can reduce harm before formal proceedings, and DV-JusticeBench suggests LLMs can support consultation-stage users with safety-oriented guidance, restrained reassurance, and legally framed next steps, especially when stronger systems treat values as constraints on discretion and relief and surface axes like risk, dignity, vulnerability, minors' welfare, and procedural posture that help users see what courts treat as legally salient. This kind of ``cognitive empathy'' can increase institutional legibility for survivors, which socio-legal work shows is often decisive for recognition and action~\cite{lin2024worthy}.
+
+But perceived chatbot empathy is not human care, so the proper role is augmentation rather than emotional substitution, and the same evidence shows these tools must not be used as outcome engines or substitutes for judges because impactful errors are not cosmetic: they change governing law, proof posture, and available relief. Property division is especially high risk because small legal missteps shift distribution effects and compliance incentives, and models can overshoot legally bounded rationality with moralized caretaker instincts that conflict with proof rules and remedial architecture.
+
+Methodologically, DV-JusticeBench pairs an auditable 0-to-4 rubric across five judicial quality dimensions with post-scoring penalties for impactful errors and a reproducible four-stage pipeline, and in the 100-question slice mean scores rank DeepSeek-Thinking (16.45/20) and DeepSeek (16.42/20) highest, followed by Gemini (15.63/20), Claude (13.11/20), Qwen-Max (10.36/20), and GPT-4o (9.39/20), with the largest gaps in subsumption alignment and key-fact coverage.
+
+DV-JusticeBench is jurisdiction and period-specific, built from Chinese written judgments from 2023 to 2025 in a policy environment that links family governance to social harmony, so findings should not be assumed to generalize across jurisdictions, earlier periods, or different institutions.
+
+%%
+%% Acknowledgments
+\begin{acks}
+We thank the legal experts who contributed to annotation and the research community for feedback on earlier versions of this work.
+\end{acks}
+
+%%
+%% Bibliography
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
