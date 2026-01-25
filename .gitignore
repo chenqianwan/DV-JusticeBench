@@ -80,9 +80,3 @@ LATEX_CONVERSION_SUMMARY.md
 
 # Paper/LaTeX files (excluded from engineering repository)
 latex/
-
-# Large media files (exceed GitHub 100MB limit - use Git LFS or provide separately)
-*.mp4
-*.mov
-*.avi
-*.mkv
