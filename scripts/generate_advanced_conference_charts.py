@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generate "conference-favorite" advanced charts for the unified 20-case slice.
+Generate advanced charts for the unified 20-case slice.
 
 Data source of scores/errors: multi-sheet Excel (single source of truth)
   - data/results_YYYYMMDD_unified_xxx/20个案例_统一评估结果_108cases.xlsx
@@ -952,7 +952,7 @@ def main():
     # Auto-detect latest unified results folder or accept argument.
     import argparse
 
-    parser = argparse.ArgumentParser(description="Generate advanced conference charts for unified Excel results")
+    parser = argparse.ArgumentParser(description="Generate advanced charts for unified Excel results")
     parser.add_argument(
         "--results_dir",
         type=str,
@@ -1000,7 +1000,7 @@ def main():
         except Exception as e:
             print(f"[WARN] skip {model}: {e}")
 
-    # Generate charts (conference-favorite set)
+    # Generate charts (advanced analysis set)
     created: List[str] = []
     created.append(plot_pareto(stats, results_dir))
     created.append(plot_bootstrap_ci({m: model_dfs[m] for m in MAIN_MODELS if m in model_dfs}, results_dir))

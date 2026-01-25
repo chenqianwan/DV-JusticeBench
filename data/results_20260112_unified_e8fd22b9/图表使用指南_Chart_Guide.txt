@@ -1,6 +1,6 @@
 ================================
 DVJUSTICE 论文图表使用指南
-Chart Usage Guide for ICAIL Paper
+Chart Usage Guide
 ================================
 生成时间: 2026-01-18
 文件夹: data/results_20260112_unified_e8fd22b9/
@@ -25,7 +25,7 @@ Chart Usage Guide for ICAIL Paper
 - 直观展示没有"完美模型"，只有tradeoff
 - 适合Results章节主图或Discussion引用
 
-建议文中描述 (ICAIL):
+建议文中描述 (会议版):
 "Figure X presents a Pareto-style view of the quality–reliability–cost trade-off. Points plot mean rubric score (x-axis) against abandoned-law rate (y-axis), with marker size encoding compute cost (avg. total tokens) when telemetry is available; hollow markers indicate missing token telemetry in this slice. DeepSeek and DeepSeek-Thinking lead in score, while Gemini achieves the best reliability (0/100 abandoned). GPT-4o exhibits both lower score and the highest abandoned-law rate (16/100), illustrating that fluency does not guarantee operational reliability."
 
 建议文中描述 (Journal版，更详细):
@@ -46,7 +46,7 @@ Chart Usage Guide for ICAIL Paper
 - 小样本(n=20 cases)情况下必要的可信度证明
 - 适合Methods 3.3节或Results 4.1节补充
 
-建议文中描述 (ICAIL):
+建议文中描述 (会议版):
 "Figure X shows mean scores with 95% bootstrap confidence intervals (10,000 resamples). DeepSeek-Thinking (16.45, CI: [15.92, 16.98]) and DeepSeek (16.42, CI: [15.89, 16.95]) are statistically indistinguishable, confirming that the +0.03 gain is within sampling variability. Gemini's CI [14.95, 16.31] overlaps slightly with the top tier but remains distinct from lower-ranked models. Claude, Qwen-Max, and GPT-4o show progressively wider CIs and lower means, with GPT-4o's CI [8.53, 10.25] fully separated from all others. These intervals confirm that ranking differences are robust despite the 20-case slice."
 
 建议文中描述 (Journal版):
@@ -67,7 +67,7 @@ Chart Usage Guide for ICAIL Paper
 - 展示模型稳定性和robustness
 - 适合Discussion章节或Limitations引用
 
-建议文中描述 (ICAIL):
+建议文中描述 (会议版):
 "Figure X decomposes risk by showing mean score, 10th percentile, and CVaR@10% (mean of the worst 10% of scores) for each model. DeepSeek-Thinking's 10th percentile (14.00/20) is higher than most models' means, indicating strong floor performance. DeepSeek and Gemini also show narrow tail gaps (10th percentiles: 13.00 and 12.00). In contrast, GPT-4o's 10th percentile drops to 4.00/20, with CVaR@10% at 5.70, signaling severe tail risk. For legal applications where worst-case failures can cause harm, tail metrics matter as much as averages."
 
 建议文中描述 (Journal版):
@@ -89,7 +89,7 @@ Chart Usage Guide for ICAIL Paper
 - 展示"贵不一定好"的事实
 - 适合Discussion或Deployment Considerations引用
 
-建议文中描述 (ICAIL):
+建议文中描述 (会议版):
 "Figure X plots quality (mean score) against compute cost (avg. total tokens per response) for models with token telemetry in this slice. Qwen-Max uses the fewest tokens (3,594) but scores low (10.36), while Gemini uses the most tokens (5,811) and scores 15.63. DeepSeek (4,317) achieves the best score-per-token trade-off among logged models. Models without telemetry are omitted from this plot."
 
 建议文中描述 (Journal版):
@@ -111,7 +111,7 @@ Chart Usage Guide for ICAIL Paper
 - 强调reliability作为hard constraint
 - 适合Discussion或Future Work引用
 
-建议文中描述 (ICAIL):
+建议文中描述 (会议版):
 "Figure X applies a reliability gate: models with abandoned-law citation rates above 1% are grayed out as failing the deployment threshold. Only DeepSeek (1/100 = 1.0%) and Gemini (0/100 = 0.0%) pass the gate, with DeepSeek ranking first among reliable models. DeepSeek-Thinking (7/100 = 7.0%), Qwen-Max (7%), Claude (10%), and GPT-4o (16%) all exceed the threshold. This view reflects a binary deployment decision: in judicial settings, even occasional reliance on repealed authority may be unacceptable, regardless of average score."
 
 建议文中描述 (Journal版):

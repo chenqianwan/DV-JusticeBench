@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/chenqianwan/DV-JusticeBench/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/)
 [![Benchmark](https://img.shields.io/badge/benchmark-DVJUSTICE-orange.svg)](#benchmark-overview)
 
@@ -124,8 +124,8 @@ Full rubric: [`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/
 
 ```bash
 # 1. Clone the repository
-git clone <repository-url>
-cd huangyidan
+git clone https://github.com/chenqianwan/DV-JusticeBench.git
+cd DV-JusticeBench
 
 # 2. Install dependencies
 pip install -r requirements.txt
@@ -151,7 +151,7 @@ python app.py
 # Run unified parallel evaluation
 bash scripts/run_models_unified_parallel.sh
 
-# Generate charts from results
+# Generate advanced analysis charts from results
 python scripts/generate_advanced_conference_charts.py
 ```
 
@@ -160,7 +160,7 @@ python scripts/generate_advanced_conference_charts.py
 # Evaluate answers using rubric
 python scripts/evaluate_answers.py
 
-# Generate comprehensive charts
+# Generate advanced analysis charts
 python scripts/generate_advanced_conference_charts.py
 ```
 
@@ -208,43 +208,43 @@ Results on the 20-case evaluation slice (100 questions). Full benchmark (108 cas
 
 #### 1. Average Score Comparison
 
-![Average Score](data/results_20260112_unified_e8fd22b9/chart_avg_score_20260117_235927.png)
+![Average Score](data/results_20260112_unified_e8fd22b9/chart_avg_score_20260118_222455.png)
 
 The top two models (DeepSeek-Thinking: 16.45, DeepSeek: 16.42) are statistically indistinguishable. The gap between tiers is substantial: top tier outperforms GPT-4o by >7 points (35%).
 
 #### 2. Quality-Reliability-Cost Trade-off (Pareto Frontier)
 
-![Pareto Trade-off](data/results_20260112_unified_e8fd22b9/chart_pareto_tradeoff_20260117_235926.png)
+![Pareto Trade-off](data/results_20260112_unified_e8fd22b9/chart_pareto_tradeoff_20260118_222454.png)
 
 DeepSeek variants occupy the efficiency frontier: highest scores with moderate token usage and superior reliability. No model dominates all three dimensions simultaneously.
 
 #### 3. Abandoned-Law Citations (Reliability Signal)
 
-![Abandoned Laws](data/results_20260112_unified_e8fd22b9/chart_abandoned_laws_20260117_235927.png)
+![Abandoned Laws](data/results_20260112_unified_e8fd22b9/chart_abandoned_laws_20260118_222455.png)
 
 Concrete failure mode: citing repealed or inapplicable authority. Gemini (0%) and DeepSeek (1%) excel; GPT-4o fails most often (16%).
 
 #### 4. Five-Dimension Breakdown (Heatmap)
 
-![Dimension Heatmap](data/results_20260112_unified_e8fd22b9/chart_heatmap_dimensions_20260117_235927.png)
+![Dimension Heatmap](data/results_20260112_unified_e8fd22b9/chart_heatmap_dimensions_20260118_222455.png)
 
 Top-tier models excel in **Subsumption Chain Alignment** (3.39–3.42/4) and **Key Facts Coverage** (3.25–3.30/4). Lower-ranked models show steepest drops in these dimensions. **Value Balancing** remains challenging across all models (range: 2.29–3.28/4).
 
 #### 5. Tail Risk Analysis (10th Percentile & CVaR@10%)
 
-![Tail Risk](data/results_20260112_unified_e8fd22b9/chart_tail_risk_20260117_235927.png)
+![Tail Risk](data/results_20260112_unified_e8fd22b9/chart_tail_risk_20260118_222454.png)
 
 For legal applications, worst-case performance matters. DeepSeek-Thinking's 10th percentile (14.00/20) exceeds most models' averages. GPT-4o exhibits severe tail risk (10th: 4.00, CVaR: 5.70).
 
 #### 6. Efficiency: Quality vs. Compute Cost
 
-![Quality vs Tokens](data/results_20260112_unified_e8fd22b9/chart_quality_vs_tokens_20260117_235927.png)
+![Quality vs Tokens](data/results_20260112_unified_e8fd22b9/chart_quality_vs_tokens_20260118_222454.png)
 
 DeepSeek variants achieve top scores with moderate token budgets (4,247–5,038). Claude uses 7,684 tokens (50–80% more) but scores lower. Token cost and quality are weakly correlated (r ≈ -0.10).
 
 #### 7. Bootstrap Confidence Intervals (Statistical Robustness)
 
-![Bootstrap CI](data/results_20260112_unified_e8fd22b9/chart_score_bootstrap_ci_20260117_235927.png)
+![Bootstrap CI](data/results_20260112_unified_e8fd22b9/chart_score_bootstrap_ci_20260118_222454.png)
 
 95% confidence intervals (10,000 resamples) confirm ranking robustness despite moderate sample size. Top-tier CIs overlap; lower tiers fully separated.
 
@@ -255,35 +255,35 @@ DeepSeek variants achieve top scores with moderate token budgets (4,247–5,038)
 
 **Impactful Error Breakdown**
 
-![Errors](data/results_20260112_unified_e8fd22b9/chart_errors_20260117_235928.png)
+![Errors](data/results_20260112_unified_e8fd22b9/chart_errors_20260118_222456.png)
 
 GPT-4o: 156 total errors (2 major, 86 obvious, 68 minor). DeepSeek: 30 total (0 major, 4 obvious, 26 minor).
 
 **Token Usage Comparison**
 
-![Token Usage](data/results_20260112_unified_e8fd22b9/chart_token_usage_20260117_235928.png)
+![Token Usage](data/results_20260112_unified_e8fd22b9/chart_token_usage_20260118_222455.png)
 
 **Score Distribution (Violin Plot)**
 
-![Distribution](data/results_20260112_unified_e8fd22b9/chart_distribution_20260117_235928.png)
+![Distribution](data/results_20260112_unified_e8fd22b9/chart_distribution_20260118_222456.png)
 
 **Reliability-Gated Ranking (Abandoned-Law Rate < 1%)**
 
-![Reliability Gating](data/results_20260112_unified_e8fd22b9/chart_reliability_gating_20260117_235927.png)
+![Reliability Gating](data/results_20260112_unified_e8fd22b9/chart_reliability_gating_20260118_222454.png)
 
 Only DeepSeek (1.0%) and Gemini (0.0%) pass the 1% threshold.
 
 **Success/Partial/Fail Percentage**
 
-![Percentage](data/results_20260112_unified_e8fd22b9/chart_percentage_20260117_235928.png)
+![Percentage](data/results_20260112_unified_e8fd22b9/chart_percentage_20260118_222456.png)
 
 **Overall Ranking Visualization**
 
-![Ranking](data/results_20260112_unified_e8fd22b9/chart_ranking_20260117_235928.png)
+![Ranking](data/results_20260112_unified_e8fd22b9/chart_ranking_20260118_222456.png)
 
 **Metrics Heatmap (Min/Max/Range per Dimension)**
 
-![Metrics Heatmap](data/results_20260112_unified_e8fd22b9/chart_heatmap_metrics_20260117_235928.png)
+![Metrics Heatmap](data/results_20260112_unified_e8fd22b9/chart_heatmap_metrics_20260118_222455.png)
 
 </details>
 
@@ -361,7 +361,7 @@ Meta-evaluation (LLM-as-a-judge) shows ≥75% agreement with expert human annota
 ## 📁 Repository Structure
 
 ```
-dvjustice/
+DV-JusticeBench/
 ├── README.md                       # This file
 ├── requirements.txt                # Python dependencies
 ├── config.py                       # Configuration (API endpoints, model settings)
@@ -369,16 +369,21 @@ dvjustice/
 │
 ├── utils/                          # Core modules
 │   ├── ai_api.py                   # Unified LLM API interface
+│   ├── unified_model_api.py        # Multi-model API wrapper
 │   ├── deepseek_api.py             # DeepSeek-specific wrapper
+│   ├── qwen_api.py                 # Qwen API wrapper
 │   ├── evaluator.py                # Rubric-based evaluation engine
 │   ├── data_masking.py             # De-identification & paraphrasing
-│   ├── question_generator.py       # Structured question generation
+│   ├── case_manager.py             # Case management utilities
+│   ├── doc_reader.py               # Document reading utilities
 │   └── ...
 │
 ├── scripts/                        # Analysis & visualization
-│   ├── generate_advanced_conference_charts.py  # Generate all charts (Pareto, CI, etc.)
+│   ├── generate_advanced_conference_charts.py  # Generate advanced analysis charts (Pareto, CI, etc.)
 │   ├── generate_results_report.py              # Generate detailed text reports
-│   ├── test_single_case_all_models.sh          # Batch evaluation script
+│   ├── run_models_unified_parallel.sh          # Batch evaluation script
+│   ├── evaluate_answers.py                     # Answer evaluation script
+│   ├── run.py                                  # Web application launcher
 │   └── ...
 │
 ├── static/evaluate/                # Rubric documentation
@@ -436,7 +441,7 @@ We welcome contributions! Please:
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+This project is licensed under the **MIT License**. See the [LICENSE file](https://github.com/chenqianwan/DV-JusticeBench/blob/main/LICENSE) for details.
 
 **Data Use Terms**:
 - The benchmark dataset (108 cases) is derived from publicly available Chinese court decisions
