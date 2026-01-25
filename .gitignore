@@ -30,7 +30,7 @@ data/results/*
 !data/cases/.gitkeep
 !data/results/.gitkeep
 # Keep only the latest results folder
-!data/results_20260111_151734/**
+!data/results_20260112_unified_e8fd22b9/**
 
 # Log files
 logs/
