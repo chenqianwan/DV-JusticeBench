@@ -83,9 +83,9 @@ Full rubric: [`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/
 
 ```
 ┌─────────────────────────┐    ┌─────────────────────────┐    ┌─────────────────────────┐    ┌─────────────────────────┐
-│ De-Identification       │    │ Question Generation     │    │ LLM Response           │    │ Evaluation             │
-│ & Paraphrasing          │ -> │ (5 per case)            │ -> │ Generation             │ -> │ (Human + Meta)         │
-│ (LLM-assisted)          │    │ (LLM-assisted)          │    │ (Multi-model)          │    │ (Rubric-based)         │
+│De-Identification        │    │Question Generation      │    │LLM Response            │    │Evaluation              │
+│& Paraphrasing           │ -> │(5 per case)            │ -> │Generation             │ -> │(Human + Meta)          │
+│(LLM-assisted)           │    │(LLM-assisted)          │    │(Multi-model)           │    │(Rubric-based)          │
 └─────────────────────────┘    └─────────────────────────┘    └─────────────────────────┘    └─────────────────────────┘
 ```
 
