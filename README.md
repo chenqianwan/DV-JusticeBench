@@ -8,9 +8,20 @@
 
 **A systematic benchmark for evaluating Large Language Models on value-laden legal reasoning in Chinese domestic violence adjudication**
 
-[Benchmark](#benchmark-overview) • [Quick Start](#quick-start) • [Results](#experimental-results) • [Leaderboard](#leaderboard)
+[Benchmark](#benchmark-overview) • [Quick Start](#quick-start) • [Results](#experimental-results) • [Leaderboard](#leaderboard) • [Reproduction](#reproduction)
 
 </div>
+
+---
+
+## 🎥 Demo Video
+
+<video width="100%" controls>
+  <source src="DV-JusticeBench.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+**Watch the demo video to see DV-JusticeBench in action!**
 
 ---
 
@@ -100,64 +111,68 @@ Full rubric: [`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/
 
 ### Prerequisites
 
-- Python 3.11+
-- API keys for evaluated models (OpenAI, Anthropic, Google, Alibaba Cloud, DeepSeek)
+- **Python**: 3.11 or higher
+- **API Keys**: At least one of the following (DeepSeek recommended):
+  - DeepSeek API Key
+  - OpenAI API Key (for GPT models)
+  - Anthropic API Key (for Claude models)
+  - Qwen API Key (for Qwen models)
 
 ### Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/chenqianwan/huangyidan1.git
+git clone <repository-url>
 cd huangyidan
 
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Configure environment variables
-# Create a .env file with your API keys
-DEEPSEEK_API_KEY=your_deepseek_api_key
-OPENAI_API_KEY=your_openai_api_key
-ANTHROPIC_API_KEY=your_anthropic_api_key
-GOOGLE_API_KEY=your_google_api_key
-ALIBABA_API_KEY=your_alibaba_api_key
+# 3. Configure API keys (choose one method)
+# Method A: Environment variables
+export DEEPSEEK_API_KEY=your_deepseek_api_key
+
+# Method B: Create .env file
+echo "DEEPSEEK_API_KEY=your_deepseek_api_key" > .env
 ```
 
 ### Run Evaluation
 
+**Option 1: Web Interface (Recommended for interactive use)**
 ```bash
-# Evaluate a single case with all models
-./test_single_case_all_models.sh case_20251230_134952_90
+python app.py
+# Visit http://localhost:5001/v2
+```
 
-# Evaluate multiple cases with a specific model
-python process_cases.py \
-  --model deepseek \
-  --use_ds_questions data/108个案例_新标准评估_完整版_最终版.xlsx \
-  --case_ids case_001 case_002 case_003 \
-  --standalone
+**Option 2: Command Line - Batch Evaluation**
+```bash
+# Run unified parallel evaluation
+bash scripts/run_models_unified_parallel.sh
 
-# Generate reports and charts for existing results
+# Generate charts from results
 python scripts/generate_advanced_conference_charts.py
 ```
 
-### Evaluate Your Own Cases
+**Option 3: Evaluate Existing Results**
+```bash
+# Evaluate answers using rubric
+python scripts/evaluate_answers.py
 
-```python
-from utils.ai_api import query_ai_api
-from utils.evaluator import evaluate_response
-
-# 1. Prepare your case (de-identified)
-case_text = "..."
-questions = ["Question 1?", "Question 2?", ...]
-
-# 2. Get LLM responses
-responses = []
-for q in questions:
-    resp = query_ai_api(model="deepseek", prompt=q, context=case_text)
-    responses.append(resp)
-
-# 3. Evaluate (requires expert annotation or meta-evaluation)
-scores = [evaluate_response(r, rubric) for r in responses]
+# Generate comprehensive charts
+python scripts/generate_advanced_conference_charts.py
 ```
+
+### Quick Test
+
+```bash
+# Start the web application
+python scripts/run.py
+
+# Access the V2 interface at http://localhost:5001/v2
+# Upload a case and test the evaluation pipeline
+```
+
+For detailed reproduction steps, see [REPRODUCTION.md](REPRODUCTION.md).
 
 ---
 
@@ -299,11 +314,20 @@ For access to the full benchmark dataset, please contact:
 - **Huang Yidan**: huangyidan@hkgai.org
 - **Chen Long**: chenlong@hkgai.org
 
-We require a brief description of your intended research use and agreement to the data use terms (non-commercial, research-only).
-
 ---
 
-## 🔬 Methodology
+## 🔄 Reproduction
+
+For detailed step-by-step instructions to reproduce all experimental results, please see **[REPRODUCTION.md](REPRODUCTION.md)**.
+
+The reproduction guide includes:
+- Complete environment setup
+- Data preparation steps
+- Model evaluation pipeline
+- Chart generation procedures
+- Result verification checklist
+
+---
 
 ### Rubric Design
 

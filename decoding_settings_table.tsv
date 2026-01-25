@@ -1,6 +1,0 @@
-Component (pipeline stage)	Temperature	max_tokens (initial → cap via truncation retry)	top_p / top_k / penalties / seed	Notes
-Answer generation (all evaluated models)	0.3	3,000 → 16,000	Not explicitly set (provider defaults)	Fresh sessions; single completion (n=1).
-Question generation (DeepSeek)	0.7	2,000 → 16,000	Not explicitly set (provider defaults)	Generates 5 dispute questions per case.
-De-identification (masking via DeepSeek)	0.3	4,000	Not explicitly set (provider defaults)	Removes PII; preserves legally salient amounts.
-Judge-answer extraction (if used)	0.1	1,500 → 16,000	Not explicitly set (provider defaults)	Low temperature to reduce paraphrase and enforce verbatim copying.
-Decision-comparison analysis (optional)	0.5	2,500 → 16,000	Not explicitly set (provider defaults)	Used for qualitative diffing, not main scoring.
