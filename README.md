@@ -491,11 +491,7 @@ We thank the Chinese judiciary for making these decisions publicly available for
 
 ### Funding
 
-This work is funded in part by:
-- **HKUST Start-up Fund** (R9911)
-- **Theme-based Research Scheme Grant** (T45-205/21-N)
-- **InnoHK Initiative** of the Innovation and Technology Commission of the Hong Kong Special Administrative Region Government
-- **Research Funding under HKUST-DXM AI for Finance Joint Laboratory** (DXM25EG01)
+This work is funded in part by the HKUST Start-up Fund (R9911), Theme-based Research Scheme grant (T45-205/21-N), the InnoHK initiative of the Innovation and Technology Commission of the Hong Kong Special Administrative Region Government, and the research funding under HKUST-DXM AI for Finance Joint Laboratory (DXM25EG01).
 
 ### Open Source
 
