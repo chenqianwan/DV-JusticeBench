@@ -82,11 +82,11 @@ Full rubric: [`static/evaluate/Scoring_Rubric_v1.0_English.md`](static/evaluate/
 ### Four-Stage Evaluation Pipeline
 
 ```
-┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│  De-Identification│ -> │ Question Generation│ -> │  LLM Response   │ -> │   Evaluation    │
-│  & Paraphrasing  │    │  (5 per case)      │    │  Generation     │    │  (Human + Meta) │
-│  (LLM-assisted)  │    │  (LLM-assisted)    │    │  (Multi-model)  │    │  (Rubric-based) │
-└──────────────────┘    └──────────────────┘    └──────────────────┘    └──────────────────┘
+┌─────────────────────────┐    ┌─────────────────────────┐    ┌─────────────────────────┐    ┌─────────────────────────┐
+│   De-Identification     │    │   Question Generation   │    │   LLM Response         │    │   Evaluation           │
+│   & Paraphrasing        │ -> │   (5 per case)          │ -> │   Generation           │ -> │   (Human + Meta)       │
+│   (LLM-assisted)        │    │   (LLM-assisted)        │    │   (Multi-model)        │    │   (Rubric-based)       │
+└─────────────────────────┘    └─────────────────────────┘    └─────────────────────────┘    └─────────────────────────┘
 ```
 
 1. **De-Identification**: Automated de-identification and paraphrasing to prevent memorization and protect privacy
