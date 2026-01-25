@@ -77,3 +77,6 @@ Thumbs.db
 
 # LaTeX conversion summaries (temporary)
 LATEX_CONVERSION_SUMMARY.md
+
+# Paper/LaTeX files (excluded from engineering repository)
+latex/

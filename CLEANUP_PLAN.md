@@ -8,9 +8,10 @@
 
 ## 📋 清理原则
 
-1. **保留**: 核心代码、最终结果数据、复现脚本、论文文件
-2. **删除**: AI痕迹、旧数据版本、临时脚本、开发文档、调试文件
+1. **保留**: 核心代码、最终结果数据、复现脚本
+2. **删除**: AI痕迹、旧数据版本、临时脚本、开发文档、调试文件、论文相关文件
 3. **清理**: 代码注释中的AI提示、临时变量名、调试信息
+4. **排除**: 论文/LaTeX文件（与工程无关，不包含在清理范围内）
 
 ---
 
@@ -140,7 +141,7 @@
 #### 4.3 临时文件
 - [ ] `redundancy_report.txt` - 冗余报告
 - [ ] `test_results_20251229_211314.json` - 测试结果
-- [ ] `decoding_settings_table.tsv` - 检查是否在论文中使用
+- [ ] `decoding_settings_table.tsv` - 临时数据表（检查是否在代码中使用）
 
 ---
 
@@ -183,21 +184,14 @@
 
 ---
 
-### 八、LaTeX论文文件 ✅
+### 八、排除论文相关文件 ⚠️
 
-#### 8.1 保留LaTeX文件
-- ✅ `latex/paper.tex` - **保留**
-- ✅ `latex/references.bib` - **保留**
-- ✅ `latex/chart_*.png` - **保留**（论文图表）
-- ✅ `latex/compile.sh` - **保留**
+**说明**: 论文/LaTeX文件与工程代码无关，不在本次清理范围内。这些文件可以保留在项目中，但不影响工程的可复现性。
 
-#### 8.2 清理LaTeX文档
-- [ ] `latex/QUICKSTART.md` - 快速开始（可保留）
-- [ ] `latex/README.md` - 检查内容是否需要
-- [ ] `latex/UPDATE_NOTES.md` - 更新记录（删除）
-- [ ] `latex/UPLOAD_TO_OVERLEAF.md` - 上传指南（可保留）
-- [ ] `latex/TEMPLATE_COMPLIANCE_CHECK.md` - 模板检查（删除）
-- [ ] `latex/check_acm_compliance.md` - 合规检查（删除）
+#### 8.1 论文相关目录（排除清理）
+- ⚠️ `latex/` - **排除**（论文相关，与工程无关）
+  - 包含: paper.tex, references.bib, chart_*.png等
+  - 这些文件不影响工程复现，可以保留或单独管理
 
 ---
 
@@ -233,6 +227,8 @@
 3. 更新文档
 4. 提交清理版本
 
+**注意**: 论文/LaTeX文件（latex/目录）不在清理范围内，与工程复现无关。
+
 ---
 
 ## ✅ 保留的核心文件结构
@@ -259,10 +255,6 @@ huangyidan/
 ├── data/                        # 数据目录（清理后）
 │   ├── cases/                   # 案例数据
 │   └── results_20260112_unified_e8fd22b9/  # 最终结果
-├── latex/                       # LaTeX论文（清理后）
-│   ├── paper.tex
-│   ├── references.bib
-│   └── chart_*.png
 ├── templates/                   # 模板文件
 ├── static/                      # 静态资源（清理后）
 └── docs/                        # 文档（清理后）
