@@ -80,3 +80,7 @@ LATEX_CONVERSION_SUMMARY.md
 
 # Paper/LaTeX files (excluded from engineering repository)
 latex/
+
+# 测试响应文件
+enrollment_response_*.html
+curl_response.html
