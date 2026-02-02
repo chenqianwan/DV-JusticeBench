@@ -84,3 +84,6 @@ latex/
 # 测试响应文件
 enrollment_response_*.html
 curl_response.html
+
+# 论文文件夹
+Value_Laden_Reasoning__Synthetic_Empathy__LLM_Performance_in_Chinese_Domestic_Violence_Adjudication/
