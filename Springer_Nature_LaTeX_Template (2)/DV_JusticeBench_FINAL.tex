@@ -1,0 +1,64 @@
+%Version 3.1 December 2024
+% DV-JusticeBench Final Paper for Springer Nature Journal
+% With complete references from Zotero
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+
+%%%% Standard Packages
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[title]{appendix}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{manyfoot}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{hyperref}
+
+\raggedbottom
+
+\begin{document}
+
+\title[DV-JusticeBench]{Value-Laden Judicial Reasoning in Chinese Domestic Violence: DV-JusticeBench and a Reproducible Pipeline}
+
+%%=============================================================%%
+%% Author Information - PLEASE UPDATE
+%%=============================================================%%
+
+\author*[1]{\fnm{First} \sur{Author}}\email{first.author@university.edu}
+
+\author[1]{\fnm{Second} \sur{Author}}\email{second.author@university.edu}
+
+\affil*[1]{\orgdiv{School of Law}, \orgname{University Name}, \orgaddress{\city{City}, \country{Country}}}
+
+%%==================================%%
+%% Abstract
+%%==================================%%
+
+\abstract{LLMs are rapidly moving from legal assistance to quasi-adjudicative roles, where their outputs can shape how vulnerable parties are heard and believed. However, we still lack rigorous evidence on whether these models maintain normative alignment with the value-laden reasoning deployed by Chinese judges in domestic violence disputes, a domain where outcomes often turn on contested narratives, relational norms, and open-textured standards such as reasonableness, fault, and protectability. We introduce DV-JusticeBench, an expert-annotated benchmark and reproducible four-stage evaluation pipeline built from 108 Chinese domestic-violence cases (2023--2025) and 540 structured questions spanning five critical dispute dimensions. DV-JusticeBench operationalises five dimensions of judicial quality: (1) normative-basis relevance, (2) subsumption-chain alignment, (3) value balancing and empathy alignment, (4) key-fact and issue coverage with evidence mapping, and (5) outcome and remedy alignment. Across multiple LLMs, outputs often adopt high-affect, caring rhetoric while failing to provide legally disciplined warrants, mis-handling contested facts, and over-weighting surface forensic cues. These findings support positioning LLMs as procedurally bounded assistants within a human-in-the-loop workflow, rather than as autonomous adjudicators.}
+
+\keywords{large language models, domestic violence, judicial reasoning, value judgment, benchmark, reproducible evaluation pipeline, auditing}
+
+\maketitle
+
+%%=============================================================%%
+%% Main Content (from converted Word document)
+%%=============================================================%%
+
+\input{content_final.tex}
+
+%%=============================================================%%
+%% Bibliography
+%%=============================================================%%
+
+\bibliography{references_renumbered}
+
+\end{document}
