@@ -10,15 +10,18 @@ import re
 class AnswerEvaluator:
     """答案评分器"""
     
-    def __init__(self, api=None):
+    def __init__(self, api=None, flag_parser_version: str = "legacy"):
         """
         初始化评分器
-        
+
         Args:
             api: 可选的API实例，如果不提供则使用默认的ai_api
         """
+        if flag_parser_version not in {"legacy", "fixed"}:
+            raise ValueError("flag_parser_version must be 'legacy' or 'fixed'")
         self.scoring_criteria = self._get_scoring_criteria()
         self.api = api or ai_api
+        self.flag_parser_version = flag_parser_version
     
     def _get_scoring_criteria(self) -> Dict:
         """获取评分标准"""
@@ -84,7 +87,7 @@ class AnswerEvaluator:
             judge_decision: 整个法官判决（作为参考标准，不再提取特定问题的回答）
             question: 问题文本
             case_text: 案例文本（可选，用于更全面的评估）
-            
+
         Returns:
             评分结果字典，包含：
             {
@@ -102,7 +105,7 @@ class AnswerEvaluator:
         """
         # 使用DeepSeek API进行评分（使用thinking模式）
         evaluation_response = self._call_evaluation_api(ai_answer, judge_decision, question, case_text)
-        
+
         # 提取评价文本和thinking内容
         if isinstance(evaluation_response, dict):
             evaluation_result = evaluation_response.get('answer', '')
@@ -367,14 +370,80 @@ AI回答：
         return scores
     
     def _detect_flags(self, evaluation_text: str, scores: Dict[str, float]) -> Dict[str, List[str]]:
+        """Parse error flags with the explicitly selected historical or fixed parser."""
+        if self.flag_parser_version == "legacy":
+            return self._detect_flags_legacy(evaluation_text, scores)
+        return self._detect_flags_fixed(evaluation_text, scores)
+
+    def _detect_flags_legacy(self, evaluation_text: str, scores: Dict[str, float]) -> Dict[str, List[str]]:
+        """Original parser used by the completed experiment pipeline."""
+        errors = {
+            "微小错误": [],
+            "明显错误": [],
+            "重大错误": []
+        }
+
+        flag_section_pattern = r'【错误标记】[^：:]*[：:]\s*(.*?)(?=\n【|$)'
+        match = re.search(flag_section_pattern, evaluation_text, re.DOTALL)
+
+        if match:
+            flag_section = match.group(1).strip()
+            if flag_section and flag_section.lower() not in ['无', '无。', '无错误', '无错误标记', '']:
+                minor_pattern = r'[-]?\s*\*?\*?\s*微小错误\*?\*?\s*[：:]\s*(.*?)(?=\n\s*[-]?\s*\*?\*?\s*(?:明显错误|重大错误)|$)'
+                moderate_pattern = r'[-]?\s*\*?\*?\s*明显错误\*?\*?\s*[：:]\s*(.*?)(?=\n\s*[-]?\s*\*?\*?\s*重大错误|$)'
+                major_pattern = r'[-]?\s*\*?\*?\s*重大错误\*?\*?\s*[：:]\s*(.*?)(?=\n\s*[-]?\s*\*?\*?\s*(?:微小错误|明显错误)|$)'
+
+                minor_match = re.search(minor_pattern, flag_section, re.DOTALL | re.IGNORECASE)
+                moderate_match = re.search(moderate_pattern, flag_section, re.DOTALL | re.IGNORECASE)
+                major_match = re.search(major_pattern, flag_section, re.DOTALL | re.IGNORECASE)
+
+                if minor_match:
+                    minor_text = minor_match.group(1).strip()
+                    if minor_text and minor_text.lower() not in ['无', '无。', '']:
+                        if len(minor_text) < 200:
+                            errors["微小错误"] = [minor_text]
+                        else:
+                            items = re.split(r'[。；;]', minor_text)
+                            errors["微小错误"] = [
+                                item.strip() for item in items
+                                if item.strip() and len(item.strip()) > 10 and item.strip() not in ['无', '无。']
+                            ]
+
+                if moderate_match:
+                    moderate_text = moderate_match.group(1).strip()
+                    if moderate_text and moderate_text.lower() not in ['无', '无。', '']:
+                        if len(moderate_text) < 200:
+                            errors["明显错误"] = [moderate_text]
+                        else:
+                            items = re.split(r'[。；;]', moderate_text)
+                            errors["明显错误"] = [
+                                item.strip() for item in items
+                                if item.strip() and len(item.strip()) > 10 and item.strip() not in ['无', '无。']
+                            ]
+
+                if major_match:
+                    major_text = major_match.group(1).strip()
+                    if major_text and not major_text.lower().startswith('无'):
+                        if len(major_text) < 200:
+                            errors["重大错误"] = [major_text]
+                        else:
+                            items = re.split(r'[。；;]', major_text)
+                            errors["重大错误"] = [
+                                item.strip() for item in items
+                                if item.strip() and len(item.strip()) > 10 and not item.strip().lower().startswith('无')
+                            ]
+
+        return errors
+
+    def _detect_flags_fixed(self, evaluation_text: str, scores: Dict[str, float]) -> Dict[str, List[str]]:
         """
         从AI评价中提取错误标记（按严重程度分类）
         只从AI输出中提取，不进行自动检测
-        
+
         Args:
             evaluation_text: 评估文本
             scores: 各维度得分（不再用于自动检测）
-            
+
         Returns:
             错误标记字典，格式：{
                 "微小错误": [...],
@@ -387,53 +456,84 @@ AI回答：
             "明显错误": [],
             "重大错误": []
         }
-        
-        # 从【错误标记】部分提取
-        # 匹配格式：【错误标记】（如有，请按严重程度分类）：... 或 【错误标记】：...
-        flag_section_pattern = r'【错误标记】[^：:]*[：:]\s*(.*?)(?=\n【|$)'
-        match = re.search(flag_section_pattern, evaluation_text, re.DOTALL)
-        
-        if match:
-            flag_section = match.group(1).strip()
-            if flag_section and flag_section.lower() not in ['无', '无。', '无错误', '无错误标记', '']:
-                # 提取各个级别的错误（支持多种格式：- 微小错误：、- **微小错误**：、微小错误：等）
-                minor_pattern = r'[-]?\s*\*?\*?\s*微小错误\*?\*?\s*[：:]\s*(.*?)(?=\n\s*[-]?\s*\*?\*?\s*(?:明显错误|重大错误)|$)'
-                moderate_pattern = r'[-]?\s*\*?\*?\s*明显错误\*?\*?\s*[：:]\s*(.*?)(?=\n\s*[-]?\s*\*?\*?\s*重大错误|$)'
-                major_pattern = r'[-]?\s*\*?\*?\s*重大错误\*?\*?\s*[：:]\s*(.*?)(?=\n\s*[-]?\s*\*?\*?\s*(?:微小错误|明显错误)|$)'
-                
-                minor_match = re.search(minor_pattern, flag_section, re.DOTALL | re.IGNORECASE)
-                moderate_match = re.search(moderate_pattern, flag_section, re.DOTALL | re.IGNORECASE)
-                major_match = re.search(major_pattern, flag_section, re.DOTALL | re.IGNORECASE)
-                
-                if minor_match:
-                    minor_text = minor_match.group(1).strip()
-                    if minor_text and minor_text.lower() not in ['无', '无。', '']:
-                        # 提取具体错误描述（支持分号、逗号、句号、换行分隔，但保留完整句子）
-                        # 如果是一个完整句子，直接作为一条错误
-                        if len(minor_text) < 200:  # 短文本，可能是单个错误描述
-                            errors["微小错误"] = [minor_text]
-                        else:  # 长文本，尝试分割
-                            items = re.split(r'[。；;]', minor_text)
-                            errors["微小错误"] = [item.strip() for item in items if item.strip() and len(item.strip()) > 10 and item.strip() not in ['无', '无。']]
-                
-                if moderate_match:
-                    moderate_text = moderate_match.group(1).strip()
-                    if moderate_text and moderate_text.lower() not in ['无', '无。', '']:
-                        if len(moderate_text) < 200:
-                            errors["明显错误"] = [moderate_text]
-                        else:
-                            items = re.split(r'[。；;]', moderate_text)
-                            errors["明显错误"] = [item.strip() for item in items if item.strip() and len(item.strip()) > 10 and item.strip() not in ['无', '无。']]
-                
-                if major_match:
-                    major_text = major_match.group(1).strip()
-                    # 检查是否以"无"开头（如"无。"、"无，"等），如果是则跳过
-                    if major_text and not major_text.lower().startswith('无'):
-                        if len(major_text) < 200:
-                            errors["重大错误"] = [major_text]
-                        else:
-                            items = re.split(r'[。；;]', major_text)
-                            errors["重大错误"] = [item.strip() for item in items if item.strip() and len(item.strip()) > 10 and not item.strip().lower().startswith('无')]
+
+        # 只解析第一个【错误标记】区块。旧实现使用“直到文末”的正则，容易把
+        # “无重大错误”以及模型随后追加的法律分析误吞为重大错误，造成过度扣分。
+        marker = re.search(
+            r'【错误标记】(?:（[^）]*）|\([^)]*\))?\s*[：:]?', evaluation_text
+        )
+        if not marker:
+            return errors
+
+        flag_section = evaluation_text[marker.end():]
+        flag_section = re.sub(r'^\s*[：:]\s*', '', flag_section)
+
+        # 评分器有时会在错误列表之后继续输出补充分析；这些内容不属于错误区块。
+        stop_match = re.search(
+            r'(?m)^\s*(?:---+|#{1,6}\s+|【(?!微小错误|明显错误|重大错误)|'
+            r'(?:综上|总体评价|综合评价|补充分析|法律分析补充)[：:]?)',
+            flag_section,
+        )
+        if stop_match:
+            flag_section = flag_section[:stop_match.start()]
+
+        level_pattern = re.compile(
+            r'^\s*(?:[-*+]\s*)?(?:\*{1,2})?【?'
+            r'(微小错误|明显错误|重大错误)'
+            r'】?(?:\*{1,2})?\s*[：:]?\s*(.*)$'
+        )
+        level_buffers = {"微小错误": [], "明显错误": [], "重大错误": []}
+        current_level = None
+
+        for raw_line in flag_section.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            level_match = level_pattern.match(line)
+            if level_match:
+                current_level = level_match.group(1)
+                remainder = level_match.group(2).strip()
+                if remainder:
+                    level_buffers[current_level].append(remainder)
+                continue
+            if current_level:
+                level_buffers[current_level].append(line)
+
+        no_error_pattern = re.compile(
+            r'^(?:[-*+•]\s*)?(?:\*{1,2})?\s*'
+            r'(?:无(?:该类|此类|任何)?(?:微小|明显|重大)?错误|无错误|无|'
+            r'未发现|未出现|不存在|没有|不涉及|不构成)',
+            re.IGNORECASE,
+        )
+
+        def clean_items(lines: List[str]) -> List[str]:
+            if not lines:
+                return []
+            joined = '\n'.join(lines).strip()
+            if not joined or no_error_pattern.match(joined):
+                return []
+
+            # 按项目符号或编号拆分；连续说明行保留在同一项中，避免按句号把
+            # 一个错误及其理由误算成多个惩罚项。
+            chunks = re.split(
+                r'(?m)(?=^\s*(?:[-*+•]\s+|\d+[\.、）)]\s*))',
+                joined,
+            )
+            items = []
+            for chunk in chunks:
+                item = re.sub(
+                    r'^\s*(?:[-*+•]\s+|\d+[\.、）)]\s*)',
+                    '',
+                    chunk.strip(),
+                )
+                item = item.replace('**', '').strip('* ').strip()
+                if not item or no_error_pattern.match(item):
+                    continue
+                items.append(item)
+            return items
+
+        for level in errors:
+            errors[level] = clean_items(level_buffers[level])
         
         return errors
     
@@ -535,4 +635,3 @@ AI回答：
             return "可参考但不宜直接使用"
         else:
             return "不可靠/不可用"
-
