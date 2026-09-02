@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-09-02T14:10:26.732032+00:00",
+  "source_database": "北大法宝",
+  "query": {
+    "full_text": "家庭暴力",
+    "decision_date": [
+      "2023-01-01",
+      "2025-12-31"
+    ],
+    "case_types": [
+      "刑事案件",
+      "民事案件"
+    ],
+    "document_type": "判决书"
+  },
+  "counts": {
+    "canonical_raw": 4224,
+    "canonical_unique_record_ids": 4224,
+    "pipeline_ready": 4193,
+    "excluded_missing_judgment": 31,
+    "by_decision_year": {
+      "2023": 1339,
+      "2024": 1483,
+      "2025": 1402
+    }
+  },
+  "superseded_audit_directories_not_packaged": [
+    "2024/bulk50_page_017",
+    "2025/bulk50_page_002",
+    "2025/bulk50_page_011"
+  ],
+  "artifacts": {
+    "pipeline_ready_cases.json": {
+      "bytes": 57746222,
+      "sha256": "0f10f83a81ea9eddb1b6fa0c46375a4cf8b433718c6a942220921c1050acd95a"
+    },
+    "excluded_missing_judgment.json": {
+      "bytes": 297164,
+      "sha256": "1d3edcfd53cc452273fdc6a058e53c36f5baa46a042b6d97ddd2f60382038f06"
+    },
+    "pkulaw_raw_canonical_4224.tgz": {
+      "bytes": 10615276,
+      "sha256": "d31d66e0092187fdd790d37e70efb009d2d1029a8e0ce00d20cd9591f743ee0d"
+    }
+  }
+}
