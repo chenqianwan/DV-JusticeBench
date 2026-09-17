@@ -30,6 +30,8 @@ The demo video demonstrates the complete evaluation pipeline, including case upl
 
 **DVJUSTICE** is a novel benchmark designed to measure how well Large Language Models (LLMs) handle **value-laden adjudication** in complex domestic violence cases within the Chinese legal system. Unlike prior legal AI benchmarks that focus on multiple-choice questions or bar exam tasks, DVJUSTICE targets the discretionary layer of judging—where doctrine meets relational context and moral stakes.
 
+> **📢 补充实验（2026-09）**：在原 108 案基础上扩展至北大法宝 4,193 案，经筛选 + 脱敏 + 出题后产出 **2,248 案 / 11,240 题** 的大规模验证集（Fix 4 合并脱敏方案，跨字段角色漂移从 40%+ 降至 2-4%）。详见 [`data/pkulaw_filter/README.md`](data/pkulaw_filter/README.md)。当前 checkpoint = `paused_before_answering`，等待启动作答阶段。
+
 ### Why DVJUSTICE?
 
 - **🎯 Domain-Specific**: Focuses on domestic violence cases where value judgments are central, not peripheral
