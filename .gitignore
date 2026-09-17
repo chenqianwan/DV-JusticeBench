@@ -81,3 +81,15 @@ LATEX_CONVERSION_SUMMARY.md
 
 # Paper/LaTeX files (excluded from engineering repository)
 latex/
+
+# 补充实验：保留 *_fix4 最终版，忽略 v1 中间快照与临时旁路输出
+data/pkulaw_filter/**/masked_cases_v1.jsonl
+data/pkulaw_filter/**/masked_cases_fix4_v1.jsonl
+data/pkulaw_filter/**/questions_v1.jsonl
+data/pkulaw_filter/**/masked_cases.jsonl
+data/pkulaw_filter/**/questions.jsonl
+data/pkulaw_filter/**/checkpoint.json
+data/pkulaw_filter/**/failures.jsonl
+data/pkulaw_filter/primary_cases.json
+data/pkulaw_filter/secondary_cases.json
+data/pkulaw_filter/stage2_failed.jsonl

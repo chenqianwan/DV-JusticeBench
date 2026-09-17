@@ -1,0 +1,5 @@
+{"case_id": "pkulaw_fbmcli_c_551140468", "error": "HTTPConnectionPool(host='dgx-103', port=8012): Read timed out. (read timeout=600)", "attempts": 3}
+{"case_id": "pkulaw_fbmcli_c_559072596", "error": "HTTPConnectionPool(host='dgx-061', port=8012): Read timed out. (read timeout=600)", "attempts": 3}
+{"case_id": "pkulaw_fbmcli_c_560923780", "error": "HTTPConnectionPool(host='dgx-104', port=8012): Read timed out. (read timeout=600)", "attempts": 3}
+{"case_id": "pkulaw_fbmcli_c_561494394", "error": "HTTPConnectionPool(host='dgx-061', port=8012): Read timed out. (read timeout=600)", "attempts": 3}
+{"case_id": "pkulaw_fbmcli_c_563404392", "error": "HTTPConnectionPool(host='dgx-103', port=8012): Read timed out. (read timeout=600)", "attempts": 3}

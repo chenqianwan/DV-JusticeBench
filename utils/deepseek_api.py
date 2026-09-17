@@ -8,7 +8,16 @@ import time
 import threading
 from collections import deque
 from typing import Dict, Optional, List
-from config import DEEPSEEK_API_KEY, DEEPSEEK_API_URL, DEEPSEEK_MAX_RPM, DEEPSEEK_MAX_RPS
+from itertools import cycle
+from config import (
+    DEEPSEEK_API_KEY,
+    DEEPSEEK_API_URL,
+    DEEPSEEK_API_URLS,
+    DEEPSEEK_MAX_RPM,
+    DEEPSEEK_MAX_RPS,
+    DEEPSEEK_MODEL_CHAT,
+    DEEPSEEK_MODEL_REASONER,
+)
 
 
 class DeepSeekAPI:
@@ -23,6 +32,10 @@ class DeepSeekAPI:
         """
         self.api_key = api_key or DEEPSEEK_API_KEY
         self.api_url = DEEPSEEK_API_URL
+        # 多节点轮询：支持本地多副本部署做负载均衡
+        self._url_pool = list(DEEPSEEK_API_URLS) if DEEPSEEK_API_URLS else [self.api_url]
+        self._url_cycle = cycle(self._url_pool)
+        self._url_lock = threading.Lock()
         self.max_retries = 3
         self.retry_delay = 1  # 秒
         
@@ -86,13 +99,14 @@ class DeepSeekAPI:
             API响应字典，失败返回None
         """
         if not self.api_key:
-            raise ValueError("DeepSeek API密钥未配置，请在.env文件中设置DEEPSEEK_API_KEY")
-        
+            # 本地部署可能不需要真实 key，但 Bearer 头仍需存在，使用占位
+            self.api_key = 'local'
+
         original_max_tokens = max_tokens
         current_max_tokens = max_tokens
-        
+
         # 选择模型
-        model = 'deepseek-reasoner' if use_thinking else 'deepseek-chat'
+        model = DEEPSEEK_MODEL_REASONER if use_thinking else DEEPSEEK_MODEL_CHAT
         
         for retry_round in range(2):  # 最多重试2轮（原始请求 + 1次补救）
             # 速率限制检查
@@ -116,11 +130,14 @@ class DeepSeekAPI:
             
             for attempt in range(self.max_retries):
                 try:
+                    # 每次请求从池里轮询一个 URL，实现简易负载均衡
+                    with self._url_lock:
+                        url = next(self._url_cycle)
                     response = requests.post(
-                        self.api_url,
+                        url,
                         headers=headers,
                         json=payload,
-                        timeout=180  # 增加到180秒，适应长文本分析
+                        timeout=int(__import__('os').getenv('DEEPSEEK_HTTP_TIMEOUT', '180'))
                     )
                     
                     # 处理429错误（速率限制）
@@ -363,8 +380,9 @@ class DeepSeekAPI:
             content = response['choices'][0]['message']['content']
             # 解析问题列表（按行分割，过滤空行）
             questions = [q.strip() for q in content.split('\n') if q.strip()]
-            # 移除可能的编号（如 "1. ", "1、"等）
-            questions = [q.split('.', 1)[-1].split('、', 1)[-1].strip() for q in questions]
+            # 只剥除行首编号（如 "1. " / "1、" / "1) " / "(1) "），不误伤问题内部的顿号
+            import re as _re
+            questions = [_re.sub(r'^\s*[（(]?\d{1,2}[)）.、::]\s*', '', q) for q in questions]
             return questions[:num_questions]
         else:
             raise Exception("API响应格式错误或为空")
