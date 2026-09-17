@@ -10,8 +10,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # DeepSeek API配置
+# 本地部署时 KEY 可留空/任意值；DEEPSEEK_API_URLS 支持逗号分隔多个节点做轮询负载均衡
 DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY', '')
-DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions'
+DEEPSEEK_API_URL = os.getenv('DEEPSEEK_API_URL', 'https://api.deepseek.com/v1/chat/completions')
+DEEPSEEK_API_URLS = [u.strip() for u in os.getenv('DEEPSEEK_API_URLS', DEEPSEEK_API_URL).split(',') if u.strip()]
+# 模型名可通过环境变量覆盖（如本地部署 deepseek_v4_flash）
+DEEPSEEK_MODEL_CHAT = os.getenv('DEEPSEEK_MODEL_CHAT', 'deepseek-chat')
+DEEPSEEK_MODEL_REASONER = os.getenv('DEEPSEEK_MODEL_REASONER', 'deepseek-reasoner')
 
 # OpenAI/ChatGPT API配置
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
