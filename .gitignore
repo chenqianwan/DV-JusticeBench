@@ -93,3 +93,5 @@ data/pkulaw_filter/**/failures.jsonl
 data/pkulaw_filter/primary_cases.json
 data/pkulaw_filter/secondary_cases.json
 data/pkulaw_filter/stage2_failed.jsonl
+data/pkulaw_filter/**/questions_fix4_olddim.jsonl
+data/pkulaw_filter/**/questions_fix4_v1.jsonl
