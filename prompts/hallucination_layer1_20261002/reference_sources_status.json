@@ -1,0 +1,41 @@
+{
+  "as_of_date": "2026-10-02",
+  "ready_for_full_authority_verification": false,
+  "existing_project_versioned_statute_database": false,
+  "official_public_developer_api_confirmed": false,
+  "sources": [
+    {
+      "title": "国家法律法规数据库",
+      "url": "https://flk.npc.gov.cn/search",
+      "access_status": "direct_open_403",
+      "verification": "Search index confirms legal search and temporal filters; no full corpus retrieved.",
+      "can_support_case_level_verdict_now": false
+    },
+    {
+      "title": "最高人民法院关于适用《中华人民共和国民法典》时间效力的若干规定",
+      "url": "https://www.court.gov.cn/fabu/xiangqing/282051.html",
+      "access_status": "official_full_text_read",
+      "issuer": "最高人民法院",
+      "document_number": "法释〔2020〕15号",
+      "published_at": "2020-12-30",
+      "effective_from": "2021-01-01",
+      "effective_to": null,
+      "verification": "Official publication and complete text read. Relevant to temporal-applicability guard; this alone does not establish a complete current/historical law library or a case-specific verdict.",
+      "can_support_case_level_verdict_now": false
+    },
+    {
+      "title": "最高人民法院关于适用《中华人民共和国民法典》婚姻家庭编的解释（二）",
+      "url": "https://www.court.gov.cn/zixun/xiangqing/452771.html",
+      "access_status": "official_search_result_only_pending_snapshot",
+      "can_support_case_level_verdict_now": false
+    }
+  ],
+  "missing_before_confirmed_full_results": [
+    "Versioned authoritative raw-source snapshots and exact passage identifiers for actual citations",
+    "Historical applicability and transitional-rule evidence where relevant",
+    "Independent verified per-question required-fact and required-exception checklists",
+    "Healthy new cluster service and a validated hallucination-audit smoke run"
+  ],
+  "no_bypass": "Do not bypass 403, login, captcha or access restrictions. Use accessible official publications or authorized/manual exports.",
+  "verdict_guard": "Missing retrieval is unresolved, never proof of nonexistent authority; abolished today is not proof of inapplicability to historical facts."
+}

@@ -1,0 +1,234 @@
+{
+  "manifest_version": "1.0",
+  "created_at": "2026-08-22",
+  "purpose": "Second disjoint 20-case block doubling final-evaluator cross judging from 20 to 40 cases",
+  "selection_seed": "AI-Law-cross-judge-double-20-v1-20260822",
+  "population_case_count": 108,
+  "candidate_case_count": 68,
+  "existing_cross_judge_case_count": 20,
+  "selected_case_count": 20,
+  "final_cross_judge_case_count": 40,
+  "selection_method": "Allocate integer counts by cause of action to minimize unweighted squared deviation between the final 40-case cause proportions and the 108-case population; select within strata by ascending SHA256(seed|case_id).",
+  "cause_quotas": {
+    "共有/共有物分割纠纷": 1,
+    "其他": 1,
+    "其他民事纠纷": 1,
+    "合同/给付类纠纷": 4,
+    "婚约财产纠纷": 2,
+    "抚养权/抚养费纠纷": 2,
+    "故意杀人罪": 2,
+    "民间借贷纠纷": 2,
+    "生命权、身体权、健康权纠纷": 1,
+    "离婚后财产纠纷": 1,
+    "离婚纠纷": 3
+  },
+  "final_40_cause_counts": {
+    "侵权责任纠纷": 1,
+    "共有/共有物分割纠纷": 1,
+    "其他": 4,
+    "其他民事纠纷": 2,
+    "合同/给付类纠纷": 4,
+    "婚约财产纠纷": 7,
+    "抚养权/抚养费纠纷": 2,
+    "排除妨害纠纷": 1,
+    "故意伤害罪": 2,
+    "故意杀人罪": 3,
+    "民间借贷纠纷": 3,
+    "生命权、身体权、健康权纠纷": 2,
+    "离婚后财产纠纷": 3,
+    "离婚纠纷": 5
+  },
+  "validation": {
+    "overlap_with_existing_cross_judge_20": 0,
+    "duplicate_case_ids": 0,
+    "cases_with_exactly_five_questions": 20,
+    "cases_with_nonempty_case_and_judgment": 20
+  },
+  "sources": {
+    "population_and_strata": "/Users/chenlong/WorkSpace/huangyidan/data/Case_Demographics_108cases.xlsx",
+    "existing_cross_judge_20": "/Users/chenlong/WorkSpace/huangyidan/data/additional_20_cases_20260819.json",
+    "candidate_raw_results": "/Users/chenlong/WorkSpace/huangyidan/data/experiment1_remaining68_xhub_20260821/combined_results.json"
+  },
+  "cases": [
+    {
+      "case_id": "case_20251230_134952_89",
+      "title": "胡某1胡某2共有纠纷民事二审民事判决书",
+      "cause": "共有/共有物分割纠纷",
+      "question_count": 5,
+      "case_text_chars": 2600,
+      "judgment_chars": 1856,
+      "selection_hash": "cb05cbea9ee960078c1a2c4ad68d3010f6f08bee1ac740edee264c7fb0df8a8b"
+    },
+    {
+      "case_id": "case_20251230_134952_43",
+      "title": "（2019）最高法民辖29号",
+      "cause": "其他",
+      "question_count": 5,
+      "case_text_chars": 1336,
+      "judgment_chars": 464,
+      "selection_hash": "0f139228e8049d8f6aef02fa0bc3e8f878fa3c0a701e3eae5fdf60f6f8f10584"
+    },
+    {
+      "case_id": "case_20251230_134952_65",
+      "title": "司某与姚某扶养费纠纷二审民事判决书",
+      "cause": "其他民事纠纷",
+      "question_count": 5,
+      "case_text_chars": 2173,
+      "judgment_chars": 767,
+      "selection_hash": "10355a0e443468db270227396393580df3a205dfe9ae9fce01e3d9ba73e68217"
+    },
+    {
+      "case_id": "case_20251230_134952_56",
+      "title": "戴某缪某甲深圳市某公司杭州某公司网络服务合同纠纷二审民事判决书",
+      "cause": "合同/给付类纠纷",
+      "question_count": 5,
+      "case_text_chars": 7409,
+      "judgment_chars": 6534,
+      "selection_hash": "378fe16769c03455e506a04b7b6dcde579298774090c8dfbbd96fd4edbc65e79"
+    },
+    {
+      "case_id": "case_20251230_134952_80",
+      "title": "余某与刘某张某香等租赁合同纠纷二审民事判决书",
+      "cause": "合同/给付类纠纷",
+      "question_count": 5,
+      "case_text_chars": 5001,
+      "judgment_chars": 2372,
+      "selection_hash": "3985969365ab15a7e7d828d726742c24b2c154cc8b9c3d6db805545179515b39"
+    },
+    {
+      "case_id": "case_20251230_134952_67",
+      "title": "周某某与孙某某赠与合同纠纷二审民事判决书",
+      "cause": "合同/给付类纠纷",
+      "question_count": 5,
+      "case_text_chars": 3764,
+      "judgment_chars": 993,
+      "selection_hash": "6bde3cf1a97986f49f66040b72f3ceefa85a2a62ee61a46e65720ef0a22ead09"
+    },
+    {
+      "case_id": "case_20251230_134952_84",
+      "title": "叶某华与朱某理许某金合伙合同纠纷二审民事判决书",
+      "cause": "合同/给付类纠纷",
+      "question_count": 5,
+      "case_text_chars": 4112,
+      "judgment_chars": 857,
+      "selection_hash": "7d01473c6294ba2f744e2f9bd823693e9f8601ed40e7f6d22eac973dc8371565"
+    },
+    {
+      "case_id": "case_20251230_134952_77",
+      "title": "韩某陈某穆某胡某韩某戊婚约财产纠纷二审民事判决书",
+      "cause": "婚约财产纠纷",
+      "question_count": 5,
+      "case_text_chars": 2994,
+      "judgment_chars": 723,
+      "selection_hash": "01b55304cb422b734af1faae42b51e8923c271128375449d2ac78a04429686a0"
+    },
+    {
+      "case_id": "case_20251230_134952_31",
+      "title": "曹某某甲曹某某乙等婚约财产纠纷民事二审民事判决书",
+      "cause": "婚约财产纠纷",
+      "question_count": 5,
+      "case_text_chars": 4475,
+      "judgment_chars": 2347,
+      "selection_hash": "051ff3b36e912ae73182b9859b5e19d5f479cdf513696ff31133a8b404f45efb"
+    },
+    {
+      "case_id": "case_20251230_134952_69",
+      "title": "韩某安与韩某波抚养费纠纷二审民事判决书",
+      "cause": "抚养权/抚养费纠纷",
+      "question_count": 5,
+      "case_text_chars": 1291,
+      "judgment_chars": 512,
+      "selection_hash": "00d18d25cd71cc633f0a4b0675a07d3f1d6ffbe05d3549b36521730c33acf8ed"
+    },
+    {
+      "case_id": "case_20251230_134952_76",
+      "title": "张某汪某变更抚养关系纠纷民事二审民事判决书",
+      "cause": "抚养权/抚养费纠纷",
+      "question_count": 5,
+      "case_text_chars": 1828,
+      "judgment_chars": 458,
+      "selection_hash": "ba85c004cebb090f6e32ad4fc012646ff5e65e830902293130b9529aea6f3713"
+    },
+    {
+      "case_id": "case_20260103_155150_2",
+      "title": "许某某故意杀人案",
+      "cause": "故意杀人罪",
+      "question_count": 5,
+      "case_text_chars": 254,
+      "judgment_chars": 856,
+      "selection_hash": "00660fee38456062d8c0b11e25bfca50e28b5c1f491b3bdc40da1ddc64380356"
+    },
+    {
+      "case_id": "case_20251230_134952_100",
+      "title": "李某故意杀人二审刑事判决书",
+      "cause": "故意杀人罪",
+      "question_count": 5,
+      "case_text_chars": 6464,
+      "judgment_chars": 1002,
+      "selection_hash": "2615b7a90f408aff9001ca307f58a58638ad2a3a2cd57ead4fdec0baa615f5af"
+    },
+    {
+      "case_id": "case_20251230_134952_38",
+      "title": "李某汪某浩民间借贷纠纷民事申请再审审查民事裁定书",
+      "cause": "民间借贷纠纷",
+      "question_count": 5,
+      "case_text_chars": 232,
+      "judgment_chars": 834,
+      "selection_hash": "534bde65225cb49a35a75df23ffe528e9ec20f260f958d41f23c9f6c46ef38b3"
+    },
+    {
+      "case_id": "case_20251230_134952_73",
+      "title": "吴某郭某1等民间借贷纠纷民事二审民事判决书",
+      "cause": "民间借贷纠纷",
+      "question_count": 5,
+      "case_text_chars": 2948,
+      "judgment_chars": 4422,
+      "selection_hash": "6db0a9ef542c3eb6ea9a53f42b00f948065b608a1009daf7427cab50d5c74256"
+    },
+    {
+      "case_id": "case_20251230_134952_55",
+      "title": "周某某吴某某生命权身体权健康权纠纷民事二审民事判决书",
+      "cause": "生命权、身体权、健康权纠纷",
+      "question_count": 5,
+      "case_text_chars": 5491,
+      "judgment_chars": 3095,
+      "selection_hash": "05c29b2d0ff52e36cd42837d9ba59d33482d9038a62041634107a7d2a75929cb"
+    },
+    {
+      "case_id": "case_20251230_134952_79",
+      "title": "李某与戴某离婚后财产纠纷二审民事判决书",
+      "cause": "离婚后财产纠纷",
+      "question_count": 5,
+      "case_text_chars": 5045,
+      "judgment_chars": 819,
+      "selection_hash": "2349c33481afbffad60e7645bdf156588ce4f483a5ebfb1ea4b78e5b1f843556"
+    },
+    {
+      "case_id": "case_20251230_134952_45",
+      "title": "董某卞某离婚纠纷民事二审民事判决书",
+      "cause": "离婚纠纷",
+      "question_count": 5,
+      "case_text_chars": 4182,
+      "judgment_chars": 1045,
+      "selection_hash": "15e4a951497becf53ee0e4d03c0a9fbda052239662fd0f4d6a75013d7621be42"
+    },
+    {
+      "case_id": "case_20251230_134952_13",
+      "title": "何某王某均离婚纠纷再审审查和审判监督民事裁定书",
+      "cause": "离婚纠纷",
+      "question_count": 5,
+      "case_text_chars": 448,
+      "judgment_chars": 299,
+      "selection_hash": "22f4aa3c2cccba28692d51871db33de83f3d721f9e993e209d166359a36a9585"
+    },
+    {
+      "case_id": "case_20251230_134952_62",
+      "title": "苗某与王某离婚后损害责任纠纷二审判决书",
+      "cause": "离婚纠纷",
+      "question_count": 5,
+      "case_text_chars": 2878,
+      "judgment_chars": 548,
+      "selection_hash": "2ba16e097661a6b79965a108b31062e3890cc6bc011c8e1c082d05e784db8b2b"
+    }
+  ]
+}
